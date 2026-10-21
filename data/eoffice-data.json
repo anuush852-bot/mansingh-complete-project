@@ -1,0 +1,11 @@
+{
+  "records": [],
+  "admins": [
+    {
+      "id": 1,
+      "username": "admin",
+      "passwordHash": "$2a$12$I5nTFhueMjABpWVe2cqD3OZ4JiKKMyOKrPggilRyrQZKQDTvYvmye",
+      "createdAt": "2026-10-21T08:25:18.481Z"
+    }
+  ]
+}
