@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shri Mansingh Meraman Parmar E-Office</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}body{font-family:Arial,Helvetica,sans-serif;background:#000;color:#333}.app{width:100%;max-width:700px;margin:auto;background:#fff;min-height:100vh}.topbar{height:72px;background:#087eaf;color:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 22px;position:sticky;top:0;z-index:20}.topbar h1{font-size:22px}.hamb{font-size:31px;cursor:pointer}.hero{height:360px;background:#eee;overflow:hidden}.hero img{width:100%;height:100%;object-fit:cover;object-position:center}.grid-card{margin:16px 8px;border-radius:15px;overflow:hidden;box-shadow:0 2px 12px #0002;background:#fff}.grid{display:grid;grid-template-columns:repeat(3,1fr)}.tile{height:170px;border-right:1px solid #b8d2d9;border-bottom:1px solid #b8d2d9;display:flex;align-items:center;justify-content:center;flex-direction:column;color:#087eaf;cursor:pointer;transition:.2s}.tile:nth-child(3n){border-right:0}.tile:hover{background:#f1fbfe}.ico{font-size:38px;margin-bottom:10px}.tile span{font-size:16px;text-align:center}.page{display:none}.page.active{display:block}.back{border:0;background:#087eaf;color:#fff;padding:10px 15px;border-radius:7px;cursor:pointer;font-size:15px}.page-head{padding:18px 16px;border-bottom:1px solid #ddd}.page-head h2{color:#b74343;margin-bottom:5px}.profile-card{padding:18px 14px}.profile-top{display:flex;gap:18px;align-items:flex-start}.member-photo{width:145px;height:175px;object-fit:cover;border-radius:8px;border:1px solid #ddd}.member-info h2{color:#b74343;font-size:21px;margin-bottom:7px}.member-info p{font-size:17px;margin:6px 0}.label{font-weight:bold;margin-top:15px}.tabs{display:flex;overflow-x:auto;border-top:1px solid #ddd;border-bottom:1px solid #ddd}.tab{white-space:nowrap;border:1px solid #ddd;border-top:0;background:#fff;padding:12px 17px;color:#666;cursor:pointer}.tab.active{background:#c94a4a;color:#fff}.section{padding:22px 16px}.section h2{font-size:22px;margin-bottom:22px}.detail{display:grid;grid-template-columns:180px 1fr;gap:10px;padding:12px 0;border-bottom:1px solid #eee}.detail b{color:#555}.address-box{margin:18px 0;padding:20px;background:#fff;border-top:3px solid #bd4545;box-shadow:0 1px 8px #0001}.address-box p{margin:9px 0;line-height:1.5}.letterhead{width:100%;margin:20px 0;border:1px solid #ddd}.notice{padding:20px;text-align:center;color:#777}.menu-panel{display:none;position:absolute;right:12px;top:62px;background:#fff;color:#333;width:190px;border-radius:8px;box-shadow:0 5px 20px #0003;overflow:hidden}.menu-panel div{padding:13px 15px;border-bottom:1px solid #eee;cursor:pointer}.menu-panel div:hover{background:#eef8fb}.search{width:100%;padding:13px;border:1px solid #ddd;border-radius:8px;margin-bottom:15px;font-size:16px}@media(max-width:600px){.topbar{height:68px}.topbar h1{font-size:20px}.hero{height:355px}.tile{height:145px}.ico{font-size:32px}.tile span{font-size:14px}.profile-top{align-items:center}.member-photo{width:115px;height:145px}.member-info h2{font-size:18px}.detail{grid-template-columns:145px 1fr;font-size:14px}}
+</style>
+</head>
+<body>
+<div class="app">
+<header class="topbar"><h1>Shri Mansingh Meraman Parmar E-Office</h1><div class="hamb" onclick="toggleMenu()">☰</div><div class="menu-panel" id="menu"><div onclick="showPage('home')">Home</div><div onclick="showPage('profile')">Profile</div><div onclick="showPage('contact')">Contacts</div></div></header>
+
+<section id="home" class="page active">
+<div class="hero"><img src="/images/member.jpg" alt="Member"></div>
+<div class="grid-card"><div class="grid">
+<div class="tile" onclick="showPage('contact')"><div class="ico">☎</div><span>Contacts</span></div>
+<div class="tile" onclick="showPage('certificate')"><div class="ico">✉</div><span>Praman Patra</span></div>
+<div class="tile" onclick="showPage('birthday')"><div class="ico">💌</div><span>Birthday Card</span></div>
+<div class="tile" onclick="showPage('visitor')"><div class="ico">👥</div><span>Visitor</span></div>
+<div class="tile" onclick="showPage('appointment')"><div class="ico">📅</div><span>Appointment</span></div>
+<div class="tile" onclick="showPage('birthday')"><div class="ico">🔔</div><span>Today Birthday</span></div>
+<div class="tile" onclick="showPage('complaint')"><div class="ico">📥</div><span>Complaint</span></div>
+<div class="tile" onclick="showPage('shradhanjali')"><div class="ico">🙏</div><span>Shradhanjali</span></div>
+<div class="tile" onclick="showPage('search')"><div class="ico">⌕</div><span>Search</span></div>
+<div class="tile" onclick="showPage('invitation')"><div class="ico">💌</div><span>Invitation</span></div>
+<div class="tile" onclick="showPage('meeting')"><div class="ico">🗓</div><span>Meeting Schedule</span></div>
+<div class="tile" onclick="showPage('application')"><div class="ico">📋</div><span>View Application</span></div>
+<div class="tile" onclick="showPage('profile')"><div class="ico">👤</div><span>Profile</span></div>
+</div></div></section>
+
+<section id="profile" class="page"><div class="page-head"><button class="back" onclick="showPage('home')">← Home</button></div>
+   <div class="profile-card">
+  <div class="profile-top">
+    <img
+      class="member-photo"
+      src="/images/member.jpg"
+      alt="Shri Mansingh Meraman Parmar"
+    >
+
+    <div class="member-info">
+      <h2>Shri Mansingh Meraman Parmar</h2>
+      <p>Bharatiya Janata Party (BJP)</p>
+      <p>Gujarat</p>
+
+      <div class="label">Designation</div>
+      <p>Member of Parliament, Rajya Sabha</p>
+
+      <div class="label">Committee Membership</div>
+      <p>Consumer Affairs, Food &amp; Public Distribution</p>
+
+      <div class="label">Email ID</div>
+      <p>mansingh.12@mprs.sansad.in</p>
+
+      <div class="label">Contact Number</div>
+      <p>9824291791</p>
+    </div>
+  </div>
+</div>
+<div class="tabs"><button class="tab active" onclick="tab(this,'personal')">Profile</button><button class="tab" onclick="tab(this,'other')">Other Details</button>
+    <button class="tab" onclick="tab(this,'dashboard')">Dashboard</button>
+    <button class="tab" onclick="tab(this,'attendance')">Attendance</button>
+    <button class="tab" onclick="tab(this,'debate')">Debate</button>
+</div>
+<div id="personal" class="tabcontent"><div class="section"><h2>Personal Details</h2><div class="detail"><b>Place Of Birth</b><span>—</span></div><div class="detail"><b>Date Of Birth</b><span>—</span></div><div class="detail"><b>Father's Name</b><span>—</span></div><div class="detail"><b>Mother's Name</b><span>—</span></div><div class="detail"><b>Marital Status</b><span>—</span></div><h3 style="margin:25px 0 10px">Children Details</h3><div class="detail"><b>Son</b><span>—</span></div><div class="detail"><b>Daughter</b><span>—</span></div></div><div class="section"><h2>Address & Contact</h2><div class="address-box"><p><b>Delhi - Address:</b> 601 Brahmaputra, Dr. B.D. Marg, New Delhi - 110001</p><p><b>Local - Address:</b> "Samarpan" AT-Post-Kajali, Tehsil-Veraval, District-Girsomnath, State-Gujarat-362268</p><p><b>Mobile:</b> 9824291791</p><p><b>WhatsApp:</b> 9824291791</p><p><b>E-mail:</b> mansinghparmar121@gmail.com</p></div><img class="letterhead" src="images/letterhead.jpg"><img class="letterhead" src="images/address.jpg"></div></div>
+<div id="other" class="tabcontent" style="display:none"><div class="section"><h2>Other Details</h2><div class="notice">Other member details can be displayed here.</div></div></div><div id="dashboard" class="tabcontent" style="display:none"><div class="section"><h2>Dashboard</h2><div class="notice">Dashboard information will appear here.</div></div></div><div id="attendance" class="tabcontent" style="display:none"><div class="section"><h2>Attendance</h2><div class="notice">Attendance records will appear here.</div></div></div><div id="debate" class="tabcontent" style="display:none"><div class="section"><h2>Debate</h2><div class="notice">Debate information will appear here.</div></div></div></section>
+
+<section id="contact" class="page"><div class="page-head"><button class="back" onclick="showPage('home')">← Home</button><h2 style="margin-top:15px">Contacts</h2></div><div class="section"><div class="address-box"><p><b>Mobile:</b> 9824291791</p><p><b>WhatsApp:</b> 9824291791</p><p><b>Email:</b> mansinghparmar121@gmail.com</p></div></div></section>
+
+<section id="search" class="page"><div class="page-head"><button class="back" onclick="showPage('home')">← Home</button><h2 style="margin-top:15px">Search</h2></div><div class="section"><input class="search" placeholder="Search here..."><div class="notice">Search results will appear here.</div></div></section>
+
+<section id="certificate" class="page"><div class="page-head"><button class="back" onclick="showPage('home')">← Home</button><h2 style="margin-top:15px">Praman Patra</h2></div><div class="section"><div class="notice">Praman Patra section</div></div></section>
+<section id="birthday" class="page"><div class="page-head"><button class="back" onclick="showPage('home')">← Home</button><h2 style="margin-top:15px">Birthday Card</h2></div><div class="section"><div class="notice">Birthday Card section</div></div></section>
+<section id="visitor" class="page"><div class="page-head"><button class="back" onclick="showPage('home')">← Home</button><h2 style="margin-top:15px">Visitor</h2></div><div class="section"><div class="notice">Visitor section</div></div></section>
+<section id="appointment" class="page"><div class="page-head"><button class="back" onclick="showPage('home')">← Home</button><h2 style="margin-top:15px">Appointment</h2></div><div class="section"><div class="notice">Appointment section</div></div></section>
+<section id="complaint" class="page"><div class="page-head"><button class="back" onclick="showPage('home')">← Home</button><h2 style="margin-top:15px">Complaint</h2></div><div class="section"><div class="notice">Complaint section</div></div></section>
+<section id="shradhanjali" class="page"><div class="page-head"><button class="back" onclick="showPage('home')">← Home</button><h2 style="margin-top:15px">Shradhanjali</h2></div><div class="section"><div class="notice">Shradhanjali section</div></div></section>
+<section id="invitation" class="page"><div class="page-head"><button class="back" onclick="showPage('home')">← Home</button><h2 style="margin-top:15px">Invitation</h2></div><div class="section"><div class="notice">Invitation section</div></div></section>
+<section id="meeting" class="page"><div class="page-head"><button class="back" onclick="showPage('home')">← Home</button><h2 style="margin-top:15px">Meeting Schedule</h2></div><div class="section"><div class="notice">Meeting Schedule section</div></div></section>
+<section id="application" class="page"><div class="page-head"><button class="back" onclick="showPage('home')">← Home</button><h2 style="margin-top:15px">View Application</h2></div><div class="section"><div class="notice">Applications will appear here.</div></div></section>
+
+</div>
+<script>
+function showPage(id){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');document.getElementById('menu').style.display='none';window.scrollTo({top:0,behavior:'smooth'})}
+function toggleMenu(){let m=document.getElementById('menu');m.style.display=m.style.display==='block'?'none':'block'}
+function tab(btn,id){document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));btn.classList.add('active');document.querySelectorAll('.tabcontent').forEach(x=>x.style.display='none');document.getElementById(id).style.display='block'}
+</script>
+</body>
+</html>
