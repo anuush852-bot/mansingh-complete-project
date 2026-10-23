@@ -26,18 +26,18 @@
 <section id="home" class="page active">
 <div class="hero"><img src="/images/member.jpg" alt="Member"></div>
 <div class="grid-card"><div class="grid">
-<div class="tile" onclick="showPage('contact')"><div class="ico">☎</div><span>Contacts</span></div>
+<div class="tile" onclick="showPage('contactform')"><div class="ico">☎</div><span>Contacts</span></div>
 <div class="tile" onclick="showPage('certificate')"><div class="ico">✉</div><span>Praman Patra</span></div>
 <div class="tile" onclick="showPage('birthday')"><div class="ico">💌</div><span>Birthday Card</span></div>
 <div class="tile" onclick="showPage('visitor')"><div class="ico">👥</div><span>Visitor</span></div>
-<div class="tile" onclick="showPage('appointment')"><div class="ico">📅</div><span>Appointment</span></div>
+<div class="tile" onclick="showPage('appointmentform')"><div class="ico">📅</div><span>Appointment</span></div>
 <div class="tile" onclick="showPage('birthday')"><div class="ico">🔔</div><span>Today Birthday</span></div>
 <div class="tile" onclick="showPage('complaintform')"><div class="ico">📥</div><span>Complaint</span></div>
 <div class="tile" onclick="showPage('shradhanjali')"><div class="ico">🙏</div><span>Shradhanjali</span></div>
 <div class="tile" onclick="showPage('search')"><div class="ico">⌕</div><span>Search</span></div>
 <div class="tile" onclick="showPage('invitation')"><div class="ico">💌</div><span>Invitation</span></div>
 <div class="tile" onclick="showPage('meeting')"><div class="ico">🗓</div><span>Meeting Schedule</span></div>
-<div class="tile" onclick="showPage('application')"><div class="ico">📋</div><span>View Application</span></div>
+<div class="tile" onclick="showPage('applicationform')"><div class="ico">📋</div><span>View Application</span></div>
 <div class="tile" onclick="showPage('profile')"><div class="ico">👤</div><span>Profile</span></div>
 </div></div></section>
 <section id="complaintform" class="page">
@@ -127,6 +127,166 @@ function tab(btn,id){document.querySelectorAll('.tab').forEach(x=>x.classList.re
 </script>
 <script>
 if ("serviceWorker" in navigator) navigator.serviceWorker.register("/sw.js");
+</script>
+<script>
+(function(){
+const F={
+ appointmentform:{type:'appointment',title:'Appointment',ph:'Kis kaam ke liye aur kab milna hai'},
+ contactform:{type:'contact',title:'Contact',ph:'Aapka sandesh'},
+ applicationform:{type:'application',title:'Application',ph:'Application ki details'}
+};
+const st='width:100%;padding:12px;margin:5px 0;font-size:16px;box-sizing:border-box';
+const home=document.getElementById('home');
+Object.keys(F).forEach(id=>{
+ const f=F[id],s=document.createElement('section');
+ s.id=id;s.className='page';
+ s.innerHTML='<div style="padding:16px"><h2 style="margin-bottom:12px">'+f.title+'</h2>'+
+ '<input id="'+id+'_n" placeholder="Aapka Naam" style="'+st+'">'+
+ '<input id="'+id+'_p" type="tel" placeholder="Mobile Number" style="'+st+'">'+
+ '<input id="'+id+'_s" placeholder="Vishay (Subject)" style="'+st+'">'+
+ '<textarea id="'+id+'_m" rows="5" placeholder="'+f.ph+'" style="'+st+'"></textarea>'+
+ '<button id="'+id+'_b" style="width:100%;padding:12px;margin-top:8px;font-size:16px;background:#0d6efd;color:#fff;border:0;border-radius:8px">Submit</button>'+
+ '<button id="'+id+'_k" style="width:100%;padding:12px;margin-top:8px;font-size:16px">Back</button></div>';
+ home.parentNode.appendChild(s);
+ document.getElementById(id+'_k').onclick=()=>showPage('home');
+ document.getElementById(id+'_b').onclick=async()=>{
+  const g=x=>document.getElementById(id+'_'+x);
+  const name=g('n').value.trim(),msg=g('m').value.trim();
+  if(!name||!msg){alert('Naam aur details bharna zaruri hai.');return;}
+  try{
+   const r=await fetch('/api/records',{method:'POST',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({type:f.type,name:name,phone:g('p').value,subject:g('s').value,message:msg})});
+   const d=await r.json();alert(d.message);
+   if(d.success){['n','p','s','m'].forEach(x=>g(x).value='');showPage('home');}
+  }catch(e){alert('Server se connect nahi hua.');}
+ };
+});
+})();
+</script>
+<script>
+(function () {
+  const id = 'meetingform';
+
+  const st = 'width:100%;padding:12px;margin:5px 0;' +
+    'font-size:16px;box-sizing:border-box;';
+
+  const home = document.getElementById('home');
+
+  const s = document.createElement('section');
+  s.id = id;
+  s.className = 'page';
+
+  s.innerHTML = `
+    <div style="padding:16px">
+      <h2 style="margin-bottom:12px">Schedule Meeting</h2>
+
+      <input id="meeting_title"
+        placeholder="Meeting ka Naam / Title"
+        style="${st}">
+
+      <input id="meeting_organizer"
+        placeholder="Organizer ka Naam"
+        style="${st}">
+
+      <input id="meeting_date" type="date"
+        style="${st}">
+
+      <input id="meeting_time" type="time"
+        style="${st}">
+
+      <input id="meeting_place"
+        placeholder="Meeting Room / Location"
+        style="${st}">
+
+      <input id="meeting_participants"
+        placeholder="Participants ke Naam"
+        style="${st}">
+
+      <textarea id="meeting_message" rows="4"
+        placeholder="Meeting ka Agenda / Details"
+        style="${st}"></textarea>
+
+      <button id="meeting_submit"
+        style="width:100%;padding:12px;margin-top:8px;
+        font-size:16px;background:#0d6efd;color:#fff;
+        border:0;border-radius:8px">
+        Schedule Meeting
+      </button>
+
+      <button id="meeting_back"
+        style="width:100%;padding:12px;margin-top:8px;
+        font-size:16px">
+        Back
+      </button>
+    </div>
+  `;
+
+  home.parentNode.appendChild(s);
+
+  document.getElementById('meeting_back').onclick =
+    () => showPage('home');
+
+  document.getElementById('meeting_submit').onclick =
+    async function () {
+      const g = x =>
+        document.getElementById('meeting_' + x);
+
+      const title = g('title').value.trim();
+      const organizer = g('organizer').value.trim();
+      const date = g('date').value;
+      const time = g('time').value;
+      const place = g('place').value.trim();
+      const participants = g('participants').value.trim();
+      const message = g('message').value.trim();
+
+      if (!title || !organizer || !date || !time ||
+          !place || !message) {
+        alert('Meeting ki zaruri details bhariye.');
+        return;
+      }
+
+      if (new Date(date + 'T' + time) < new Date()) {
+        alert('Meeting ka future date aur time select karein.');
+        return;
+      }
+
+      try {
+        const r = await fetch('/api/meetings', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            title,
+            organizer,
+            date,
+            time,
+            place,
+            participants,
+            message
+          })
+        });
+
+        const d = await r.json();
+
+        if (!r.ok || d.success === false) {
+          alert(d.message || 'Meeting schedule nahi hui.');
+          return;
+        }
+
+        alert(d.message || 'Meeting successfully scheduled!');
+
+        ['title', 'organizer', 'date', 'time',
+         'place', 'participants', 'message']
+          .forEach(x => g(x).value = '');
+
+        showPage('home');
+
+      } catch (e) {
+        alert('Server se connect nahi hua. Backend check karein.');
+      }
+    };
+})();
 </script>
 </body>
 </html>
