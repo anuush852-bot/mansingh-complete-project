@@ -5,6 +5,22 @@ const DATA_DIR=path.join(__dirname,'data'),DATA_FILE=path.join(DATA_DIR,'eoffice
 if(SECRET.length<32){console.error('Set JWT_SECRET in .env (at least 32 characters).');process.exit(1)}
 if(!process.env.ADMIN_USERNAME||!process.env.ADMIN_PASSWORD){console.error('Set ADMIN_USERNAME and ADMIN_PASSWORD in .env.');process.exit(1)}
 app.use(cors());app.use(express.json({limit:'4mb'}));app.use(express.urlencoded({extended:true}));
+function ensureFile() {
+  fs.mkdirSync(DATA_DIR, { recursive: true });
+
+  if (!fs.existsSync(DATA_FILE)) {
+    fs.writeFileSync(
+      DATA_FILE,
+      JSON.stringify({
+        records: [],
+        admins: [],
+        profiles: []
+      }, null, 2),
+      'utf8'
+    );
+  }
+}
+
 function readData() {
   ensureFile();
 
@@ -19,7 +35,6 @@ function readData() {
     profiles: Array.isArray(d.profiles) ? d.profiles : []
   };
 }
-function readData(){ensureFile();const d=JSON.parse(fs.readFileSync(DATA_FILE,'utf8'));return{records:Array.isArray(d.records)?d.records:[],admins:Array.isArray(d.admins)?d.admins:[]}}
 function writeData(d){ensureFile();fs.writeFileSync(DATA_FILE,JSON.stringify(d,null,2),'utf8')}
 const clean=(v,n=3000)=>typeof v==='string'?v.trim().slice(0,n):'';
 async function setupAdmin(){const d=readData(),username=process.env.ADMIN_USERNAME;if(!d.admins.some(a=>a.username===username)){d.admins.push({id:1,username,passwordHash:await bcrypt.hash(process.env.ADMIN_PASSWORD,12),createdAt:new Date().toISOString()});writeData(d);console.log('Admin account created:',username)}else console.log('Admin account ready:',username)}
@@ -118,5 +133,68 @@ app.post('/api/profile', auth, (req, res) => {
   }
 });
 app.use(express.static(PUBLIC_DIR));app.get('/',(req,res)=>{const index=path.join(PUBLIC_DIR,'index.html');if(fs.existsSync(index))return res.sendFile(index);res.status(404).send('Put your existing index.html inside public folder.')});
+
+// Schedule Meeting API
+app.post('/api/meetings', (req, res) => {
+  try {
+    const {
+      title,
+      organizer,
+      date,
+      time,
+      place,
+      participants,
+      message
+    } = req.body || {};
+
+    if (!title || !organizer || !date || !time || !place || !message) {
+      return res.status(400).json({
+        success: false,
+        message: 'Meeting ki sabhi zaruri details bhariye.'
+      });
+    }
+
+    const data = readData();
+
+    if (!Array.isArray(data.meetings)) {
+      data.meetings = [];
+    }
+
+    const meeting = {
+      id: Date.now().toString(),
+      title: String(title).trim(),
+      organizer: String(organizer).trim(),
+      date,
+      time,
+      place: String(place).trim(),
+      participants: String(participants || '').trim(),
+      message: String(message).trim(),
+      createdAt: new Date().toISOString()
+    };
+
+    data.meetings.push(meeting);
+
+    fs.writeFileSync(
+      DATA_FILE,
+      JSON.stringify(data, null, 2),
+      'utf8'
+    );
+
+    return res.status(201).json({
+      success: true,
+      message: 'Meeting successfully scheduled!',
+      meeting
+    });
+
+  } catch (error) {
+    console.error('Meeting API error:', error);
+
+    return res.status(500).json({
+      success: false,
+      message: 'Meeting save nahi hui. Backend error check karein.'
+    });
+  }
+});
+
 app.use((req,res)=>res.status(404).json({success:false,message:'Route not found.'}));
 setupAdmin().then(()=>app.listen(PORT,()=>console.log(`E-Office running at http://localhost:${PORT}`))).catch(e=>{console.error(e);process.exit(1)});

@@ -1,4 +1,25 @@
 {
   "records": [],
-  "admins": []
+  "admins": [
+    {
+      "id": 1,
+      "username": "admin",
+      "passwordHash": "$2a$12$yfz73novXXjn52BriQJPT.xwkv2CndoywR6naUala3DzcGFiy2KOC",
+      "createdAt": "2026-10-23T14:41:51.449Z"
+    }
+  ],
+  "profiles": [],
+  "meetings": [
+    {
+      "id": "1792768198392",
+      "title": "problem slove",
+      "organizer": "cm Mansingh sir",
+      "date": "2026-10-26",
+      "time": "11:00",
+      "place": "room 1",
+      "participants": "Anubhav sharma",
+      "message": "server verify",
+      "createdAt": "2026-10-23T15:09:58.392Z"
+    }
+  ]
 }
