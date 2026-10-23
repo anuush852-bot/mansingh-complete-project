@@ -1,0 +1,36 @@
+<!DOCTYPE html><html><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Admin</title>
+<style>body{font-family:Arial;margin:0;padding:16px}
+input,select,button{padding:10px;margin:4px 0;width:100%;box-sizing:border-box;font-size:16px}
+.card{border:1px solid #ccc;border-radius:8px;padding:10px;margin:10px 0}</style></head><body>
+<div id="box"><h2>Admin Login</h2>
+<input id="u" placeholder="Username">
+<input id="p" type="password" placeholder="Password">
+<button onclick="doLogin()">Login</button></div>
+<div id="panel" style="display:none"><h2>Requests</h2>
+<button onclick="load()">Refresh</button><div id="list"></div></div>
+<script>
+let T='';
+const H=()=>({'Content-Type':'application/json',Authorization:'Bearer '+T});
+async function doLogin(){
+ const r=await fetch('/api/login',{method:'POST',headers:{'Content-Type':'application/json'},
+ body:JSON.stringify({username:u.value,password:p.value})});
+ const d=await r.json(); if(!d.success) return alert(d.message);
+ T=d.token; box.style.display='none'; panel.style.display='block'; load();
+}
+async function load(){
+ const r=await fetch('/api/records',{headers:H()}); const d=await r.json();
+ list.innerHTML='';
+ (d.records||[]).forEach(x=>{
+  const c=document.createElement('div'); c.className='card';
+  c.textContent=`#${x.id} [${x.type}] ${x.name} | ${x.phone||''}\n${x.subject||''}\n${x.message}`;
+  c.style.whiteSpace='pre-wrap';
+  const s=document.createElement('select');
+  ['Pending','In Progress','Resolved','Rejected'].forEach(v=>{
+   const o=document.createElement('option'); o.textContent=v; if(v===x.status)o.selected=true; s.appendChild(o);});
+  s.onchange=()=>fetch(`/api/records/${x.id}/status`,{method:'PATCH',headers:H(),body:JSON.stringify({status:s.value})});
+  c.appendChild(s); list.appendChild(c);
+ });
+}
+</script></body></html>
