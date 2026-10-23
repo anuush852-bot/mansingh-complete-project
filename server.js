@@ -4,8 +4,21 @@ const app=express(),PORT=Number(process.env.PORT)||3000,SECRET=process.env.JWT_S
 const DATA_DIR=path.join(__dirname,'data'),DATA_FILE=path.join(DATA_DIR,'eoffice-data.json'),PUBLIC_DIR=path.join(__dirname,'public');
 if(SECRET.length<32){console.error('Set JWT_SECRET in .env (at least 32 characters).');process.exit(1)}
 if(!process.env.ADMIN_USERNAME||!process.env.ADMIN_PASSWORD){console.error('Set ADMIN_USERNAME and ADMIN_PASSWORD in .env.');process.exit(1)}
-app.use(cors());app.use(express.json({limit:'1mb'}));app.use(express.urlencoded({extended:true}));
-function ensureFile(){fs.mkdirSync(DATA_DIR,{recursive:true});if(!fs.existsSync(DATA_FILE))fs.writeFileSync(DATA_FILE,JSON.stringify({records:[],admins:[]},null,2))}
+app.use(cors());app.use(express.json({limit:'4mb'}));app.use(express.urlencoded({extended:true}));
+function readData() {
+  ensureFile();
+
+  const d = JSON.parse(
+    fs.readFileSync(DATA_FILE, 'utf8')
+  );
+
+  return {
+    ...d,
+    records: Array.isArray(d.records) ? d.records : [],
+    admins: Array.isArray(d.admins) ? d.admins : [],
+    profiles: Array.isArray(d.profiles) ? d.profiles : []
+  };
+}
 function readData(){ensureFile();const d=JSON.parse(fs.readFileSync(DATA_FILE,'utf8'));return{records:Array.isArray(d.records)?d.records:[],admins:Array.isArray(d.admins)?d.admins:[]}}
 function writeData(d){ensureFile();fs.writeFileSync(DATA_FILE,JSON.stringify(d,null,2),'utf8')}
 const clean=(v,n=3000)=>typeof v==='string'?v.trim().slice(0,n):'';
@@ -16,6 +29,94 @@ app.post('/api/login',async(req,res)=>{try{const d=readData(),username=clean(req
 app.post('/api/records',(req,res)=>{try{const type=clean(req.body.type,50).toLowerCase(),name=clean(req.body.name,120),phone=clean(req.body.phone,40),email=clean(req.body.email,160),subject=clean(req.body.subject,200),message=clean(req.body.message||req.body.details,3000);if(!type||!name||!message)return res.status(400).json({success:false,message:'type, name, and message/details are required.'});if(!['complaint','appointment','application','contact','other'].includes(type))return res.status(400).json({success:false,message:'Invalid type.'});const d=readData(),id=d.records.reduce((m,r)=>Math.max(m,Number(r.id)||0),0)+1,record={id,type,name,phone,email,subject,message,status:'Pending',createdAt:new Date().toISOString()};d.records.push(record);writeData(d);res.status(201).json({success:true,message:'Request submitted.',record})}catch(e){console.error(e);res.status(500).json({success:false,message:'Could not save request.'})}});
 app.get('/api/records',auth,(req,res)=>{try{const d=readData();let records=[...d.records],type=clean(req.query.type,50).toLowerCase(),status=clean(req.query.status,50).toLowerCase();if(type)records=records.filter(r=>r.type===type);if(status)records=records.filter(r=>String(r.status).toLowerCase()===status);records.sort((a,b)=>new Date(b.createdAt)-new Date(a.createdAt));res.json({success:true,count:records.length,records})}catch(e){console.error(e);res.status(500).json({success:false,message:'Could not load records.'})}});
 app.patch('/api/records/:id/status',auth,(req,res)=>{try{const status=clean(req.body.status,50);if(!['Pending','In Progress','Resolved','Rejected'].includes(status))return res.status(400).json({success:false,message:'Invalid status.'});const d=readData(),r=d.records.find(x=>String(x.id)===String(req.params.id));if(!r)return res.status(404).json({success:false,message:'Record not found.'});r.status=status;r.updatedAt=new Date().toISOString();writeData(d);res.json({success:true,message:'Status updated.',record:r})}catch(e){console.error(e);res.status(500).json({success:false,message:'Could not update status.'})}});
+function cleanProfile(req) {
+  const b = req.body || {};
+  return {
+    name: clean(b.name, 120),
+    employeeId: clean(b.employeeId, 60),
+    designation: clean(b.designation, 120),
+    department: clean(b.department, 120),
+    phone: clean(b.phone, 40),
+    email: clean(b.email, 160),
+    address: clean(b.address, 500),
+    photo: typeof b.photo === 'string' ? b.photo : ''
+  };
+}
+
+app.get('/api/profile', auth, (req, res) => {
+  try {
+    const d = readData();
+    const profile = d.profiles.find(
+      p => p.username === req.admin.username
+    );
+    res.json({ success: true, profile: profile || null });
+  } catch (e) {
+    console.error(e);
+    res.status(500).json({
+      success: false,
+      message: 'Profile load nahi hui.'
+    });
+  }
+});
+
+app.post('/api/profile', auth, (req, res) => {
+  try {
+    const profile = cleanProfile(req);
+
+    if (!profile.name || !profile.employeeId || !profile.phone) {
+      return res.status(400).json({
+        success: false,
+        message: 'Name, Employee ID aur Mobile Number zaruri hain.'
+      });
+    }
+
+    if (profile.photo) {
+      const validImage =
+        /^data:image\/(png|jpeg|jpg|webp);base64,[A-Za-z0-9+/]+={0,2}$/.test(profile.photo);
+
+      if (!validImage || profile.photo.length > 2800000) {
+        return res.status(400).json({
+          success: false,
+          message: 'Valid image upload karein (maximum 2 MB).'
+        });
+      }
+    }
+
+    const d = readData();
+    const username = req.admin.username;
+    const index = d.profiles.findIndex(
+      p => p.username === username
+    );
+    const previous = index >= 0 ? d.profiles[index] : {};
+
+    const savedProfile = {
+      ...previous,
+      ...profile,
+      username,
+      photo: profile.photo || previous.photo || '',
+      updatedAt: new Date().toISOString()
+    };
+
+    if (index >= 0) {
+      d.profiles[index] = savedProfile;
+    } else {
+      d.profiles.push(savedProfile);
+    }
+
+    writeData(d);
+    res.json({
+      success: true,
+      message: 'Profile successfully saved.',
+      profile: savedProfile
+    });
+  } catch (e) {
+    console.error(e);
+    res.status(500).json({
+      success: false,
+      message: 'Profile save nahi hui.'
+    });
+  }
+});
 app.use(express.static(PUBLIC_DIR));app.get('/',(req,res)=>{const index=path.join(PUBLIC_DIR,'index.html');if(fs.existsSync(index))return res.sendFile(index);res.status(404).send('Put your existing index.html inside public folder.')});
 app.use((req,res)=>res.status(404).json({success:false,message:'Route not found.'}));
 setupAdmin().then(()=>app.listen(PORT,()=>console.log(`E-Office running at http://localhost:${PORT}`))).catch(e=>{console.error(e);process.exit(1)});

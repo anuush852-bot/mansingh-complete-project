@@ -36,9 +36,9 @@
 <div class="tile" onclick="showPage('shradhanjali')"><div class="ico">🙏</div><span>Shradhanjali</span></div>
 <div class="tile" onclick="showPage('search')"><div class="ico">⌕</div><span>Search</span></div>
 <div class="tile" onclick="showPage('invitation')"><div class="ico">💌</div><span>Invitation</span></div>
-<div class="tile" onclick="showPage('meeting')"><div class="ico">🗓</div><span>Meeting Schedule</span></div>
+<div class="tile" onclick="showPage('meetingform')"><div class="ico">🗓</div><span>Meeting Schedule</span></div>
 <div class="tile" onclick="showPage('applicationform')"><div class="ico">📋</div><span>View Application</span></div>
-<div class="tile" onclick="showPage('profile')"><div class="ico">👤</div><span>Profile</span></div>
+<div class="tile" onclick="showPage('profileform')"><div class="ico">👤</div><span>Profile</span></div>
 </div></div></section>
 <section id="complaintform" class="page">
 <div style="padding:16px">
@@ -286,6 +286,152 @@ Object.keys(F).forEach(id=>{
         alert('Server se connect nahi hua. Backend check karein.');
       }
     };
+})();
+</script>
+<script>
+(function () {
+  const id = 'profileform';
+  const st = 'width:100%;padding:12px;margin:5px 0;' +
+    'font-size:16px;box-sizing:border-box;';
+
+  const home = document.getElementById('home');
+  if (document.getElementById(id)) return;
+
+  const s = document.createElement('section');
+  s.id = id;
+  s.className = 'page';
+
+  s.innerHTML = `
+    <div style="padding:16px">
+      <h2>My Profile</h2>
+
+      <div style="text-align:center;margin:16px">
+        <img id="pf_preview" alt="Profile photo"
+          style="width:100px;height:100px;border-radius:50%;
+          object-fit:cover;background:#eee;display:block;margin:auto"
+          src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Crect width='100%25' height='100%25' fill='%23ddd'/%3E%3Ctext x='50%25' y='58%25' text-anchor='middle' font-size='40'%3E%F0%9F%91%A4%3C/text%3E%3C/svg%3E">
+
+        <input id="pf_photo" type="file" accept="image/*"
+          style="${st}">
+      </div>
+
+      <input id="pf_name" placeholder="Full Name" style="${st}">
+      <input id="pf_employeeId" placeholder="Employee ID" style="${st}">
+      <input id="pf_designation" placeholder="Designation" style="${st}">
+      <input id="pf_department" placeholder="Department" style="${st}">
+      <input id="pf_phone" type="tel" placeholder="Mobile Number" style="${st}">
+      <input id="pf_email" type="email" placeholder="Email Address" style="${st}">
+      <textarea id="pf_address" rows="3"
+        placeholder="Address" style="${st}"></textarea>
+
+      <button id="pf_edit" style="${st}">Edit Profile</button>
+      <button id="pf_save" style="${st};background:#087eaf;color:white;border:0;border-radius:8px">
+        Save Profile
+      </button>
+      <button id="pf_back" style="${st}">Back to Home</button>
+    </div>
+  `;
+
+  home.parentNode.appendChild(s);
+
+  const g = key => document.getElementById('pf_' + key);
+  const fields = [
+    'name', 'employeeId', 'designation',
+    'department', 'phone', 'email', 'address'
+  ];
+
+  let photoData = '';
+  let editing = true;
+
+  function setEditing(enabled) {
+    editing = enabled;
+    fields.forEach(key => g(key).disabled = !enabled);
+    g('photo').disabled = !enabled;
+    g('save').style.display = enabled ? 'block' : 'none';
+    g('edit').style.display = enabled ? 'none' : 'block';
+  }
+
+  g('photo').onchange = () => {
+    const file = g('photo').files[0];
+    if (!file) return;
+
+    if (!file.type.startsWith('image/') || file.size > 2 * 1024 * 1024) {
+      alert('2 MB se chhoti image select karein.');
+      g('photo').value = '';
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = () => {
+      photoData = reader.result;
+      g('preview').src = photoData;
+    };
+    reader.readAsDataURL(file);
+  };
+
+  async function loadProfile() {
+    try {
+      const r = await fetch('/api/profile');
+      if (!r.ok) return;
+
+      const d = await r.json();
+      const p = d.profile || d.data || d;
+
+      if (p && (p.name || p.employeeId)) {
+        fields.forEach(key => {
+          g(key).value = p[key] || '';
+        });
+
+        if (p.photo) {
+          photoData = p.photo;
+          g('preview').src = photoData;
+        }
+
+        setEditing(false);
+      }
+    } catch (e) {
+      console.log('Profile load nahi hui:', e);
+    }
+  }
+
+  g('edit').onclick = () => setEditing(true);
+
+  g('save').onclick = async () => {
+    const profile = {};
+    fields.forEach(key => profile[key] = g(key).value.trim());
+    profile.photo = photoData;
+
+    if (!profile.name || !profile.employeeId || !profile.phone) {
+      alert('Name, Employee ID aur Mobile Number zaruri hain.');
+      return;
+    }
+
+    try {
+      const r = await fetch('/api/profile', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(profile)
+      });
+
+      const d = await r.json();
+
+      if (!r.ok || d.success === false) {
+        alert(d.message || 'Profile save nahi hui.');
+        return;
+      }
+
+      alert(d.message || 'Profile saved successfully!');
+      setEditing(false);
+      await loadProfile();
+    } catch (e) {
+      alert('Server se connect nahi hua. Backend check karein.');
+    }
+  };
+
+  g('back').onclick = () => showPage('home');
+
+  setEditing(true);
+  loadProfile();
 })();
 </script>
 </body>
