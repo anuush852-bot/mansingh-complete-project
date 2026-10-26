@@ -12,12 +12,9 @@
 </style>
  <a href="/downloads/eoffice.apk" download
    style="padding:12px 20px;background:#0d6efd;color:#fff;border-radius:8px;text-decoration:none">
-   📱 App Download Karein
+  
 </a>
-
 </head>
-
-
 <body>
 
 <div class="app">
@@ -28,18 +25,20 @@
 <div class="grid-card"><div class="grid">
 <div class="tile" onclick="showPage('contactform')"><div class="ico">☎</div><span>Contacts</span></div>
 <div class="tile" onclick="showPage('certificate')"><div class="ico">✉</div><span>Praman Patra</span></div>
-<div class="tile" onclick="showPage('birthday')"><div class="ico">💌</div><span>Birthday Card</span></div>
+<div class="tile" onclick="showPage('birthdayform')"><div class="ico">💌</div><span>Birthday Card</span></div>
 <div class="tile" onclick="showPage('visitor')"><div class="ico">👥</div><span>Visitor</span></div>
 <div class="tile" onclick="showPage('appointmentform')"><div class="ico">📅</div><span>Appointment</span></div>
 <div class="tile" onclick="showPage('birthday')"><div class="ico">🔔</div><span>Today Birthday</span></div>
 <div class="tile" onclick="showPage('complaintform')"><div class="ico">📥</div><span>Complaint</span></div>
 <div class="tile" onclick="showPage('shradhanjali')"><div class="ico">🙏</div><span>Shradhanjali</span></div>
 <div class="tile" onclick="showPage('search')"><div class="ico">⌕</div><span>Search</span></div>
-<div class="tile" onclick="showPage('invitation')"><div class="ico">💌</div><span>Invitation</span></div>
+<div class="tile" onclick="showPage('invitationform')"><div class="ico">💌</div><span>Invitation</span></div>
 <div class="tile" onclick="showPage('meetingform')"><div class="ico">🗓</div><span>Meeting Schedule</span></div>
 <div class="tile" onclick="showPage('applicationform')"><div class="ico">📋</div><span>View Application</span></div>
 <div class="tile" onclick="showPage('profileform')"><div class="ico">👤</div><span>Profile</span></div>
-</div></div></section>
+</div>
+</div>
+</section>
 <section id="complaintform" class="page">
 <div style="padding:16px">
 <h2 style="margin-bottom:12px">Complaint</h2>
@@ -69,7 +68,10 @@ async function sendComplaint(){
 </script>
 </section>
 
-<section id="profile" class="page"><div class="page-head"><button class="back" onclick="showPage('home')">← Home</button></div>
+<section id="profile" class="page">
+  <div class="page-head">
+    <button class="back" onclick="showPage('home')">← Home</button>
+  </div>
    <div class="profile-card">
   <div class="profile-top">
     <img
@@ -432,6 +434,211 @@ Object.keys(F).forEach(id=>{
 
   setEditing(true);
   loadProfile();
+})();
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script>
+(function(){
+const g=id=>document.getElementById(id);
+const st='width:100%;padding:14px;margin:6px 0;font-size:16px;box-sizing:border-box;border:1px solid #ccc;border-radius:24px';
+const bt='width:100%;padding:14px;margin-top:10px;font-size:16px;border:0;border-radius:24px;color:#fff;background:#0b86b8;';
+const root=g('home').parentNode;
+function mk(id,html){const s=document.createElement('section');s.id=id;s.className='page';s.innerHTML=html;root.appendChild(s);}
+
+mk('birthdayform',`<div style="padding:16px;text-align:center">
+<div style="font-size:60px;margin:20px 0">🎂✉</div>
+<input id="bd_name" placeholder="Name * (Hindi me)" style="${st}">
+<input id="bd_mob" type="tel" placeholder="Mobile No" style="${st}">
+<button id="bd_sub" style="${bt}">Submit</button>
+<button id="bd_view" style="${bt}">View Old Cards</button>
+<button id="bd_bk" style="${bt}background:#888">Back</button></div>`);
+
+mk('birthdaycard',`<div style="padding:8px">
+<div id="bd_card" style="background:#fff;border:1px solid #ddd;padding:12px;max-width:440px;margin:auto;box-sizing:border-box;font-family:Arial,sans-serif">
+ <div style="display:flex;gap:6px;align-items:flex-start">
+  <div style="flex:1.1;font-size:10px;line-height:1.4;color:#1a8a2e"><b style="font-size:13px">PARBHUBHAI N. VASAVA</b><br>Member of Parliament (Loksabha)<br><b style="font-size:12px">23-BARDOLI (Gujarat)</b><br>Mob: 9013997117, 9537277301, 9574076555<br>WhatsApp: 9428002444</div>
+  <div style="flex:.5;text-align:center"><img src="/images/emblem.png" style="width:55px" onerror="this.style.display='none'"><div style="font-size:9px">सत्यमेव जयते</div></div>
+  <div style="flex:1.1;font-size:9px;line-height:1.3;color:#1a8a2e"><b style="font-size:11px">Member</b><br>• Standing Committee for Chemical &amp; Fertilizers<br>• Parliamentary Committee on Petitions<br>• Consultative Committee on Ministry of Textile</div>
+ </div>
+ <div style="text-align:center;color:#c0305a;font-size:24px;margin:14px 0 8px">शुभेच्छा संदेश</div>
+ <div style="color:#c0305a;font-weight:bold;font-size:16px">स्नेही,</div>
+ <div id="bd_out" style="color:#c0305a;font-weight:bold;font-size:16px;margin:6px 0 8px 8px"></div>
+ <p style="color:#c0305a;font-size:14px;line-height:1.7;margin:8px 0;text-align:justify">आपके जन्मदिवस के पावन अवसर पर मैं आपको हार्दिक बधाई एवं अनंत शुभकामनाएँ अर्पित करता हूँ। परमपिता परमेश्वर से प्रार्थना है कि आप स्वस्थ, यशस्वी एवं दीर्घायु जीवन प्राप्त करें।</p>
+ <p style="color:#c0305a;font-size:14px;line-height:1.7;margin:8px 0;text-align:justify">राष्ट्र निर्माण के प्रति आपकी प्रतिबद्धता तथा सांगठनिक कुशलता सराहनीय है। मुझे पूर्ण विश्वास है कि आप इसी निष्ठा और तत्परता के साथ कार्यरत रहेंगे तथा देश के यशस्वी प्रधानमंत्री आदरणीय श्री नरेन्द्रभाई मोदी जी के कुशल नेतृत्व में आत्मनिर्भर भारत के निर्माण में अपना बहुमूल्य योगदान देते रहेंगे।</p>
+ <div style="color:#c0305a;font-size:14px;margin-left:8px">इन्हीं मंगल कामनाओं सहित,</div>
+ <div style="text-align:center;color:#c0305a;font-size:22px;font-weight:bold;margin:16px 0 8px">🌸 जन्मदिन की हार्दिक शुभकामनाएँ 🌸</div>
+ <div style="text-align:right;font-size:11px"><img src="/images/sign.png" style="height:40px" onerror="this.style.display='none'"><br><b style="color:#c0305a">PARBHUBHAI N. VASAVA</b><br>Member of Parliament (Loksabha)</div>
+ <div style="border-top:2px solid #e8922e;margin-top:10px;padding-top:6px;font-size:9px;line-height:1.4;text-align:center">
+  <b style="color:#1a8a2e">GUJARAT:</b> Sardar Patel Shopping Center, Nr.Mandvi High School, At.&amp;Po.MANDVI, Ta.Mandvi, Dist. Surat (Gujarat) 394160, Tel:(02623) 222108<br>
+  Email: mpprabhuvasava@gmail.com, prabhu.vasava23@sansad.nic.in | www.prabhuvasava.in<br>
+  <b style="color:#1a8a2e">DELHI:</b> 17, Pandit Ravishakar Shukla Lane, K.G. Marg, New Delhi - 110001, Tel:(011) 23381911, Mo.8287823899</div>
+</div>
+<div style="max-width:440px;margin:auto;padding:0 6px">
+<button id="bd_sh" style="${bt}background:#25D366">Share (WhatsApp)</button>
+<button id="bd_pdf" style="${bt}">Download PDF</button>
+<button id="bd_img" style="${bt}">Download Image</button>
+<button id="bd_bk2" style="${bt}background:#888">Back</button></div></div>`);
+
+mk('birthdaylist',`<div style="padding:12px"><h3 style="margin:6px 0 10px">View Birthday Card</h3><div id="bd_list"></div>
+<button id="bd_bk3" style="${bt}background:#888">Back</button></div>`);
+
+function getList(){try{return JSON.parse(localStorage.getItem('bd_list')||'[]')}catch(e){return[]}}
+function today(){const d=new Date();return String(d.getDate()).padStart(2,'0')+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+d.getFullYear()}
+function showCard(name){g('bd_out').textContent='श्री '+name;showPage('birthdaycard');}
+function renderList(){
+  const L=getList(),box=g('bd_list');box.innerHTML='';
+  if(!L.length){box.textContent='Abhi koi card nahi bana.';return;}
+  L.forEach(x=>{
+    const d=document.createElement('div');
+    d.style.cssText='display:flex;justify-content:space-between;align-items:center;padding:12px;margin:8px 0;border-radius:8px;box-shadow:0 1px 4px #0003';
+    const t=document.createElement('div');
+    t.innerHTML='<div></div><div style="color:#555;margin-top:4px"></div>';
+    t.children[0].textContent='श्री '+x.name;t.children[1].textContent=x.date+(x.mobile?' | '+x.mobile:'');
+    const b=document.createElement('button');
+    b.textContent='PDF';b.style.cssText='background:#f44;color:#fff;border:0;border-radius:50%;width:44px;height:44px';
+    b.onclick=()=>showCard(x.name);
+    d.appendChild(t);d.appendChild(b);box.appendChild(d);
+  });
+}
+
+g('bd_sub').onclick=()=>{
+  const n=g('bd_name').value.trim(),m=g('bd_mob').value.trim();
+  if(!n){alert('Naam bharna zaruri hai.');return;}
+  const L=getList();L.unshift({name:n,mobile:m,date:today()});
+  try{localStorage.setItem('bd_list',JSON.stringify(L.slice(0,100)))}catch(e){}
+  showCard(n);
+};
+g('bd_view').onclick=()=>{renderList();showPage('birthdaylist');};
+g('bd_bk').onclick=()=>showPage('home');
+g('bd_bk2').onclick=()=>showPage('birthdayform');
+g('bd_bk3').onclick=()=>showPage('birthdayform');
+
+function canvas(){return html2canvas(g('bd_card'),{scale:2,useCORS:true,backgroundColor:'#fff'});}
+async function pdfBlob(){
+  const c=await canvas(),{jsPDF}=window.jspdf,w=190,h=c.height*w/c.width;
+  const p=new jsPDF('p','mm',[210,Math.max(297,h+20)]);
+  p.addImage(c.toDataURL('image/jpeg',0.95),'JPEG',10,10,w,h);
+  return p.output('blob');
+}
+function save(blob,name){const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;a.click();}
+g('bd_pdf').onclick=async()=>save(await pdfBlob(),'birthday-card.pdf');
+g('bd_img').onclick=async()=>{const c=await canvas();c.toBlob(b=>save(b,'birthday-card.png'));};
+g('bd_sh').onclick=async()=>{
+  const b=await pdfBlob(),f=new File([b],'birthday-card.pdf',{type:'application/pdf'});
+  if(navigator.canShare&&navigator.canShare({files:[f]})){try{await navigator.share({files:[f],title:'Birthday Card'});}catch(e){}}
+  else{alert('Share is device me nahi chal raha. Download PDF dabao.');}
+};
+})();
+</script>
+<script>
+(function(){
+const g=id=>document.getElementById(id);
+const st='width:100%;padding:14px;margin:6px 0;font-size:16px;box-sizing:border-box;border:1px solid #ccc;border-radius:24px';
+const bt='width:100%;padding:14px;margin-top:10px;font-size:16px;border:0;border-radius:24px;color:#fff;background:#0b86b8;';
+const root=g('home').parentNode;
+function mk(id,html){const s=document.createElement('section');s.id=id;s.className='page';s.innerHTML=html;root.appendChild(s);}
+
+mk('invitationform',`<div style="padding:16px;text-align:center">
+<div style="font-size:60px;margin:20px 0">💌</div>
+<input id="iv_name" placeholder="Invitee ka Naam * (Hindi me)" style="${st}">
+<input id="iv_mob" type="tel" placeholder="Mobile No" style="${st}">
+<input id="iv_event" placeholder="Kaarykram ka naam (Hindi me)" style="${st}">
+<input id="iv_date" type="date" style="${st}">
+<input id="iv_time" type="time" style="${st}">
+<input id="iv_place" placeholder="Jagah (Hindi me)" style="${st}">
+<button id="iv_sub" style="${bt}">Submit</button>
+<button id="iv_view" style="${bt}">View Old Cards</button>
+<button id="iv_bk" style="${bt}background:#888">Back</button></div>`);
+
+mk('invitationcard',`<div style="padding:8px">
+<div id="iv_card" style="background:#fff;border:1px solid #ddd;padding:12px;max-width:440px;margin:auto;box-sizing:border-box;font-family:Arial,sans-serif">
+ <div style="display:flex;gap:6px;align-items:flex-start">
+  <div style="flex:1.1;font-size:10px;line-height:1.4;color:#1a8a2e"><b style="font-size:13px">PARBHUBHAI N. VASAVA</b><br>Member of Parliament (Loksabha)<br><b style="font-size:12px">23-BARDOLI (Gujarat)</b><br>Mob: 9013997117, 9537277301, 9574076555<br>WhatsApp: 9428002444</div>
+  <div style="flex:.5;text-align:center"><img src="/images/emblem.png" style="width:55px" onerror="this.style.display='none'"><div style="font-size:9px">सत्यमेव जयते</div></div>
+  <div style="flex:1.1;font-size:9px;line-height:1.3;color:#1a8a2e"><b style="font-size:11px">Member</b><br>• Standing Committee for Chemical &amp; Fertilizers<br>• Parliamentary Committee on Petitions<br>• Consultative Committee on Ministry of Textile</div>
+ </div>
+ <div style="text-align:center;color:#c0305a;font-size:26px;margin:14px 0 8px">निमंत्रण पत्र</div>
+ <div style="color:#c0305a;font-weight:bold;font-size:16px">आदरणीय,</div>
+ <div id="iv_out" style="color:#c0305a;font-weight:bold;font-size:16px;margin:6px 0 8px 8px"></div>
+ <p style="color:#c0305a;font-size:14px;line-height:1.7;margin:8px 0;text-align:justify">आपको सादर आमंत्रित किया जाता है। आपकी गरिमामयी उपस्थिति कार्यक्रम की शोभा बढ़ाएगी तथा हमें अत्यंत हर्ष की अनुभूति होगी।</p>
+ <div style="color:#c0305a;font-size:15px;line-height:1.9;margin:10px 8px;font-weight:bold">
+  <div id="iv_o_event"></div><div id="iv_o_date"></div><div id="iv_o_time"></div><div id="iv_o_place"></div>
+ </div>
+ <p style="color:#c0305a;font-size:14px;line-height:1.7;margin:8px 0;text-align:justify">आपके आगमन की हमें बेसब्री से प्रतीक्षा रहेगी।</p>
+ <div style="color:#c0305a;font-size:14px;margin-left:8px">धन्यवाद सहित,</div>
+ <div style="text-align:right;font-size:11px;margin-top:10px"><img src="/images/sign.png" style="height:40px" onerror="this.style.display='none'"><br><b style="color:#c0305a">PARBHUBHAI N. VASAVA</b><br>Member of Parliament (Loksabha)</div>
+ <div style="border-top:2px solid #e8922e;margin-top:10px;padding-top:6px;font-size:9px;line-height:1.4;text-align:center">
+  <b style="color:#1a8a2e">GUJARAT:</b> Sardar Patel Shopping Center, Nr.Mandvi High School, At.&amp;Po.MANDVI, Ta.Mandvi, Dist. Surat (Gujarat) 394160, Tel:(02623) 222108<br>
+  Email: mpprabhuvasava@gmail.com, prabhu.vasava23@sansad.nic.in | www.prabhuvasava.in<br>
+  <b style="color:#1a8a2e">DELHI:</b> 17, Pandit Ravishakar Shukla Lane, K.G. Marg, New Delhi - 110001, Tel:(011) 23381911, Mo.8287823899</div>
+</div>
+<div style="max-width:440px;margin:auto;padding:0 6px">
+<button id="iv_sh" style="${bt}background:#25D366">Share (WhatsApp)</button>
+<button id="iv_pdf" style="${bt}">Download PDF</button>
+<button id="iv_img" style="${bt}">Download Image</button>
+<button id="iv_bk2" style="${bt}background:#888">Back</button></div></div>`);
+
+mk('invitationlist',`<div style="padding:12px"><h3 style="margin:6px 0 10px">View Invitation Card</h3><div id="iv_list"></div>
+<button id="iv_bk3" style="${bt}background:#888">Back</button></div>`);
+
+function getList(){try{return JSON.parse(localStorage.getItem('iv_list')||'[]')}catch(e){return[]}}
+function today(){const d=new Date();return String(d.getDate()).padStart(2,'0')+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+d.getFullYear()}
+function fmtDate(v){if(!v)return'';const p=v.split('-');return p.length===3?p[2]+'-'+p[1]+'-'+p[0]:v}
+function fmtTime(v){if(!v)return'';const p=v.split(':');let h=+p[0];const ap=h>=12?'PM':'AM';h=h%12||12;return h+':'+p[1]+' '+ap}
+function showCard(x){
+  g('iv_out').textContent='श्री '+x.name;
+  g('iv_o_event').textContent=x.event?'कार्यक्रम : '+x.event:'';
+  g('iv_o_date').textContent=x.evDate?'दिनांक : '+fmtDate(x.evDate):'';
+  g('iv_o_time').textContent=x.evTime?'समय : '+fmtTime(x.evTime):'';
+  g('iv_o_place').textContent=x.place?'स्थान : '+x.place:'';
+  showPage('invitationcard');
+}
+function renderList(){
+  const L=getList(),box=g('iv_list');box.innerHTML='';
+  if(!L.length){box.textContent='Abhi koi card nahi bana.';return;}
+  L.forEach(x=>{
+    const d=document.createElement('div');
+    d.style.cssText='display:flex;justify-content:space-between;align-items:center;padding:12px;margin:8px 0;border-radius:8px;box-shadow:0 1px 4px #0003';
+    const t=document.createElement('div');
+    t.innerHTML='<div></div><div style="color:#555;margin-top:4px"></div>';
+    t.children[0].textContent='श्री '+x.name+(x.event?' - '+x.event:'');
+    t.children[1].textContent=x.date+(x.mobile?' | '+x.mobile:'');
+    const b=document.createElement('button');
+    b.textContent='PDF';b.style.cssText='background:#f44;color:#fff;border:0;border-radius:50%;width:44px;height:44px';
+    b.onclick=()=>showCard(x);
+    d.appendChild(t);d.appendChild(b);box.appendChild(d);
+  });
+}
+
+g('iv_sub').onclick=()=>{
+  const x={name:g('iv_name').value.trim(),mobile:g('iv_mob').value.trim(),event:g('iv_event').value.trim(),
+    evDate:g('iv_date').value,evTime:g('iv_time').value,place:g('iv_place').value.trim(),date:today()};
+  if(!x.name){alert('Naam bharna zaruri hai.');return;}
+  const L=getList();L.unshift(x);
+  try{localStorage.setItem('iv_list',JSON.stringify(L.slice(0,100)))}catch(e){}
+  showCard(x);
+};
+g('iv_view').onclick=()=>{renderList();showPage('invitationlist');};
+g('iv_bk').onclick=()=>showPage('home');
+g('iv_bk2').onclick=()=>showPage('invitationform');
+g('iv_bk3').onclick=()=>showPage('invitationform');
+
+function canvas(){return html2canvas(g('iv_card'),{scale:2,useCORS:true,backgroundColor:'#fff'});}
+async function pdfBlob(){
+  const c=await canvas(),{jsPDF}=window.jspdf,w=190,h=c.height*w/c.width;
+  const p=new jsPDF('p','mm',[210,Math.max(297,h+20)]);
+  p.addImage(c.toDataURL('image/jpeg',0.95),'JPEG',10,10,w,h);
+  return p.output('blob');
+}
+function save(blob,name){const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;a.click();}
+g('iv_pdf').onclick=async()=>save(await pdfBlob(),'invitation-card.pdf');
+g('iv_img').onclick=async()=>{const c=await canvas();c.toBlob(b=>save(b,'invitation-card.png'));};
+g('iv_sh').onclick=async()=>{
+  const b=await pdfBlob(),f=new File([b],'invitation-card.pdf',{type:'application/pdf'});
+  if(navigator.canShare&&navigator.canShare({files:[f]})){try{await navigator.share({files:[f],title:'Invitation Card'});}catch(e){}}
+  else{alert('Share is device me nahi chal raha. Download PDF dabao.');}
+};
 })();
 </script>
 </body>
