@@ -12,7 +12,6 @@
 </style>
  <a href="/downloads/eoffice.apk" download
    style="padding:12px 20px;background:#0d6efd;color:#fff;border-radius:8px;text-decoration:none">
-  
 </a>
 </head>
 <body>
@@ -133,7 +132,7 @@ if ("serviceWorker" in navigator) navigator.serviceWorker.register("/sw.js");
 <script>
 (function(){
 const F={
- appointmentform:{type:'appointment',title:'Appointment',ph:'Kis kaam ke liye aur kab milna hai'},
+ appointmentform:{type:'appointment',title:'Appointment',ph:'Kis kaam ke liye milna hai',dt:true},
  contactform:{type:'contact',title:'Contact',ph:'Aapka sandesh'},
  applicationform:{type:'application',title:'Application',ph:'Application ki details'}
 };
@@ -146,6 +145,7 @@ Object.keys(F).forEach(id=>{
  '<input id="'+id+'_n" placeholder="Aapka Naam" style="'+st+'">'+
  '<input id="'+id+'_p" type="tel" placeholder="Mobile Number" style="'+st+'">'+
  '<input id="'+id+'_s" placeholder="Vishay (Subject)" style="'+st+'">'+
+ (f.dt?'<label>Date</label><input id="'+id+'_d" type="date" style="'+st+'"><label>Time</label><input id="'+id+'_t" type="time" style="'+st+'">':'')+
  '<textarea id="'+id+'_m" rows="5" placeholder="'+f.ph+'" style="'+st+'"></textarea>'+
  '<button id="'+id+'_b" style="width:100%;padding:12px;margin-top:8px;font-size:16px;background:#0d6efd;color:#fff;border:0;border-radius:8px">Submit</button>'+
  '<button id="'+id+'_k" style="width:100%;padding:12px;margin-top:8px;font-size:16px">Back</button></div>';
@@ -155,11 +155,18 @@ Object.keys(F).forEach(id=>{
   const g=x=>document.getElementById(id+'_'+x);
   const name=g('n').value.trim(),msg=g('m').value.trim();
   if(!name||!msg){alert('Naam aur details bharna zaruri hai.');return;}
+  let message=msg,dt='',tm='';
+  if(f.dt){
+   dt=g('d').value;tm=g('t').value;
+   if(!dt||!tm){alert('Date aur time select karein.');return;}
+   if(new Date(dt+'T'+tm)<new Date()){alert('Future ki date aur time select karein.');return;}
+   message='Date: '+dt+' | Time: '+tm+'\n'+msg;
+  }
   try{
    const r=await fetch('/api/records',{method:'POST',headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({type:f.type,name:name,phone:g('p').value,subject:g('s').value,message:msg})});
+    body:JSON.stringify({type:f.type,name:name,phone:g('p').value,subject:g('s').value,message:message,date:dt,time:tm})});
    const d=await r.json();alert(d.message);
-   if(d.success){['n','p','s','m'].forEach(x=>g(x).value='');showPage('home');}
+   if(d.success){['n','p','s','m','d','t'].forEach(x=>{if(g(x))g(x).value=''});showPage('home');}
   }catch(e){alert('Server se connect nahi hua.');}
  };
 });
