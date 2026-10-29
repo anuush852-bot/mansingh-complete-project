@@ -1,5 +1,39 @@
 {
-  "records": [],
+  "records": [
+    {
+      "id": 1,
+      "type": "application",
+      "name": "ANUBHAV",
+      "phone": "891843419",
+      "email": "",
+      "subject": "VERIFICATION",
+      "message": "n bjbjvjhbxksm",
+      "status": "Pending",
+      "createdAt": "2026-10-29T07:56:15.958Z"
+    },
+    {
+      "id": 2,
+      "type": "application",
+      "name": "anubhav",
+      "phone": "9891843419",
+      "email": "",
+      "subject": "verfication",
+      "message": "nahi ho raha h",
+      "status": "Pending",
+      "createdAt": "2026-10-29T09:59:21.959Z"
+    },
+    {
+      "id": 3,
+      "type": "contact",
+      "name": "anubhav",
+      "phone": "9891843419",
+      "email": "98918anubhav@gmail.com",
+      "subject": "varification",
+      "message": "DOB: 2026-10-29",
+      "status": "Pending",
+      "createdAt": "2026-10-29T16:55:57.007Z"
+    }
+  ],
   "admins": [
     {
       "id": 1,

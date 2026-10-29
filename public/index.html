@@ -1,53 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link rel="manifest" href="/manifest.json">
+<link rel="manifest" href="/manifest.json">
 <meta name="theme-color" content="#0d6efd">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Shri Mansingh Meraman Parmar E-Office</title>
 <style>
+*{box-sizing:border-box;margin:0;padding:0}body{font-family:Arial,Helvetica,sans-serif;background:#000;color:#333}.app{width:100%;max-width:700px;margin:auto;background:#fff;min-height:100vh}.topbar{height:72px;background:#087eaf;color:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 22px;position:sticky;top:0;z-index:20}.topbar h1{font-size:22px}.hamb{font-size:31px;cursor:pointer}.hero{height:360px;background:#eee;overflow:hidden;position:relative}.grid-card{margin:16px 8px;border-radius:15px;overflow:hidden;box-shadow:0 2px 12px #0002;background:#fff}.grid{display:grid;grid-template-columns:repeat(3,1fr)}.tile{height:170px;border-right:1px solid #b8d2d9;border-bottom:1px solid #b8d2d9;display:flex;align-items:center;justify-content:center;flex-direction:column;color:#087eaf;cursor:pointer;transition:.2s}.tile:nth-child(3n){border-right:0}.tile:hover{background:#f1fbfe}.ico{font-size:38px;margin-bottom:10px}.tile span{font-size:16px;text-align:center}.page{display:none}.page.active{display:block}.back{border:0;background:#087eaf;color:#fff;padding:10px 15px;border-radius:7px;cursor:pointer;font-size:15px}.page-head{padding:18px 16px;border-bottom:1px solid #ddd}.page-head h2{color:#b74343;margin-bottom:5px}.profile-card{padding:18px 14px}.profile-top{display:flex;gap:18px;align-items:flex-start}.member-photo{width:145px;height:175px;object-fit:cover;object-position:center top;border-radius:8px;border:1px solid #ddd}.member-info h2{color:#b74343;font-size:21px;margin-bottom:7px}.member-info p{font-size:17px;margin:6px 0}.label{font-weight:bold;margin-top:15px}.tabs{display:flex;overflow-x:auto;border-top:1px solid #ddd;border-bottom:1px solid #ddd}.tab{white-space:nowrap;border:1px solid #ddd;border-top:0;background:#fff;padding:12px 17px;color:#666;cursor:pointer}.tab.active{background:#c94a4a;color:#fff}.section{padding:22px 16px}.section h2{font-size:22px;margin-bottom:22px}.detail{display:grid;grid-template-columns:180px 1fr;gap:10px;padding:12px 0;border-bottom:1px solid #eee}.detail b{color:#555}.address-box{margin:18px 0;padding:20px;background:#fff;border-top:3px solid #bd4545;box-shadow:0 1px 8px #0001}.address-box p{margin:9px 0;line-height:1.5}.letterhead{width:100%;margin:20px 0;border:1px solid #ddd}.notice{padding:20px;text-align:center;color:#777}.menu-panel{display:none;position:absolute;right:12px;top:62px;background:#fff;color:#333;width:190px;border-radius:8px;box-shadow:0 5px 20px #0003;overflow:hidden}.menu-panel div{padding:13px 15px;border-bottom:1px solid #eee;cursor:pointer}.menu-panel div:hover{background:#eef8fb}.search{width:100%;padding:13px;border:1px solid #ddd;border-radius:8px;margin-bottom:15px;font-size:16px}@media(max-width:600px){.topbar{height:68px}.topbar h1{font-size:20px}.hero{height:355px}.tile{height:145px}.ico{font-size:32px}.tile span{font-size:14px}.profile-top{align-items:center}.member-photo{width:115px;height:145px}.member-info h2{font-size:18px}.detail{grid-template-columns:145px 1fr;font-size:14px}}
 
-*{box-sizing:border-box;margin:0;padding:0}body{font-family:Arial,Helvetica,sans-serif;background:#000;color:#333}.app{width:100%;max-width:700px;margin:auto;background:#fff;min-height:100vh}.topbar{height:72px;background:#087eaf;color:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 22px;position:sticky;top:0;z-index:20}.topbar h1{font-size:22px}.hamb{font-size:31px;cursor:pointer}.hero{height:360px;background:#eee;overflow:hidden}.hero img{width:100%;height:100%;object-fit:cover;object-position:center}.grid-card{margin:16px 8px;border-radius:15px;overflow:hidden;box-shadow:0 2px 12px #0002;background:#fff}.grid{display:grid;grid-template-columns:repeat(3,1fr)}.tile{height:170px;border-right:1px solid #b8d2d9;border-bottom:1px solid #b8d2d9;display:flex;align-items:center;justify-content:center;flex-direction:column;color:#087eaf;cursor:pointer;transition:.2s}.tile:nth-child(3n){border-right:0}.tile:hover{background:#f1fbfe}.ico{font-size:38px;margin-bottom:10px}.tile span{font-size:16px;text-align:center}.page{display:none}.page.active{display:block}.back{border:0;background:#087eaf;color:#fff;padding:10px 15px;border-radius:7px;cursor:pointer;font-size:15px}.page-head{padding:18px 16px;border-bottom:1px solid #ddd}.page-head h2{color:#b74343;margin-bottom:5px}.profile-card{padding:18px 14px}.profile-top{display:flex;gap:18px;align-items:flex-start}.member-photo{width:145px;height:175px;object-fit:cover;border-radius:8px;border:1px solid #ddd}.member-info h2{color:#b74343;font-size:21px;margin-bottom:7px}.member-info p{font-size:17px;margin:6px 0}.label{font-weight:bold;margin-top:15px}.tabs{display:flex;overflow-x:auto;border-top:1px solid #ddd;border-bottom:1px solid #ddd}.tab{white-space:nowrap;border:1px solid #ddd;border-top:0;background:#fff;padding:12px 17px;color:#666;cursor:pointer}.tab.active{background:#c94a4a;color:#fff}.section{padding:22px 16px}.section h2{font-size:22px;margin-bottom:22px}.detail{display:grid;grid-template-columns:180px 1fr;gap:10px;padding:12px 0;border-bottom:1px solid #eee}.detail b{color:#555}.address-box{margin:18px 0;padding:20px;background:#fff;border-top:3px solid #bd4545;box-shadow:0 1px 8px #0001}.address-box p{margin:9px 0;line-height:1.5}.letterhead{width:100%;margin:20px 0;border:1px solid #ddd}.notice{padding:20px;text-align:center;color:#777}.menu-panel{display:none;position:absolute;right:12px;top:62px;background:#fff;color:#333;width:190px;border-radius:8px;box-shadow:0 5px 20px #0003;overflow:hidden}.menu-panel div{padding:13px 15px;border-bottom:1px solid #eee;cursor:pointer}.menu-panel div:hover{background:#eef8fb}.search{width:100%;padding:13px;border:1px solid #ddd;border-radius:8px;margin-bottom:15px;font-size:16px}@media(max-width:600px){.topbar{height:68px}.topbar h1{font-size:20px}.hero{height:355px}.tile{height:145px}.ico{font-size:32px}.tile span{font-size:14px}.profile-top{align-items:center}.member-photo{width:115px;height:145px}.member-info h2{font-size:18px}.detail{grid-template-columns:145px 1fr;font-size:14px}}
+/* Hero slider */
+.hslides{display:flex;height:100%;transition:transform .6s ease}
+.hslides img{flex:0 0 100%;width:100%;height:100%;object-fit:cover;object-position:center top}
+.hdots{position:absolute;bottom:10px;left:0;right:0;text-align:center}
+.hdots span{display:inline-block;width:9px;height:9px;margin:0 4px;border-radius:50%;background:#fff9;cursor:pointer}
+.hdots span.on{background:#087eaf}
 </style>
- <a href="/downloads/eoffice.apk" download
-   style="padding:12px 20px;background:#0d6efd;color:#fff;border-radius:8px;text-decoration:none">
-</a>
 </head>
 <body>
 
 <div class="app">
 <header class="topbar"><h1>Shri Mansingh Meraman Parmar E-Office</h1><div class="hamb" onclick="toggleMenu()">☰</div><div class="menu-panel" id="menu"><div onclick="showPage('home')">Home</div><div onclick="showPage('profile')">Profile</div><div onclick="showPage('contact')">Contacts</div></div></header>
-   
+
 <section id="home" class="page active">
-<div class="hero"><img src="/images/member.jpg" alt="Member"></div>
+<div class="hero">
+  <div class="hslides" id="hslides">
+    <img src="/images/member.jpg" alt="Member" style="object-position:center 30%">
+    <img src="/images/gallery1.jpg" alt="Photo 1" style="object-position:center top">
+    <img src="/images/gallery2.jpg" alt="Photo 2" style="object-position:center center">
+    <img src="/images/gallery3.jpg" alt="Photo 3" style="object-position:center 40%">
+  </div>
+  <div class="hdots" id="hdots"></div>
+</div>
 <div class="grid-card"><div class="grid">
 <div class="tile" onclick="showPage('contactform')"><div class="ico">☎</div><span>Contacts</span></div>
-<div class="tile" onclick="showPage('certificate')"><div class="ico">✉</div><span>Praman Patra</span></div>
 <div class="tile" onclick="showPage('birthdayform')"><div class="ico">💌</div><span>Birthday Card</span></div>
-<div class="tile" onclick="showPage('visitor')"><div class="ico">👥</div><span>Visitor</span></div>
-<div class="tile" onclick="showPage('appointmentform')"><div class="ico">📅</div><span>Appointment</span></div>
-<div class="tile" onclick="showPage('birthday')"><div class="ico">🔔</div><span>Today Birthday</span></div>
-<div class="tile" onclick="showPage('complaintform')"><div class="ico">📥</div><span>Complaint</span></div>
-<div class="tile" onclick="showPage('shradhanjali')"><div class="ico">🙏</div><span>Shradhanjali</span></div>
+
 <div class="tile" onclick="showPage('search')"><div class="ico">⌕</div><span>Search</span></div>
-<div class="tile" onclick="showPage('invitationform')"><div class="ico">💌</div><span>Invitation</span></div>
-<div class="tile" onclick="showPage('meetingform')"><div class="ico">🗓</div><span>Meeting Schedule</span></div>
 <div class="tile" onclick="showPage('applicationform')"><div class="ico">📋</div><span>View Application</span></div>
 <div class="tile" onclick="showPage('profileform')"><div class="ico">👤</div><span>Profile</span></div>
+<div class="tile" onclick="showPage('festivalform')"><div class="ico">🪔</div><span>Festival Card</span></div>
+<div class="tile" onclick="openRail()"><div class="ico">🚆</div><span>demoaccount Card</span></div>
 </div>
 </div>
 </section>
+
 <section id="complaintform" class="page">
 <div style="padding:16px">
 <h2 style="margin-bottom:12px">Complaint</h2>
-<input id="cf_name" placeholder="Aapka Naam" style="width:100%;padding:12px;margin:5px 0;font-size:16px;box-sizing:border-box">
+<!-- <input id="cf_name" placeholder="Aapka Naam" style="width:100%;padding:12px;margin:5px 0;font-size:16px;box-sizing:border-box">
 <input id="cf_phone" type="tel" placeholder="Mobile Number" style="width:100%;padding:12px;margin:5px 0;font-size:16px;box-sizing:border-box">
 <input id="cf_subject" placeholder="Vishay (Subject)" style="width:100%;padding:12px;margin:5px 0;font-size:16px;box-sizing:border-box">
 <textarea id="cf_msg" rows="5" placeholder="Complaint ki details" style="width:100%;padding:12px;margin:5px 0;font-size:16px;box-sizing:border-box"></textarea>
 <button onclick="sendComplaint()" style="width:100%;padding:12px;margin-top:8px;font-size:16px;background:#0d6efd;color:#fff;border:0;border-radius:8px">Submit</button>
 <button onclick="showPage('home')" style="width:100%;padding:12px;margin-top:8px;font-size:16px">Back</button>
-</div>
+</div> -->
 <script>
 async function sendComplaint(){
   const name=document.getElementById('cf_name').value.trim();
@@ -71,56 +78,73 @@ async function sendComplaint(){
   <div class="page-head">
     <button class="back" onclick="showPage('home')">← Home</button>
   </div>
-   <div class="profile-card">
-  <div class="profile-top">
-    <img
-      class="member-photo"
-      src="/images/member.jpg"
-      alt="Shri Mansingh Meraman Parmar"
-    >
-
-    <div class="member-info">
-      <h2>Shri Mansingh Meraman Parmar</h2>
-      <p>Bharatiya Janata Party (BJP)</p>
-      <p>Gujarat</p>
-
-      <div class="label">Designation</div>
-      <p>Member of Parliament, Rajya Sabha</p>
-
-      <div class="label">Committee Membership</div>
-      <p>Consumer Affairs, Food &amp; Public Distribution</p>
-
-      <div class="label">Email ID</div>
-      <p>mansingh.12@mprs.sansad.in</p>
-
-      <div class="label">Contact Number</div>
-      <p>9824291791</p>
+  <div class="profile-card">
+    <div class="profile-top">
+      <img class="member-photo" src="/images/member.jpg" alt="Shri Mansingh Meraman Parmar">
+      <div class="member-info">
+        <h2>Shri Mansingh Meraman Parmar</h2>
+        <p>Bharatiya Janata Party (BJP)</p>
+        <p>Gujarat</p>
+        <div class="label">Designation</div>
+        <p>Member of Parliament, Rajya Sabha</p>
+        <div class="label">Committee Membership</div>
+        <p>• Standing Committee for Consumer Affairs, Food &amp; Public Distribution</p>
+        <p>• Committee on Papers Laid on the Table (COPLOT), Rajya Sabha</p>
+        <div class="label">Email ID</div>
+        <p> mansinghparmar121@gmail.com</p>
+        <div class="label">Contact Number</div>
+        <p>9824291791</p>
+      </div>
     </div>
   </div>
-</div>
-<div class="tabs"><button class="tab active" onclick="tab(this,'personal')">Profile</button><button class="tab" onclick="tab(this,'other')">Other Details</button>
+  <!-- <div class="tabs"><button class="tab active" onclick="tab(this,'personal')">Profile</button><button class="tab" onclick="tab(this,'other')">Other Details</button>
     <button class="tab" onclick="tab(this,'dashboard')">Dashboard</button>
     <button class="tab" onclick="tab(this,'attendance')">Attendance</button>
     <button class="tab" onclick="tab(this,'debate')">Debate</button>
-</div>
-<div id="personal" class="tabcontent"><div class="section"><h2>Personal Details</h2><div class="detail"><b>Place Of Birth</b><span>—</span></div><div class="detail"><b>Date Of Birth</b><span>—</span></div><div class="detail"><b>Father's Name</b><span>—</span></div><div class="detail"><b>Mother's Name</b><span>—</span></div><div class="detail"><b>Marital Status</b><span>—</span></div><h3 style="margin:25px 0 10px">Children Details</h3><div class="detail"><b>Son</b><span>—</span></div><div class="detail"><b>Daughter</b><span>—</span></div></div><div class="section"><h2>Address & Contact</h2><div class="address-box"><p><b>Delhi - Address:</b> 601 Brahmaputra, Dr. B.D. Marg, New Delhi - 110001</p><p><b>Local - Address:</b> "Samarpan" AT-Post-Kajali, Tehsil-Veraval, District-Girsomnath, State-Gujarat-362268</p><p><b>Mobile:</b> 9824291791</p><p><b>WhatsApp:</b> 9824291791</p><p><b>E-mail:</b> mansinghparmar121@gmail.com</p></div><img class="letterhead" src="images/letterhead.jpg"><img class="letterhead" src="images/address.jpg"></div></div>
-<div id="other" class="tabcontent" style="display:none"><div class="section"><h2>Other Details</h2><div class="notice">Other member details can be displayed here.</div></div></div><div id="dashboard" class="tabcontent" style="display:none"><div class="section"><h2>Dashboard</h2><div class="notice">Dashboard information will appear here.</div></div></div><div id="attendance" class="tabcontent" style="display:none"><div class="section"><h2>Attendance</h2><div class="notice">Attendance records will appear here.</div></div></div><div id="debate" class="tabcontent" style="display:none"><div class="section"><h2>Debate</h2><div class="notice">Debate information will appear here.</div></div></div></section>
+  </div> -->
+  <!-- <div id="personal" class="tabcontent"><div class="section"><h2>Personal Details</h2><div class="detail"><b>Place Of Birth</b><span>—</span></div><div class="detail"><b>Date Of Birth</b><span>—</span></div><div class="detail"><b>Father's Name</b><span>—</span></div><div class="detail"><b>Mother's Name</b><span>—</span></div><div class="detail"><b>Marital Status</b><span>—</span></div><h3 style="margin:25px 0 10px">Children Details</h3><div class="detail"><b>Son</b><span>—</span></div><div class="detail"><b>Daughter</b><span>—</span></div></div> -->
+  <div class="section"><h2>Address &amp; Contact</h2><div class="address-box"><p><b>Delhi - Address:</b> 601 Brahmaputra, Dr. B.D. Marg, New Delhi - 110001</p><p><b>Local - Address:</b> "Samarpan" AT-Post-Kajali, Tehsil-Veraval, District-Girsomnath, State-Gujarat-362268</p><p><b>Mobile:</b> 9824291791</p><p><b>WhatsApp:</b> 9824291791</p><p><b>E-mail:</b> mansinghparmar121@gmail.com</p></div>
+  <!-- <img class="letterhead" src="/images/letterhead.jpg"><img class="letterhead" src="/images/address.jpg"> -->
+</div></div>
+  <div id="other" class="tabcontent" style="display:none"><div class="section"><h2>Other Details</h2><h3 style="margin-bottom:10px;color:#b74343">Committee Membership</h3><div class="address-box"><p><b>Member -</b></p><p>1. Standing Committee for Consumer Affairs, Food &amp; Public Distribution</p><p>2. Committee on Papers Laid on the Table (COPLOT), Rajya Sabha</p></div></div></div>
+ <div id="dashboard" class="tabcontent" style="display:none"><div class="section"><h2>Dashboard</h2><div class="notice">Dashboard information will appear here.</div></div></div>
+  <div id="attendance" class="tabcontent" style="display:none"><div class="section"><h2>Attendance</h2><div class="notice">Attendance records will appear here.</div></div></div>
+  <div id="debate" class="tabcontent" style="display:none"><div class="section"><h2>Debate</h2><div class="notice">Debate information will appear here.</div></div></div>
+</section> 
 
 <section id="contact" class="page"><div class="page-head"><button class="back" onclick="showPage('home')">← Home</button><h2 style="margin-top:15px">Contacts</h2></div><div class="section"><div class="address-box"><p><b>Mobile:</b> 9824291791</p><p><b>WhatsApp:</b> 9824291791</p><p><b>Email:</b> mansinghparmar121@gmail.com</p></div></div></section>
 
-<section id="search" class="page"><div class="page-head"><button class="back" onclick="showPage('home')">← Home</button><h2 style="margin-top:15px">Search</h2></div><div class="section"><input class="search" placeholder="Search here..."><div class="notice">Search results will appear here.</div></div></section>
+<section id="search" class="page">
+  <div class="page-head">
+    <button class="back" 
+    onclick="showPage('home')">← Home</button>
+    <h2 style="margin-top:15px">Search</h2>
+  </div>
 
-<section id="certificate" class="page"><div class="page-head"><button class="back" onclick="showPage('home')">← Home</button><h2 style="margin-top:15px">Praman Patra</h2></div><div class="section"><div class="notice">Praman Patra section</div></div></section>
-<section id="birthday" class="page"><div class="page-head"><button class="back" onclick="showPage('home')">← Home</button><h2 style="margin-top:15px">Birthday Card</h2></div><div class="section"><div class="notice">Birthday Card section</div></div></section>
-<section id="visitor" class="page"><div class="page-head"><button class="back" onclick="showPage('home')">← Home</button><h2 style="margin-top:15px">Visitor</h2></div><div class="section"><div class="notice">Visitor section</div></div></section>
-<section id="appointment" class="page"><div class="page-head"><button class="back" onclick="showPage('home')">← Home</button><h2 style="margin-top:15px">Appointment</h2></div><div class="section"><div class="notice">Appointment section</div></div></section>
+  <div class="section">
+    <input
+      id="appSearchInput"
+      class="search"
+      type="search"
+      placeholder="Search Contacts, Profile, Birthday Card..."
+      oninput="runAppSearch()"
+    >
+
+    <div id="appSearchResults">
+      <div class="notice">
+        Search karne ke liye naam ya section likhein.</div>
+    </div>
+  </div>
+</section>
+
+<section id="birthday" class="page"><div class="page-head"><button class="back" onclick="showPage('home')">← Home</button><h2 style="margin-top:15px">Today Birthday</h2></div><div class="section"><div class="notice">Today Birthday section</div></div></section>
+
 <section id="complaint" class="page"><div class="page-head"><button class="back" onclick="showPage('home')">← Home</button><h2 style="margin-top:15px">Complaint</h2></div><div class="section"><div class="notice">Complaint section</div></div></section>
-<section id="shradhanjali" class="page"><div class="page-head"><button class="back" onclick="showPage('home')">← Home</button><h2 style="margin-top:15px">Shradhanjali</h2></div><div class="section"><div class="notice">Shradhanjali section</div></div></section>
-<section id="invitation" class="page"><div class="page-head"><button class="back" onclick="showPage('home')">← Home</button><h2 style="margin-top:15px">Invitation</h2></div><div class="section"><div class="notice">Invitation section</div></div></section>
-<section id="meeting" class="page"><div class="page-head"><button class="back" onclick="showPage('home')">← Home</button><h2 style="margin-top:15px">Meeting Schedule</h2></div><div class="section"><div class="notice">Meeting Schedule section</div></div></section>
+
 <section id="application" class="page"><div class="page-head"><button class="back" onclick="showPage('home')">← Home</button><h2 style="margin-top:15px">View Application</h2></div><div class="section"><div class="notice">Applications will appear here.</div></div></section>
 
 </div>
+
 <script>
 function showPage(id){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');document.getElementById('menu').style.display='none';window.scrollTo({top:0,behavior:'smooth'})}
 function toggleMenu(){let m=document.getElementById('menu');m.style.display=m.style.display==='block'?'none':'block'}
@@ -129,231 +153,310 @@ function tab(btn,id){document.querySelectorAll('.tab').forEach(x=>x.classList.re
 <script>
 if ("serviceWorker" in navigator) navigator.serviceWorker.register("/sw.js");
 </script>
+
+<!-- Hero slider -->
 <script>
 (function(){
-const F={
- appointmentform:{type:'appointment',title:'Appointment',ph:'Kis kaam ke liye milna hai',dt:true},
- contactform:{type:'contact',title:'Contact',ph:'Aapka sandesh'},
- applicationform:{type:'application',title:'Application',ph:'Application ki details'}
-};
-const st='width:100%;padding:12px;margin:5px 0;font-size:16px;box-sizing:border-box';
-const home=document.getElementById('home');
-Object.keys(F).forEach(id=>{
- const f=F[id],s=document.createElement('section');
- s.id=id;s.className='page';
- s.innerHTML='<div style="padding:16px"><h2 style="margin-bottom:12px">'+f.title+'</h2>'+
- '<input id="'+id+'_n" placeholder="Aapka Naam" style="'+st+'">'+
- '<input id="'+id+'_p" type="tel" placeholder="Mobile Number" style="'+st+'">'+
- '<input id="'+id+'_s" placeholder="Vishay (Subject)" style="'+st+'">'+
- (f.dt?'<label>Date</label><input id="'+id+'_d" type="date" style="'+st+'"><label>Time</label><input id="'+id+'_t" type="time" style="'+st+'">':'')+
- '<textarea id="'+id+'_m" rows="5" placeholder="'+f.ph+'" style="'+st+'"></textarea>'+
- '<button id="'+id+'_b" style="width:100%;padding:12px;margin-top:8px;font-size:16px;background:#0d6efd;color:#fff;border:0;border-radius:8px">Submit</button>'+
- '<button id="'+id+'_k" style="width:100%;padding:12px;margin-top:8px;font-size:16px">Back</button></div>';
- home.parentNode.appendChild(s);
- document.getElementById(id+'_k').onclick=()=>showPage('home');
- document.getElementById(id+'_b').onclick=async()=>{
-  const g=x=>document.getElementById(id+'_'+x);
-  const name=g('n').value.trim(),msg=g('m').value.trim();
-  if(!name||!msg){alert('Naam aur details bharna zaruri hai.');return;}
-  let message=msg,dt='',tm='';
-  if(f.dt){
-   dt=g('d').value;tm=g('t').value;
-   if(!dt||!tm){alert('Date aur time select karein.');return;}
-   if(new Date(dt+'T'+tm)<new Date()){alert('Future ki date aur time select karein.');return;}
-   message='Date: '+dt+' | Time: '+tm+'\n'+msg;
-  }
-  try{
-   const r=await fetch('/api/records',{method:'POST',headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({type:f.type,name:name,phone:g('p').value,subject:g('s').value,message:message,date:dt,time:tm})});
-   const d=await r.json();alert(d.message);
-   if(d.success){['n','p','s','m','d','t'].forEach(x=>{if(g(x))g(x).value=''});showPage('home');}
-  }catch(e){alert('Server se connect nahi hua.');}
- };
-});
+  const s=document.getElementById('hslides'),d=document.getElementById('hdots');
+  const n=s.children.length;let i=0;
+  for(let k=0;k<n;k++){const x=document.createElement('span');x.onclick=()=>go(k);d.appendChild(x);}
+  function go(k){i=k;s.style.transform='translateX(-'+(i*100)+'%)';
+    [...d.children].forEach((x,j)=>x.className=j===i?'on':'');}
+  go(0);
+  setInterval(()=>go((i+1)%n),3000);
 })();
 </script>
+<script>
+(function () {
+  const home = document.getElementById('home');
+  if (!home) return;
+  const root = home.parentNode;
+  const inputStyle = 'width:100%;padding:12px;margin:6px 0;font-size:16px;box-sizing:border-box;border:1px solid #d5dfea;border-radius:9px;background:#fff';
+  const buttonStyle = 'width:100%;padding:13px;margin-top:9px;font-size:16px;border:0;border-radius:9px;background:#087eaf;color:#fff;cursor:pointer';
+
+  function makePage(id, title) {
+    let page = document.getElementById(id);
+    if (!page) {
+      page = document.createElement('section');
+      page.id = id;
+      page.className = 'page';
+      root.appendChild(page);
+    }
+    page.replaceChildren();
+    const wrap = document.createElement('div');
+    wrap.style.cssText = 'padding:16px;background:#f7fafc;min-height:60vh';
+    const h = document.createElement('h2');
+    h.textContent = title;
+    h.style.cssText = 'color:#087eaf;margin-bottom:14px';
+    wrap.appendChild(h);
+    page.appendChild(wrap);
+    return {page, wrap};
+  }
+
+  function addInput(parent, id, placeholder, type='text') {
+    const el = document.createElement('input');
+    el.id = id; el.type = type; el.placeholder = placeholder;
+    el.style.cssText = inputStyle;
+    parent.appendChild(el);
+    return el;
+  }
+  function addButton(parent, text, onclick, bg) {
+    const b = document.createElement('button');
+    b.type = 'button'; b.textContent = text;
+    b.style.cssText = buttonStyle + (bg ? 'background:' + bg + ';' : '');
+    b.onclick = onclick; parent.appendChild(b); return b;
+  }
+
+  // CONTACT FORM: exactly five fields requested by user
+  const contact = makePage('contactform', '📋 Contact Details');
+  const cw = contact.wrap;
+  const intro = document.createElement('p');
+  intro.textContent = 'Kripya neeche contact details bharein.';
+  intro.style.cssText = 'color:#64748b;margin-bottom:10px';
+  cw.appendChild(intro);
+  addInput(cw, 'contactform_n', 'Name *');
+  addInput(cw, 'contactform_p', 'Mobile Number *', 'tel');
+  addInput(cw, 'contactform_email', 'E-mail *', 'email');
+  const dobLabel = document.createElement('label');
+  dobLabel.textContent = 'Date of Birth (DOB) *';
+  dobLabel.style.cssText = 'display:block;margin-top:8px;font-weight:600;color:#334155';
+  cw.appendChild(dobLabel);
+  addInput(cw, 'contactform_dob', '', 'date');
+  addInput(cw, 'contactform_s', 'Vishay (Subject) *');
+  addButton(cw, '✅ Submit Contact', saveContact, '#087eaf');
+  addButton(cw, '🗂️ View Old Contacts', () => { renderContacts(); showPage('contactoldlist'); }, '#7657c5');
+  addButton(cw, '← Back to Home', () => showPage('home'), '#64748b');
+
+  // OLD CONTACTS LIST
+  const old = makePage('contactoldlist', '🗂️ View Old Contacts');
+  const search = addInput(old.wrap, 'old_contact_search', 'Naam, number ya subject search karein');
+  const list = document.createElement('div'); list.id = 'oldContactItems'; old.wrap.appendChild(list);
+  addButton(old.wrap, '← Back to Contact', () => showPage('contactform'), '#64748b');
+
+  // DETAILS PAGE
+  const detail = makePage('contactdetail', 'Contact Details');
+  const detailBox = document.createElement('div');
+  detailBox.id = 'contactDetailBox';
+  detailBox.style.cssText = 'background:#fff;padding:16px;border-radius:12px;line-height:1.9;overflow-wrap:anywhere';
+  detail.wrap.appendChild(detailBox);
+  addButton(detail.wrap, '← Back to Old Contacts', () => { renderContacts(); showPage('contactoldlist'); }, '#64748b');
+
+  function getContacts() {
+    try {
+      const arr = JSON.parse(localStorage.getItem('old_contacts') || '[]');
+      return Array.isArray(arr) ? arr : [];
+    } catch (_) { return []; }
+  }
+  function putContacts(arr) {
+    localStorage.setItem('old_contacts', JSON.stringify(arr.slice(0, 200)));
+  }
+  function showDetails(c) {
+    detailBox.replaceChildren();
+    [['Name', c.name], ['Mobile Number', c.phone], ['E-mail', c.email], ['DOB', c.dob], ['Vishay', c.subject], ['Saved On', c.savedAt || c.date]].forEach(([label, value]) => {
+      const row = document.createElement('p');
+      const b = document.createElement('b'); b.textContent = label + ': ';
+      row.append(b, document.createTextNode(value || '-'));
+      detailBox.appendChild(row);
+    });
+    showPage('contactdetail');
+  }
+  function renderContacts() {
+    list.replaceChildren();
+    const q = search.value.trim().toLowerCase();
+    const contacts = getContacts().filter(c => [c.name, c.phone, c.email, c.subject, c.dob].some(v => String(v || '').toLowerCase().includes(q)));
+    if (!contacts.length) {
+      const p = document.createElement('p');
+      p.textContent = q ? 'Koi matching contact nahi mila.' : 'Abhi koi old contact save nahi hai.';
+      p.style.cssText = 'padding:14px;background:#fff;border-radius:9px;color:#64748b';
+      list.appendChild(p); return;
+    }
+    contacts.forEach(c => {
+      const card = document.createElement('div');
+      card.style.cssText = 'background:#fff;padding:14px;margin:10px 0;border-radius:12px;box-shadow:0 2px 9px #0001';
+      const h = document.createElement('h3'); h.textContent = c.name || 'Contact'; h.style.color = '#087eaf';
+      const p = document.createElement('p'); p.textContent = (c.phone || '-') + ' • ' + (c.subject || '-'); p.style.cssText = 'margin:7px 0;color:#64748b';
+      card.append(h, p);
+      addButton(card, 'View Details', () => showDetails(c), '#087eaf');
+      addButton(card, 'Delete Contact', () => {
+        if (!confirm('Is contact ko delete karna hai?')) return;
+        const all = getContacts();
+        const idx = all.findIndex(x => x.id ? x.id === c.id : x === c);
+        if (idx >= 0) all.splice(idx, 1);
+        putContacts(all); renderContacts();
+      }, '#dc3545');
+      list.appendChild(card);
+    });
+  }
+  search.addEventListener('input', renderContacts);
+
+  async function saveContact() {
+    const name = document.getElementById('contactform_n').value.trim();
+    const phone = document.getElementById('contactform_p').value.trim();
+    const email = document.getElementById('contactform_email').value.trim();
+    const dob = document.getElementById('contactform_dob').value;
+    const subject = document.getElementById('contactform_s').value.trim();
+    if (!name || !phone || !email || !dob || !subject) { alert('Kripya sabhi 5 fields bharein.'); return; }
+    if (!/^\d{10}$/.test(phone)) { alert('Mobile Number 10 digits ka hona chahiye.'); return; }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { alert('Sahi E-mail address bharein.'); return; }
+    const c = {id: (Date.now().toString() + Math.random().toString(16).slice(2)), name, phone, email, dob, subject, savedAt: new Date().toLocaleString('en-IN')};
+    try { const all = getContacts(); all.unshift(c); putContacts(all); }
+    catch (e) { alert('Browser storage full hai. Contact save nahi hua.'); return; }
+    // Server par bhi bhejne ki koshish; local old-contact list kaam karegi even if API is unavailable.
+    let serverSaved = false;
+    try {
+      const r = await fetch('/api/records', {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({type:'contact', name, phone, email, dob, subject, message:'DOB: '+dob})});
+      const data = await r.json(); serverSaved = r.ok && data.success !== false;
+    } catch (_) {}
+    ['contactform_n','contactform_p','contactform_email','contactform_dob','contactform_s'].forEach(id => document.getElementById(id).value = '');
+    alert(serverSaved ? 'Contact submit ho gaya aur save ho gaya.' : 'Contact is browser mein save ho gaya. Server submission confirm nahi hua.');
+    renderContacts(); showPage('contactoldlist');
+  }
+
+  // APPOINTMENT FORM (kept separate)
+  const ap = makePage('appointmentform', 'Appointment');
+  addInput(ap.wrap, 'appointmentform_n', 'Aapka Naam');
+  addInput(ap.wrap, 'appointmentform_p', 'Mobile Number', 'tel');
+  addInput(ap.wrap, 'appointmentform_s', 'Vishay (Subject)');
+  const adl = document.createElement('label'); adl.textContent = 'Date'; ap.wrap.appendChild(adl);
+  addInput(ap.wrap, 'appointmentform_d', '', 'date');
+  const atl = document.createElement('label'); atl.textContent = 'Time'; ap.wrap.appendChild(atl);
+  addInput(ap.wrap, 'appointmentform_t', '', 'time');
+  const am = document.createElement('textarea'); am.id = 'appointmentform_m'; am.rows = 4; am.placeholder = 'Kis kaam ke liye milna hai'; am.style.cssText = inputStyle; ap.wrap.appendChild(am);
+  addButton(ap.wrap, 'Submit Appointment', async () => {
+    const name = document.getElementById('appointmentform_n').value.trim();
+    const phone = document.getElementById('appointmentform_p').value.trim();
+    const subject = document.getElementById('appointmentform_s').value.trim();
+    const date = document.getElementById('appointmentform_d').value;
+    const time = document.getElementById('appointmentform_t').value;
+    const message = document.getElementById('appointmentform_m').value.trim();
+    if (!name || !date || !time || !message) { alert('Naam, date, time aur details bharein.'); return; }
+    if (new Date(date + 'T' + time) < new Date()) { alert('Future date aur time select karein.'); return; }
+    try { const r = await fetch('/api/records',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({type:'appointment',name,phone,subject,message,date,time})}); const d=await r.json(); alert(d.message || (r.ok ? 'Submit ho gaya.' : 'Submit nahi hua.')); if(r.ok && d.success !== false) showPage('home'); }
+    catch(e) { alert('Server se connect nahi hua.'); }
+  });
+  addButton(ap.wrap, 'Back', () => showPage('home'), '#64748b');
+
+  // APPLICATION FORM (kept separate)
+  const app = makePage('applicationform', 'Application');
+  addInput(app.wrap, 'applicationform_n', 'Aapka Naam');
+  addInput(app.wrap, 'applicationform_p', 'Mobile Number', 'tel');
+  addInput(app.wrap, 'applicationform_s', 'Vishay (Subject)');
+  const msg = document.createElement('textarea'); msg.id = 'applicationform_m'; msg.rows = 5; msg.placeholder = 'Application ki details'; msg.style.cssText = inputStyle; app.wrap.appendChild(msg);
+  addButton(app.wrap, 'Submit Application', async () => {
+    const name=document.getElementById('applicationform_n').value.trim();
+    const phone=document.getElementById('applicationform_p').value.trim();
+    const subject=document.getElementById('applicationform_s').value.trim();
+    const message=document.getElementById('applicationform_m').value.trim();
+    if(!name || !message){alert('Naam aur application details bharein.');return;}
+    try { const r=await fetch('/api/records',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({type:'application',name,phone,subject,message})}); const d=await r.json(); alert(d.message || (r.ok ? 'Submit ho gaya.' : 'Submit nahi hua.')); if(r.ok && d.success !== false) showPage('home'); }
+    catch(e){alert('Server se connect nahi hua.');}
+  });
+  addButton(app.wrap, 'Back', () => showPage('home'), '#64748b');
+})();
+</script>
+
+  -->
+
 <script>
 (function () {
   const id = 'meetingform';
-
-  const st = 'width:100%;padding:12px;margin:5px 0;' +
-    'font-size:16px;box-sizing:border-box;';
-
+  const st = 'width:100%;padding:12px;margin:5px 0;font-size:16px;box-sizing:border-box;';
   const home = document.getElementById('home');
-
   const s = document.createElement('section');
   s.id = id;
   s.className = 'page';
-
   s.innerHTML = `
     <div style="padding:16px">
       <h2 style="margin-bottom:12px">Schedule Meeting</h2>
-
-      <input id="meeting_title"
-        placeholder="Meeting ka Naam / Title"
-        style="${st}">
-
-      <input id="meeting_organizer"
-        placeholder="Organizer ka Naam"
-        style="${st}">
-
-      <input id="meeting_date" type="date"
-        style="${st}">
-
-      <input id="meeting_time" type="time"
-        style="${st}">
-
-      <input id="meeting_place"
-        placeholder="Meeting Room / Location"
-        style="${st}">
-
-      <input id="meeting_participants"
-        placeholder="Participants ke Naam"
-        style="${st}">
-
-      <textarea id="meeting_message" rows="4"
-        placeholder="Meeting ka Agenda / Details"
-        style="${st}"></textarea>
-
-      <button id="meeting_submit"
-        style="width:100%;padding:12px;margin-top:8px;
-        font-size:16px;background:#0d6efd;color:#fff;
-        border:0;border-radius:8px">
-        Schedule Meeting
-      </button>
-
-      <button id="meeting_back"
-        style="width:100%;padding:12px;margin-top:8px;
-        font-size:16px">
-        Back
-      </button>
+      <input id="meeting_title" placeholder="Meeting ka Naam / Title" style="${st}">
+      <input id="meeting_organizer" placeholder="Organizer ka Naam" style="${st}">
+      <input id="meeting_date" type="date" style="${st}">
+      <input id="meeting_time" type="time" style="${st}">
+      <input id="meeting_place" placeholder="Meeting Room / Location" style="${st}">
+      <input id="meeting_participants" placeholder="Participants ke Naam" style="${st}">
+      <textarea id="meeting_message" rows="4" placeholder="Meeting ka Agenda / Details" style="${st}"></textarea>
+      <button id="meeting_submit" style="width:100%;padding:12px;margin-top:8px;font-size:16px;background:#0d6efd;color:#fff;border:0;border-radius:8px">Schedule Meeting</button>
+      <button id="meeting_back" style="width:100%;padding:12px;margin-top:8px;font-size:16px">Back</button>
     </div>
   `;
-
   home.parentNode.appendChild(s);
-
-  document.getElementById('meeting_back').onclick =
-    () => showPage('home');
-
-  document.getElementById('meeting_submit').onclick =
-    async function () {
-      const g = x =>
-        document.getElementById('meeting_' + x);
-
-      const title = g('title').value.trim();
-      const organizer = g('organizer').value.trim();
-      const date = g('date').value;
-      const time = g('time').value;
-      const place = g('place').value.trim();
-      const participants = g('participants').value.trim();
-      const message = g('message').value.trim();
-
-      if (!title || !organizer || !date || !time ||
-          !place || !message) {
-        alert('Meeting ki zaruri details bhariye.');
+  document.getElementById('meeting_back').onclick = () => showPage('home');
+  document.getElementById('meeting_submit').onclick = async function () {
+    const g = x => document.getElementById('meeting_' + x);
+    const title = g('title').value.trim();
+    const organizer = g('organizer').value.trim();
+    const date = g('date').value;
+    const time = g('time').value;
+    const place = g('place').value.trim();
+    const participants = g('participants').value.trim();
+    const message = g('message').value.trim();
+    if (!title || !organizer || !date || !time || !place || !message) {
+      alert('Meeting ki zaruri details bhariye.');
+      return;
+    }
+    if (new Date(date + 'T' + time) < new Date()) {
+      alert('Meeting ka future date aur time select karein.');
+      return;
+    }
+    try {
+      const r = await fetch('/api/meetings', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ title, organizer, date, time, place, participants, message })
+      });
+      const d = await r.json();
+      if (!r.ok || d.success === false) {
+        alert(d.message || 'Meeting schedule nahi hui.');
         return;
       }
-
-      if (new Date(date + 'T' + time) < new Date()) {
-        alert('Meeting ka future date aur time select karein.');
-        return;
-      }
-
-      try {
-        const r = await fetch('/api/meetings', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            title,
-            organizer,
-            date,
-            time,
-            place,
-            participants,
-            message
-          })
-        });
-
-        const d = await r.json();
-
-        if (!r.ok || d.success === false) {
-          alert(d.message || 'Meeting schedule nahi hui.');
-          return;
-        }
-
-        alert(d.message || 'Meeting successfully scheduled!');
-
-        ['title', 'organizer', 'date', 'time',
-         'place', 'participants', 'message']
-          .forEach(x => g(x).value = '');
-
-        showPage('home');
-
-      } catch (e) {
-        alert('Server se connect nahi hua. Backend check karein.');
-      }
-    };
+      alert(d.message || 'Meeting successfully scheduled!');
+      ['title','organizer','date','time','place','participants','message'].forEach(x => g(x).value = '');
+      showPage('home');
+    } catch (e) {
+      alert('Server se connect nahi hua. Backend check karein.');
+    }
+  };
 })();
 </script>
+
 <script>
 (function () {
   const id = 'profileform';
-  const st = 'width:100%;padding:12px;margin:5px 0;' +
-    'font-size:16px;box-sizing:border-box;';
-
+  const st = 'width:100%;padding:12px;margin:5px 0;font-size:16px;box-sizing:border-box;';
   const home = document.getElementById('home');
   if (document.getElementById(id)) return;
 
   const s = document.createElement('section');
   s.id = id;
   s.className = 'page';
-
   s.innerHTML = `
     <div style="padding:16px">
       <h2>My Profile</h2>
-
       <div style="text-align:center;margin:16px">
         <img id="pf_preview" alt="Profile photo"
-          style="width:100px;height:100px;border-radius:50%;
-          object-fit:cover;background:#eee;display:block;margin:auto"
+          style="width:100px;height:100px;border-radius:50%;object-fit:cover;background:#eee;display:block;margin:auto"
           src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Crect width='100%25' height='100%25' fill='%23ddd'/%3E%3Ctext x='50%25' y='58%25' text-anchor='middle' font-size='40'%3E%F0%9F%91%A4%3C/text%3E%3C/svg%3E">
-
-        <input id="pf_photo" type="file" accept="image/*"
-          style="${st}">
+        <input id="pf_photo" type="file" accept="image/*" style="${st}">
       </div>
-
       <input id="pf_name" placeholder="Full Name" style="${st}">
       <input id="pf_employeeId" placeholder="Employee ID" style="${st}">
       <input id="pf_designation" placeholder="Designation" style="${st}">
       <input id="pf_department" placeholder="Department" style="${st}">
       <input id="pf_phone" type="tel" placeholder="Mobile Number" style="${st}">
       <input id="pf_email" type="email" placeholder="Email Address" style="${st}">
-      <textarea id="pf_address" rows="3"
-        placeholder="Address" style="${st}"></textarea>
-
+      <textarea id="pf_address" rows="3" placeholder="Address" style="${st}"></textarea>
       <button id="pf_edit" style="${st}">Edit Profile</button>
-      <button id="pf_save" style="${st};background:#087eaf;color:white;border:0;border-radius:8px">
-        Save Profile
-      </button>
+      <button id="pf_save" style="${st};background:#087eaf;color:white;border:0;border-radius:8px">Save Profile</button>
       <button id="pf_back" style="${st}">Back to Home</button>
     </div>
   `;
-
   home.parentNode.appendChild(s);
 
   const g = key => document.getElementById('pf_' + key);
-  const fields = [
-    'name', 'employeeId', 'designation',
-    'department', 'phone', 'email', 'address'
-  ];
-
+  const fields = ['name','employeeId','designation','department','phone','email','address'];
   let photoData = '';
-  let editing = true;
 
   function setEditing(enabled) {
-    editing = enabled;
     fields.forEach(key => g(key).disabled = !enabled);
     g('photo').disabled = !enabled;
     g('save').style.display = enabled ? 'block' : 'none';
@@ -363,18 +466,13 @@ Object.keys(F).forEach(id=>{
   g('photo').onchange = () => {
     const file = g('photo').files[0];
     if (!file) return;
-
     if (!file.type.startsWith('image/') || file.size > 2 * 1024 * 1024) {
       alert('2 MB se chhoti image select karein.');
       g('photo').value = '';
       return;
     }
-
     const reader = new FileReader();
-    reader.onload = () => {
-      photoData = reader.result;
-      g('preview').src = photoData;
-    };
+    reader.onload = () => { photoData = reader.result; g('preview').src = photoData; };
     reader.readAsDataURL(file);
   };
 
@@ -382,20 +480,11 @@ Object.keys(F).forEach(id=>{
     try {
       const r = await fetch('/api/profile');
       if (!r.ok) return;
-
       const d = await r.json();
       const p = d.profile || d.data || d;
-
       if (p && (p.name || p.employeeId)) {
-        fields.forEach(key => {
-          g(key).value = p[key] || '';
-        });
-
-        if (p.photo) {
-          photoData = p.photo;
-          g('preview').src = photoData;
-        }
-
+        fields.forEach(key => { g(key).value = p[key] || ''; });
+        if (p.photo) { photoData = p.photo; g('preview').src = photoData; }
         setEditing(false);
       }
     } catch (e) {
@@ -409,26 +498,21 @@ Object.keys(F).forEach(id=>{
     const profile = {};
     fields.forEach(key => profile[key] = g(key).value.trim());
     profile.photo = photoData;
-
     if (!profile.name || !profile.employeeId || !profile.phone) {
       alert('Name, Employee ID aur Mobile Number zaruri hain.');
       return;
     }
-
     try {
       const r = await fetch('/api/profile', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(profile)
       });
-
       const d = await r.json();
-
       if (!r.ok || d.success === false) {
         alert(d.message || 'Profile save nahi hui.');
         return;
       }
-
       alert(d.message || 'Profile saved successfully!');
       setEditing(false);
       await loadProfile();
@@ -438,13 +522,12 @@ Object.keys(F).forEach(id=>{
   };
 
   g('back').onclick = () => showPage('home');
-
   setEditing(true);
   loadProfile();
 })();
 </script>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script>
 (function(){
 const g=id=>document.getElementById(id);
@@ -462,28 +545,36 @@ mk('birthdayform',`<div style="padding:16px;text-align:center">
 <button id="bd_bk" style="${bt}background:#888">Back</button></div>`);
 
 mk('birthdaycard',`<div style="padding:8px">
-<div id="bd_card" style="background:#fff;border:1px solid #ddd;padding:12px;max-width:440px;margin:auto;box-sizing:border-box;font-family:Arial,sans-serif">
+<div id="bd_card" style="background:#fff;border:1px solid #ddd;padding:12px;max-width:440px;margin:auto;box-sizing:border-box;font-family:Arial,sans-serif;word-break:normal;overflow-wrap:normal;hyphens:none">
  <div style="display:flex;gap:6px;align-items:flex-start">
-  <div style="flex:1.1;font-size:10px;line-height:1.4;color:#1a8a2e"><b style="font-size:13px">PARBHUBHAI N. VASAVA</b><br>Member of Parliament (Loksabha)<br><b style="font-size:12px">23-BARDOLI (Gujarat)</b><br>Mob: 9013997117, 9537277301, 9574076555<br>WhatsApp: 9428002444</div>
-  <div style="flex:.5;text-align:center"><img src="/images/emblem.png" style="width:55px" onerror="this.style.display='none'"><div style="font-size:9px">सत्यमेव जयते</div></div>
-  <div style="flex:1.1;font-size:9px;line-height:1.3;color:#1a8a2e"><b style="font-size:11px">Member</b><br>• Standing Committee for Chemical &amp; Fertilizers<br>• Parliamentary Committee on Petitions<br>• Consultative Committee on Ministry of Textile</div>
- </div>
- <div style="text-align:center;color:#c0305a;font-size:24px;margin:14px 0 8px">शुभेच्छा संदेश</div>
- <div style="color:#c0305a;font-weight:bold;font-size:16px">स्नेही,</div>
- <div id="bd_out" style="color:#c0305a;font-weight:bold;font-size:16px;margin:6px 0 8px 8px"></div>
- <p style="color:#c0305a;font-size:14px;line-height:1.7;margin:8px 0;text-align:justify">आपके जन्मदिवस के पावन अवसर पर मैं आपको हार्दिक बधाई एवं अनंत शुभकामनाएँ अर्पित करता हूँ। परमपिता परमेश्वर से प्रार्थना है कि आप स्वस्थ, यशस्वी एवं दीर्घायु जीवन प्राप्त करें।</p>
- <p style="color:#c0305a;font-size:14px;line-height:1.7;margin:8px 0;text-align:justify">राष्ट्र निर्माण के प्रति आपकी प्रतिबद्धता तथा सांगठनिक कुशलता सराहनीय है। मुझे पूर्ण विश्वास है कि आप इसी निष्ठा और तत्परता के साथ कार्यरत रहेंगे तथा देश के यशस्वी प्रधानमंत्री आदरणीय श्री नरेन्द्रभाई मोदी जी के कुशल नेतृत्व में आत्मनिर्भर भारत के निर्माण में अपना बहुमूल्य योगदान देते रहेंगे।</p>
- <div style="color:#c0305a;font-size:14px;margin-left:8px">इन्हीं मंगल कामनाओं सहित,</div>
- <div style="text-align:center;color:#c0305a;font-size:22px;font-weight:bold;margin:16px 0 8px">🌸 जन्मदिन की हार्दिक शुभकामनाएँ 🌸</div>
- <div style="text-align:right;font-size:11px"><img src="/images/sign.png" style="height:40px" onerror="this.style.display='none'"><br><b style="color:#c0305a">PARBHUBHAI N. VASAVA</b><br>Member of Parliament (Loksabha)</div>
- <div style="border-top:2px solid #e8922e;margin-top:10px;padding-top:6px;font-size:9px;line-height:1.4;text-align:center">
-  <b style="color:#1a8a2e">GUJARAT:</b> Sardar Patel Shopping Center, Nr.Mandvi High School, At.&amp;Po.MANDVI, Ta.Mandvi, Dist. Surat (Gujarat) 394160, Tel:(02623) 222108<br>
-  Email: mpprabhuvasava@gmail.com, prabhu.vasava23@sansad.nic.in | www.prabhuvasava.in<br>
-  <b style="color:#1a8a2e">DELHI:</b> 17, Pandit Ravishakar Shukla Lane, K.G. Marg, New Delhi - 110001, Tel:(011) 23381911, Mo.8287823899</div>
+  <div style="flex:1.1;font-size:10px;line-height:1.4;color:#c00000"><b style="font-size:13px">MANSINGH.M.PARMAR</b> <br> Member of Parliament <br> (Rajya Sabha)<b style="font-size:12px">Gujarat</b><br>Mob: 9824291791<br>WhatsApp: 9824291791</div>
+  <div style="flex:.5;text-align:center">
+  <div style="font-size:9px;font-weight:bold;color:#222">
+    सत्यमेव जयते
+  </div>
+  <img
+    src="/images/emblem.png"
+    alt="Ashoka Stambh"
+    style="width:55px;height:65px;object-fit:contain;display:block;margin:4px auto 0"
+    onerror="this.style.display='none'"
+  >
 </div>
-<div style="max-width:440px;margin:auto;padding:0 6px">
+
+  <div style="flex:1.1;font-size:9px;line-height:1.3;color:#c00000"><b style="font-size:11px">Member</b><br>• Standing Committee for Consumer Affairs, Food &amp; Public Distribution<br>• Committee on Papers Laid on the Table (COPLOT), Rajya Sabha</div>
+ </div>
+ <div style="padding:0 12px 0 22px;word-break:normal;overflow-wrap:normal;hyphens:none">
+ <div style="text-align:center;color:#1f3a93;font-size:24px;margin:14px 0 8px">शुभेच्छा संदेश</div>
+ <div style="color:#1f3a93;font-weight:bold;font-size:16px">स्नेही,</div>
+ <div id="bd_out" style="color:#1f3a93;font-weight:bold;font-size:16px;margin:6px 0 8px 8px"></div>
+ <p style="color:#1f3a93;font-size:14px;line-height:1.7;margin:8px 0;text-align:left">आपके जन्मदिवस के पावन अवसर पर मैं आपको हार्दिक बधाई एवं अनंत शुभकामनाएँ अर्पित करता हूँ। परमपिता परमेश्वर से प्रार्थना है कि आप स्वस्थ, यशस्वी एवं दीर्घायु जीवन प्राप्त करें।</p>
+ <p style="color:#1f3a93;font-size:14px;line-height:1.7;margin:8px 0;text-align:left">राष्ट्र निर्माण के प्रति आपकी प्रतिबद्धता तथा सांगठनिक कुशलता सराहनीय है। मुझे पूर्ण विश्वास है कि आप इसी निष्ठा और तत्परता के साथ कार्यरत रहेंगे तथा देश के यशस्वी प्रधानमंत्री आदरणीय श्री नरेन्द्रभाई मोदी जी के कुशल नेतृत्व में आत्मनिर्भर भारत के निर्माण में अपना बहुमूल्य योगदान देते रहेंगे।</p>
+ <div style="color:#1f3a93;font-size:14px;margin-left:8px">इन्हीं मंगल कामनाओं सहित,</div>
+ <div style="text-align:center;color:#1f3a93;font-size:22px;font-weight:bold;margin:16px 0 8px">🌸 जन्मदिन की हार्दिक शुभकामनाएँ 🌸</div>
+ </div>
+ <div style="text-align:right;font-size:11px"><img src="/images/sign.png" alt="Signature" style="height:55px;background:#fff;display:block;margin:0 0 4px auto" onerror="this.style.display='none'"><b style="color:#c00000">MANSINGH.M.PARMAR</b><span style="color:#c00000"> <br> Member of Parliament <br> (Rajya Sabha)</span></div>
+
+ <div style="max-width:440px;margin:auto;padding:0 6px">
 <button id="bd_sh" style="${bt}background:#25D366">Share (WhatsApp)</button>
-<button id="bd_pdf" style="${bt}">Download PDF</button>
 <button id="bd_img" style="${bt}">Download Image</button>
 <button id="bd_bk2" style="${bt}background:#888">Back</button></div></div>`);
 
@@ -503,7 +594,7 @@ function renderList(){
     t.innerHTML='<div></div><div style="color:#555;margin-top:4px"></div>';
     t.children[0].textContent='श्री '+x.name;t.children[1].textContent=x.date+(x.mobile?' | '+x.mobile:'');
     const b=document.createElement('button');
-    b.textContent='PDF';b.style.cssText='background:#f44;color:#fff;border:0;border-radius:50%;width:44px;height:44px';
+    b.textContent='Card';b.style.cssText='background:#f44;color:#fff;border:0;border-radius:50%;width:44px;height:44px';
     b.onclick=()=>showCard(x.name);
     d.appendChild(t);d.appendChild(b);box.appendChild(d);
   });
@@ -522,22 +613,20 @@ g('bd_bk2').onclick=()=>showPage('birthdayform');
 g('bd_bk3').onclick=()=>showPage('birthdayform');
 
 function canvas(){return html2canvas(g('bd_card'),{scale:2,useCORS:true,backgroundColor:'#fff'});}
-async function pdfBlob(){
-  const c=await canvas(),{jsPDF}=window.jspdf,w=190,h=c.height*w/c.width;
-  const p=new jsPDF('p','mm',[210,Math.max(297,h+20)]);
-  p.addImage(c.toDataURL('image/jpeg',0.95),'JPEG',10,10,w,h);
-  return p.output('blob');
-}
 function save(blob,name){const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;a.click();}
-g('bd_pdf').onclick=async()=>save(await pdfBlob(),'birthday-card.pdf');
-g('bd_img').onclick=async()=>{const c=await canvas();c.toBlob(b=>save(b,'birthday-card.png'));};
+g('bd_img').onclick=async()=>{const c=await canvas();c.toBlob(b=>save(b,'birthday-card.jpg'),'image/jpeg',0.95);};
 g('bd_sh').onclick=async()=>{
-  const b=await pdfBlob(),f=new File([b],'birthday-card.pdf',{type:'application/pdf'});
-  if(navigator.canShare&&navigator.canShare({files:[f]})){try{await navigator.share({files:[f],title:'Birthday Card'});}catch(e){}}
-  else{alert('Share is device me nahi chal raha. Download PDF dabao.');}
+  const c=await canvas();
+  c.toBlob(async b=>{
+    const f=new File([b],'birthday-card.jpg',{type:'image/jpeg'});
+    if(navigator.canShare&&navigator.canShare({files:[f]})){try{await navigator.share({files:[f],title:'Birthday Card'});}catch(e){}}
+    else{alert('Share is device me nahi chal raha. Download Image dabao.');}
+  },'image/jpeg',0.95);
 };
 })();
 </script>
+
+<!-- Festival Greeting Card -->
 <script>
 (function(){
 const g=id=>document.getElementById(id);
@@ -546,107 +635,407 @@ const bt='width:100%;padding:14px;margin-top:10px;font-size:16px;border:0;border
 const root=g('home').parentNode;
 function mk(id,html){const s=document.createElement('section');s.id=id;s.className='page';s.innerHTML=html;root.appendChild(s);}
 
-mk('invitationform',`<div style="padding:16px;text-align:center">
-<div style="font-size:60px;margin:20px 0">💌</div>
-<input id="iv_name" placeholder="Invitee ka Naam * (Hindi me)" style="${st}">
-<input id="iv_mob" type="tel" placeholder="Mobile No" style="${st}">
-<input id="iv_event" placeholder="Kaarykram ka naam (Hindi me)" style="${st}">
-<input id="iv_date" type="date" style="${st}">
-<input id="iv_time" type="time" style="${st}">
-<input id="iv_place" placeholder="Jagah (Hindi me)" style="${st}">
-<button id="iv_sub" style="${bt}">Submit</button>
-<button id="iv_view" style="${bt}">View Old Cards</button>
-<button id="iv_bk" style="${bt}background:#888">Back</button></div>`);
+const DIWALI=`प्रकाश के महापर्व दीपावली के पावन अवसर पर आप सभी को एवं आपके परिवार को हृदय से अनंत शुभकामनाएँ।
 
-mk('invitationcard',`<div style="padding:8px">
-<div id="iv_card" style="background:#fff;border:1px solid #ddd;padding:12px;max-width:440px;margin:auto;box-sizing:border-box;font-family:Arial,sans-serif">
- <div style="display:flex;gap:6px;align-items:flex-start">
-  <div style="flex:1.1;font-size:10px;line-height:1.4;color:#1a8a2e"><b style="font-size:13px">PARBHUBHAI N. VASAVA</b><br>Member of Parliament (Loksabha)<br><b style="font-size:12px">23-BARDOLI (Gujarat)</b><br>Mob: 9013997117, 9537277301, 9574076555<br>WhatsApp: 9428002444</div>
-  <div style="flex:.5;text-align:center"><img src="/images/emblem.png" style="width:55px" onerror="this.style.display='none'"><div style="font-size:9px">सत्यमेव जयते</div></div>
-  <div style="flex:1.1;font-size:9px;line-height:1.3;color:#1a8a2e"><b style="font-size:11px">Member</b><br>• Standing Committee for Chemical &amp; Fertilizers<br>• Parliamentary Committee on Petitions<br>• Consultative Committee on Ministry of Textile</div>
- </div>
- <div style="text-align:center;color:#c0305a;font-size:26px;margin:14px 0 8px">निमंत्रण पत्र</div>
- <div style="color:#c0305a;font-weight:bold;font-size:16px">आदरणीय,</div>
- <div id="iv_out" style="color:#c0305a;font-weight:bold;font-size:16px;margin:6px 0 8px 8px"></div>
- <p style="color:#c0305a;font-size:14px;line-height:1.7;margin:8px 0;text-align:justify">आपको सादर आमंत्रित किया जाता है। आपकी गरिमामयी उपस्थिति कार्यक्रम की शोभा बढ़ाएगी तथा हमें अत्यंत हर्ष की अनुभूति होगी।</p>
- <div style="color:#c0305a;font-size:15px;line-height:1.9;margin:10px 8px;font-weight:bold">
-  <div id="iv_o_event"></div><div id="iv_o_date"></div><div id="iv_o_time"></div><div id="iv_o_place"></div>
- </div>
- <p style="color:#c0305a;font-size:14px;line-height:1.7;margin:8px 0;text-align:justify">आपके आगमन की हमें बेसब्री से प्रतीक्षा रहेगी।</p>
- <div style="color:#c0305a;font-size:14px;margin-left:8px">धन्यवाद सहित,</div>
- <div style="text-align:right;font-size:11px;margin-top:10px"><img src="/images/sign.png" style="height:40px" onerror="this.style.display='none'"><br><b style="color:#c0305a">PARBHUBHAI N. VASAVA</b><br>Member of Parliament (Loksabha)</div>
- <div style="border-top:2px solid #e8922e;margin-top:10px;padding-top:6px;font-size:9px;line-height:1.4;text-align:center">
-  <b style="color:#1a8a2e">GUJARAT:</b> Sardar Patel Shopping Center, Nr.Mandvi High School, At.&amp;Po.MANDVI, Ta.Mandvi, Dist. Surat (Gujarat) 394160, Tel:(02623) 222108<br>
-  Email: mpprabhuvasava@gmail.com, prabhu.vasava23@sansad.nic.in | www.prabhuvasava.in<br>
-  <b style="color:#1a8a2e">DELHI:</b> 17, Pandit Ravishakar Shukla Lane, K.G. Marg, New Delhi - 110001, Tel:(011) 23381911, Mo.8287823899</div>
-</div>
-<div style="max-width:440px;margin:auto;padding:0 6px">
-<button id="iv_sh" style="${bt}background:#25D366">Share (WhatsApp)</button>
-<button id="iv_pdf" style="${bt}">Download PDF</button>
-<button id="iv_img" style="${bt}">Download Image</button>
-<button id="iv_bk2" style="${bt}background:#888">Back</button></div></div>`);
+यह पर्व अंधकार पर प्रकाश, असत्य पर सत्य और अधर्म पर धर्म की विजय का प्रतीक है। भगवान श्रीराम के अयोध्या आगमन की स्मृति हमें मर्यादा, त्याग और सद्भाव की प्रेरणा देती है।
 
-mk('invitationlist',`<div style="padding:12px"><h3 style="margin:6px 0 10px">View Invitation Card</h3><div id="iv_list"></div>
-<button id="iv_bk3" style="${bt}background:#888">Back</button></div>`);
+माँ लक्ष्मी की कृपा से आपके घर-आँगन में सुख, समृद्धि, स्वास्थ्य और शांति का वास हो। आइए, हम सब मिलकर प्रेम और भाईचारे के दीप जलाएँ, पर्यावरण का ध्यान रखते हुए सुरक्षित दीपावली मनाएँ और समाज व राष्ट्र की प्रगति का संकल्प लें।
 
-function getList(){try{return JSON.parse(localStorage.getItem('iv_list')||'[]')}catch(e){return[]}}
-function today(){const d=new Date();return String(d.getDate()).padStart(2,'0')+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+d.getFullYear()}
-function fmtDate(v){if(!v)return'';const p=v.split('-');return p.length===3?p[2]+'-'+p[1]+'-'+p[0]:v}
-function fmtTime(v){if(!v)return'';const p=v.split(':');let h=+p[0];const ap=h>=12?'PM':'AM';h=h%12||12;return h+':'+p[1]+' '+ap}
-function showCard(x){
-  g('iv_out').textContent='श्री '+x.name;
-  g('iv_o_event').textContent=x.event?'कार्यक्रम : '+x.event:'';
-  g('iv_o_date').textContent=x.evDate?'दिनांक : '+fmtDate(x.evDate):'';
-  g('iv_o_time').textContent=x.evTime?'समय : '+fmtTime(x.evTime):'';
-  g('iv_o_place').textContent=x.place?'स्थान : '+x.place:'';
-  showPage('invitationcard');
+शुभ दीपावली!`;
+
+function generic(n){
+  return n+` के पावन अवसर पर आप सभी को एवं आपके परिवार को हृदय से अनंत शुभकामनाएँ।
+
+यह पर्व हमारे जीवन में सुख, समृद्धि, स्वास्थ्य और शांति लेकर आए तथा समाज में प्रेम, एकता और भाईचारे की भावना को और मजबूत करे।
+
+आइए, हम सब मिलकर इस पर्व को उल्लास और सद्भाव के साथ मनाएँ तथा समाज व राष्ट्र की प्रगति का संकल्प लें।
+
+`+n+` की हार्दिक शुभकामनाएँ!`;
 }
-function renderList(){
-  const L=getList(),box=g('iv_list');box.innerHTML='';
-  if(!L.length){box.textContent='Abhi koi card nahi bana.';return;}
-  L.forEach(x=>{
-    const d=document.createElement('div');
-    d.style.cssText='display:flex;justify-content:space-between;align-items:center;padding:12px;margin:8px 0;border-radius:8px;box-shadow:0 1px 4px #0003';
-    const t=document.createElement('div');
-    t.innerHTML='<div></div><div style="color:#555;margin-top:4px"></div>';
-    t.children[0].textContent='श्री '+x.name+(x.event?' - '+x.event:'');
-    t.children[1].textContent=x.date+(x.mobile?' | '+x.mobile:'');
-    const b=document.createElement('button');
-    b.textContent='PDF';b.style.cssText='background:#f44;color:#fff;border:0;border-radius:50%;width:44px;height:44px';
-    b.onclick=()=>showCard(x);
-    d.appendChild(t);d.appendChild(b);box.appendChild(d);
+function makeText(n){return n==='दीपावली'?DIWALI:generic(n);}
+
+const festivals=['दीपावली','होली','रक्षाबंधन','नवरात्रि','दशहरा','गणेश चतुर्थी','जन्माष्टमी','मकर संक्रांति','उत्तरायण','महाशिवरात्रि','रामनवमी','हनुमान जयंती','ईद','क्रिसमस','गुरुपर्व','नववर्ष','गणतंत्र दिवस','स्वतंत्रता दिवस'];
+
+mk('festivalform',`<div style="padding:16px;text-align:center">
+<div style="font-size:60px;margin:20px 0">🪔🎆</div>
+<input id="fc_name" list="fc_list" placeholder="Festival ka naam (Hindi me)" value="दीपावली" style="${st}">
+<datalist id="fc_list">${festivals.map(f=>'<option value="'+f+'">').join('')}</datalist>
+<textarea id="fc_msg" rows="12" placeholder="Shubhkamna sandesh" style="${st};border-radius:16px"></textarea>
+<button id="fc_reset" style="${bt}background:#e08a00">Naam ke hisaab se sandesh bharein</button>
+<button id="fc_sub" style="${bt}">Card Banayein</button>
+<button id="fc_bk" style="${bt}background:#888">Back</button></div>`);
+
+mk('festivalcard',`<div style="padding:8px">
+<div id="fc_card" style="background:#fffaf0;border:1px solid #ddd;padding:12px;max-width:440px;margin:auto;box-sizing:border-box;font-family:Arial,sans-serif;word-break:normal;overflow-wrap:normal;hyphens:none">
+ <div style="display:flex;gap:6px;align-items:flex-start">
+  <div style="flex:1.1;font-size:10px;line-height:1.4;color:#c00000"><b style="font-size:13px">MANSINGH.M.PARMAR</b><br>Member of Parliament <br> (Rajya Sabha)<br><b style="font-size:12px">Gujarat</b><br>Mob: 9824291791<br>WhatsApp: 9824291791</div>
+  <div style="flex:.5;text-align:center"><img src="/images/emblem.png" style="width:55px" onerror="this.style.display='none'"><div style="font-size:9px">सत्यमेव जयते</div></div>
+  <div style="flex:1.1;font-size:9px;line-height:1.3;color:#c00000"><b style="font-size:11px">Member</b><br>• Standing Committee for Consumer Affairs, Food &amp; Public Distribution<br>• Committee on Papers Laid on the Table (COPLOT), Rajya Sabha</div>
+ </div>
+ <div style="padding:0 12px 0 22px;word-break:normal;overflow-wrap:normal;hyphens:none">
+ <div id="fc_title" style="text-align:center;color:#d35400;font-size:26px;font-weight:bold;margin:16px 0 10px"></div>
+ <div id="fc_out" style="color:#1f3a93;font-size:14px;line-height:1.8;text-align:left;white-space:pre-line;margin:8px 0"></div>
+ <div style="text-align:center;color:#d35400;font-size:20px;margin:14px 0 8px">🪔 🌸 🪔</div>
+ </div>
+ <div style="text-align:right;font-size:11px"><img src="/images/sign.png" alt="Signature" style="height:55px;background:#fff;display:block;margin:0 0 4px auto" onerror="this.style.display='none'"><b style="color:#c00000">MANSINGH.M.PARMAR</b><br><span style="color:#c00000">Member of Parliament <br> (Rajya Sabha)</span></div>
+
+<div style="max-width:440px;margin:auto;padding:0 6px">
+<button id="fc_sh" style="${bt}background:#25D366">Share (WhatsApp)</button>
+<button id="fc_img" style="${bt}">Download Image</button>
+<button id="fc_bk2" style="${bt}background:#888">Back</button></div></div>`);
+
+let edited=false;
+g('fc_msg').value=DIWALI;
+g('fc_msg').oninput=()=>{edited=true;};
+g('fc_name').oninput=()=>{
+  const n=g('fc_name').value.trim();
+  if(!edited&&n){g('fc_msg').value=makeText(n);}
+};
+g('fc_reset').onclick=()=>{
+  const n=g('fc_name').value.trim();
+  if(!n){alert('Festival ka naam likhein.');return;}
+  g('fc_msg').value=makeText(n);edited=false;
+};
+g('fc_sub').onclick=()=>{
+  const n=g('fc_name').value.trim(),m=g('fc_msg').value.trim();
+  if(!n){alert('Festival ka naam likhein.');return;}
+  if(!m){alert('Sandesh likhna zaruri hai.');return;}
+  g('fc_title').textContent='शुभ '+n;
+  g('fc_out').textContent=m;
+  showPage('festivalcard');
+};
+g('fc_bk').onclick=()=>showPage('home');
+g('fc_bk2').onclick=()=>showPage('festivalform');
+
+function canvas(){return html2canvas(g('fc_card'),{scale:2,useCORS:true,backgroundColor:'#fffaf0'});}
+function save(blob,name){const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;a.click();}
+g('fc_img').onclick=async()=>{const c=await canvas();c.toBlob(b=>save(b,'festival-card.jpg'),'image/jpeg',0.95);};
+g('fc_sh').onclick=async()=>{
+  const c=await canvas();
+  c.toBlob(async b=>{
+    const f=new File([b],'festival-card.jpg',{type:'image/jpeg'});
+    if(navigator.canShare&&navigator.canShare({files:[f]})){try{await navigator.share({files:[f],title:'Festival Card'});}catch(e){}}
+    else{alert('Share is device me nahi chal raha. Download Image dabao.');}
+  },'image/jpeg',0.95);
+};
+})();
+</script>
+<!-- Rail Card (password locked) -->
+<script>
+(function(){
+const g=id=>document.getElementById(id);
+const st='width:100%;padding:14px;margin:6px 0;font-size:16px;box-sizing:border-box;border:1px solid #ccc;border-radius:24px;background:#fff';
+const bt='width:100%;padding:14px;margin-top:10px;font-size:16px;border:0;border-radius:24px;color:#fff;background:#0b86b8;';
+const root=g('home').parentNode;
+function mk(id,html){const s=document.createElement('section');s.id=id;s.className='page';s.innerHTML=html;root.appendChild(s);}
+/* Password ka SHA-256 hash. Badalne ke liye naya hash yaha daalein. */
+const PASS_HASH='cf6621ffde70647a90d511a4d51e67402c0ec08aea416ce08b3e29514b6130b6';
+
+mk('raillock',`<div style="padding:24px 16px;text-align:center">
+<div style="font-size:64px;margin:16px 0">🔒</div>
+<h2 style="margin-bottom:6px;color:#b74343">Rail Card</h2>
+<p style="color:#666;margin-bottom:14px">Aage badhne ke liye password daalein</p>
+<input id="rl_pw" type="password" placeholder="Password" autocomplete="off" style="${st}">
+<button id="rl_go" style="${bt}">Unlock</button>
+<button id="rl_bk" style="${bt}background:#888">Back</button></div>`);
+
+mk('railform',`<div style="padding:16px">
+<h2 style="margin-bottom:10px;color:#b74343;text-align:center">Rail Card Letter</h2>
+<label style="font-size:13px;color:#666">Letter ki date</label>
+<input id="rc_date" type="date" style="${st}">
+<input id="rc_div" placeholder="Railway Division" value="Ahmedabad Railway Division" style="${st}">
+<input id="rc_pnr" placeholder="P.N.R. No." inputmode="numeric" style="${st}">
+<input id="rc_train" placeholder="Train No./Name (jaise 09425/SBIB HW SPL)" style="${st}">
+<select id="rc_class" style="${st}"><option>SL</option><option>3A</option><option>3E</option><option selected>2A</option><option>1A</option><option>CC</option><option>EC</option><option>2S</option></select>
+<label style="font-size:13px;color:#666">Date of boarding</label>
+<input id="rc_board" type="date" style="${st}">
+<input id="rc_dest" placeholder="Destination (jaise SBIB To MOZ)" style="${st}">
+<input id="rc_name" placeholder="Name of Passenger(s)" style="${st}">
+<input id="rc_mob" type="tel" placeholder="Mobile Number" style="${st}">
+<button id="rc_sub" style="${bt}">Letter Banayein</button>
+<button id="rc_old" style="${bt}background:#7657c5">
+  View Old Rail Cards
+</button>
+<button id="rc_lock" style="${bt}background:#888">Lock karke Back</button></div>`);
+
+const F='font-family:\'Times New Roman\',Times,serif;font-weight:bold;';
+mk('railcard',`<div style="padding:8px">
+<div id="rc_card" style="background:#fff;border:1px solid #444;padding:14px 14px 18px;max-width:480px;margin:auto;box-sizing:border-box;${F}color:#111;font-size:12px;line-height:1.5">
+ <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:6px">
+  <div style="flex:1;color:#c00000;font-size:11.5px;line-height:1.4"><div style="font-size:15px">MANSINGH. M. PARMAR</div><div style="font-weight:normal;font-size:13px;margin-left:12px">Member of Parliament<br>Rajya Sabha, Gujarat</div></div>
+  <div style="width:70px;text-align:center">
+  <div style="font-size:8px;font-weight:bold">
+    सत्यमेव जयते
+  </div>
+  <img
+    src="/images/emblem.png"
+    alt="Ashoka Stambh"
+    style="width:50px;height:60px;object-fit:contain;display:block;margin:4px auto 0"
+  >
+</div>
+  <div style="flex:1;color:#c00000;text-align:center;font-size:13px;line-height:1.4"><div style="font-size:14px">Member :</div><div style="font-weight:normal">Consumer Affairs, Foods &amp; Public Distribution</div></div>
+ </div>
+ <div style="text-align:right;font-size:11px;margin:14px 0 8px">Date : <span id="rc_o_date"></span>.</div>
+ <div>To,</div>
+ <div style="margin:4px 0 12px 26px">DRM/Sr.DCM<br><span id="rc_o_div"></span><br>Gujarat.</div>
+ <div style="margin-top:14px">Dear,</div>
+ <div style="text-align:justify;text-indent:26px;margin:2px 0 12px">The Reservation of my Guest / Close Friend / Family Member / Distinguished Guest of the Parliamentary Constituency / Relative is in the waiting list, the details of which are given below. Please take the trouble to get it confirmed/reserved.</div>
+ <div style="margin-left:26px;display:grid;grid-template-columns:42% 58%;row-gap:5px;font-size:12px">
+  <div>P.N.R. No.</div><div>: <span id="rc_o_pnr"></span></div>
+  <div>Train No./Name</div><div>: <span id="rc_o_train"></span></div>
+  <div>Class</div><div>: <span id="rc_o_class"></span></div>
+  <div>Date of boarding</div><div>: <span id="rc_o_board"></span></div>
+  <div>Destination</div><div>: <span id="rc_o_dest"></span></div>
+  <div>Name of Passenger(s)</div><div>: <span id="rc_o_name"></span></div>
+  <div>Mobile Number</div><div>: <span id="rc_o_mob"></span></div>
+ </div>
+ <div style="margin:22px 0 0 26px">Thanks and Regards</div>
+ <div style="text-align:right;margin-right:30px;margin-top:10px">
+  Yours sincerely<br>
+  <img
+    src="/images/sign.png"
+    alt="Signature"
+    style="width:140px;height:55px;object-fit:contain;display:block;margin:2px 0 0 auto;background:#fff"
+  >
+  <div style="margin-top:2px">
+    (Mansingh. M. Parmar)<br>
+    IC No. 5214
+  </div>
+</div>
+<div style="max-width:480px;margin:auto;padding:0 6px">
+<button id="rc_sh" style="${bt}background:#25D366">Share (WhatsApp)</button>
+<button id="rc_img" style="${bt}">Download Image</button>
+<button id="rc_bk" style="${bt}background:#888">Back</button></div></div>`);
+/* View Old Rail Cards */
+mk('raillist', `
+  <div style="padding:16px">
+    <h2 style="color:#b74343;margin-bottom:15px">
+      View Old Rail Cards
+    </h2>
+    <div id="rc_old_list"></div>
+    <button id="rc_old_back"
+      style="${bt}background:#888">
+      Back
+    </button>
+  </div>
+`);
+
+function getOldRailCards() {
+  try {
+    return JSON.parse(localStorage.getItem('rail_cards') || '[]');
+  } catch (e) {
+    return [];
+  }
+}
+
+function renderOldRailCards() {
+  const box = g('rc_old_list');
+  box.innerHTML = '';
+  const cards = getOldRailCards();
+
+  if (!cards.length) {
+    box.textContent = 'Abhi koi purana Rail Card save nahi hai.';
+    return;
+  }
+
+  cards.forEach((c, i) => {
+    const item = document.createElement('div');
+    item.style.cssText =
+      'padding:12px;margin:10px 0;border-radius:8px;' +
+      'box-shadow:0 1px 5px #0003;background:white';
+
+    const name = document.createElement('b');
+    name.textContent = c.name || 'Passenger';
+    item.appendChild(name);
+
+    const info = document.createElement('p');
+    info.style.margin = '8px 0';
+    info.textContent =
+      'Train: ' + (c.train || '-') +
+      ' | PNR: ' + (c.pnr || '-');
+    item.appendChild(info);
+
+    const view = document.createElement('button');
+    view.textContent = 'View Card';
+    view.style.cssText =
+      'width:100%;padding:12px;background:#087eaf;' +
+      'color:white;border:0;border-radius:8px';
+
+    view.onclick = () => {
+      g('rc_o_date').textContent = c.letterDate || '';
+      g('rc_o_div').textContent = c.division || '';
+      g('rc_o_pnr').textContent = c.pnr || '';
+      g('rc_o_train').textContent = c.train || '';
+      g('rc_o_class').textContent = c.travelClass || '';
+      g('rc_o_board').textContent = c.boardingDate || '';
+      g('rc_o_dest').textContent = c.destination || '';
+      g('rc_o_name').textContent = c.name || '';
+      g('rc_o_mob').textContent = c.mobile || '';
+      showPage('railcard');
+    };
+
+    item.appendChild(view);
+
+    const del = document.createElement('button');
+    del.textContent = 'Delete';
+    del.style.cssText =
+      'width:100%;padding:10px;margin-top:7px;' +
+      'background:#d33;color:white;border:0;border-radius:8px';
+
+    del.onclick = () => {
+      if (!confirm('Ye old card delete karein?')) return;
+      const list = getOldRailCards();
+      list.splice(i, 1);
+      localStorage.setItem('rail_cards', JSON.stringify(list));
+      renderOldRailCards();
+    };
+
+    item.appendChild(del);
+    box.appendChild(item);
   });
 }
 
-g('iv_sub').onclick=()=>{
-  const x={name:g('iv_name').value.trim(),mobile:g('iv_mob').value.trim(),event:g('iv_event').value.trim(),
-    evDate:g('iv_date').value,evTime:g('iv_time').value,place:g('iv_place').value.trim(),date:today()};
-  if(!x.name){alert('Naam bharna zaruri hai.');return;}
-  const L=getList();L.unshift(x);
-  try{localStorage.setItem('iv_list',JSON.stringify(L.slice(0,100)))}catch(e){}
-  showCard(x);
+g('rc_old').onclick = () => {
+  renderOldRailCards();
+  showPage('raillist');
 };
-g('iv_view').onclick=()=>{renderList();showPage('invitationlist');};
-g('iv_bk').onclick=()=>showPage('home');
-g('iv_bk2').onclick=()=>showPage('invitationform');
-g('iv_bk3').onclick=()=>showPage('invitationform');
 
-function canvas(){return html2canvas(g('iv_card'),{scale:2,useCORS:true,backgroundColor:'#fff'});}
-async function pdfBlob(){
-  const c=await canvas(),{jsPDF}=window.jspdf,w=190,h=c.height*w/c.width;
-  const p=new jsPDF('p','mm',[210,Math.max(297,h+20)]);
-  p.addImage(c.toDataURL('image/jpeg',0.95),'JPEG',10,10,w,h);
-  return p.output('blob');
+g('rc_old_back').onclick = () => showPage('railform');
+
+/* helpers */
+function dmy(v,sep){if(!v)return '';const p=v.split('-');return p[2]+sep+p[1]+sep+p[0];}
+function todayISO(){const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
+async function sha(t){const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(t));return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('');}
+function clearForm(){['rc_pnr','rc_train','rc_board','rc_dest','rc_name','rc_mob'].forEach(i=>g(i).value='');g('rc_date').value=todayISO();g('rc_div').value='Ahmedabad Railway Division';g('rc_class').value='2A';}
+
+/* lock */
+let fails=0,blockedUntil=0;
+window.openRail=function(){g('rl_pw').value='';clearForm();showPage('raillock');};
+async function unlock(){
+  if(Date.now()<blockedUntil){alert('Bahut galat koshish. Thodi der baad try karein.');return;}
+  const pw=g('rl_pw').value;
+  if(!pw){alert('Password daalein.');return;}
+  if(!(window.crypto&&crypto.subtle)){alert('Ye browser lock support nahi karta. Site https par kholein.');return;}
+  if(await sha(pw)===PASS_HASH){fails=0;g('rl_pw').value='';showPage('railform');}
+  else{fails++;g('rl_pw').value='';if(fails>=5){blockedUntil=Date.now()+60000;fails=0;alert('5 baar galat password. 1 minute baad try karein.');}else alert('Galat password.');}
 }
-function save(blob,name){const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;a.click();}
-g('iv_pdf').onclick=async()=>save(await pdfBlob(),'invitation-card.pdf');
-g('iv_img').onclick=async()=>{const c=await canvas();c.toBlob(b=>save(b,'invitation-card.png'));};
-g('iv_sh').onclick=async()=>{
-  const b=await pdfBlob(),f=new File([b],'invitation-card.pdf',{type:'application/pdf'});
-  if(navigator.canShare&&navigator.canShare({files:[f]})){try{await navigator.share({files:[f],title:'Invitation Card'});}catch(e){}}
-  else{alert('Share is device me nahi chal raha. Download PDF dabao.');}
+g('rl_go').onclick=unlock;
+g('rl_pw').onkeydown=e=>{if(e.key==='Enter')unlock();};
+g('rl_bk').onclick=()=>showPage('home');
+g('rc_lock').onclick=()=>{clearForm();showPage('home');};
+g('rc_bk').onclick=()=>showPage('railform');
+
+/* letter */
+g('rc_sub').onclick=()=>{
+  const v=i=>g(i).value.trim();
+  if(!v('rc_pnr')||!v('rc_train')||!g('rc_board').value||!v('rc_dest')||!v('rc_name')){alert('PNR, Train, Boarding date, Destination aur Passenger ka naam zaruri hai.');return;}
+  g('rc_o_date').textContent=dmy(g('rc_date').value||todayISO(),'-');
+  g('rc_o_div').textContent=v('rc_div');
+  g('rc_o_pnr').textContent=v('rc_pnr');
+  g('rc_o_train').textContent=v('rc_train');
+  g('rc_o_class').textContent=g('rc_class').value;
+  g('rc_o_board').textContent=dmy(g('rc_board').value,'/');
+  g('rc_o_dest').textContent=v('rc_dest');
+  g('rc_o_name').textContent=v('rc_name');
+  g('rc_o_mob').textContent=v('rc_mob');
+  const savedCards = getOldRailCards();
+
+savedCards.unshift({
+  letterDate: g('rc_o_date').textContent,
+  division: g('rc_o_div').textContent,
+  pnr: g('rc_o_pnr').textContent,
+  train: g('rc_o_train').textContent,
+  travelClass: g('rc_o_class').textContent,
+  boardingDate: g('rc_o_board').textContent,
+  destination: g('rc_o_dest').textContent,
+  name: g('rc_o_name').textContent,
+  mobile: g('rc_o_mob').textContent
+});
+
+localStorage.setItem(
+  'rail_cards',
+  JSON.stringify(savedCards.slice(0, 100))
+);
+  showPage('railcard');
 };
+
+function canvas(){if(typeof html2canvas==='undefined'){alert('Internet check karein, image banane wali library load nahi hui.');return Promise.reject(new Error('no html2canvas'));}return html2canvas(g('rc_card'),{scale:3,useCORS:true,backgroundColor:'#fff'});}
+function save(blob,name){const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;a.click();}
+g('rc_img').onclick=async()=>{const c=await canvas();c.toBlob(b=>save(b,'rail-card.jpg'),'image/jpeg',0.95);};
+g('rc_sh').onclick=async()=>{
+  const c=await canvas();
+  c.toBlob(async b=>{
+    const f=new File([b],'rail-card.jpg',{type:'image/jpeg'});
+    if(navigator.canShare&&navigator.canShare({files:[f]})){try{await navigator.share({files:[f],title:'Rail Card'});}catch(e){}}
+    else{alert('Share is device me nahi chal raha. Download Image dabao.');}
+  },'image/jpeg',0.95);
+};
+clearForm();
 })();
+</script>
+<!-- CONTACT: VIEW OLD CONTACTS FEATURE -->
+
+<script>
+function runAppSearch() {
+  const input = document.getElementById("appSearchInput");
+  const results = document.getElementById("appSearchResults");
+
+  if (!input || !results) return;
+
+  const query = input.value.trim().toLowerCase();
+  results.replaceChildren();
+
+  if (!query) {
+    results.innerHTML =
+      '<div class="notice">Search karne ke liye naam ya section likhein.</div>';
+    return;
+  }
+
+  const tiles = Array.from(
+    document.querySelectorAll("#home .tile")
+  );
+
+  const matchedTiles = tiles.filter(function(tile) {
+    return tile.innerText.toLowerCase().includes(query);
+  });
+
+  if (matchedTiles.length === 0) {
+    results.innerHTML =
+      '<div class="notice">Koi result nahi mila. Doosra naam try karein.</div>';
+    return;
+  }
+
+  const heading = document.createElement("h3");
+  heading.textContent = "Search Results (" + matchedTiles.length + ")";
+  heading.style.marginBottom = "12px";
+  results.appendChild(heading);
+
+  matchedTiles.forEach(function(tile) {
+    const button = document.createElement("button");
+
+    button.type = "button";
+    button.textContent = "➜ " + tile.innerText.trim();
+    button.style.cssText = `
+      display:block;
+      width:100%;
+      padding:15px;
+      margin-bottom:10px;
+      text-align:left;
+      background:#fff;
+      color:#087eaf;
+      border:1px solid #b8d2d9;
+      border-radius:8px;
+      font-size:16px;
+      cursor:pointer;
+    `;
+
+    button.addEventListener("click", function() {
+      tile.click();
+    });
+
+    results.appendChild(button);
+  });
+}
 </script>
 </body>
 </html>
