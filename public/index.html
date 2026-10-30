@@ -38,7 +38,7 @@
 
 <div class="tile" onclick="showPage('search')"><div class="ico">⌕</div><span>Search</span></div>
 <div class="tile" onclick="showPage('applicationform')"><div class="ico">📋</div><span>View Application</span></div>
-<div class="tile" onclick="showPage('profileform')"><div class="ico">👤</div><span>Profile</span></div>
+
 <div class="tile" onclick="showPage('festivalform')"><div class="ico">🪔</div><span>Festival Card</span></div>
 <div class="tile" onclick="openRail()"><div class="ico">🚆</div><span>demoaccount Card</span></div>
 </div>
@@ -1322,8 +1322,95 @@ function runAppSearch() {
         saveApps(all);
         renderApps();
       };
+      // Download Application as PDF
+const pdf = document.createElement('button');
+pdf.textContent = '📄 Download PDF';
+pdf.style.cssText = btn + 'background:#198754';
 
-      card.append(title, info, view, del);
+pdf.onclick = () => {
+    const win = window.open('', '_blank');
+
+    if (!win) {
+        alert('Please allow pop-ups to download PDF.');
+        return;
+    }
+
+    const safe = value => String(value || '-')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+
+    win.document.write(`
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <meta charset="UTF-8">
+      <title>Application - ${safe(a.name)}</title>
+
+      <style>
+        @page {
+          size: A4;
+          margin: 20mm;
+        }
+
+        body {
+          font-family: Arial, sans-serif;
+          color: #222;
+          line-height: 1.8;
+          padding: 20px;
+        }
+
+        h2 {
+          text-align: center;
+          color: #087eaf;
+          border-bottom: 2px solid #087eaf;
+          padding-bottom: 12px;
+        }
+
+        .details {
+          margin-top: 30px;
+        }
+
+        .message {
+          margin-top: 25px;
+          border: 1px solid #ddd;
+          padding: 18px;
+          white-space: pre-wrap;
+          overflow-wrap: anywhere;
+          min-height: 150px;
+        }
+      </style>
+    </head>
+
+    <body>
+      <h2>APPLICATION</h2>
+
+      <div class="details">
+        <p><b>Name:</b> ${safe(a.name)}</p>
+        <p><b>Mobile:</b> ${safe(a.phone)}</p>
+        <p><b>Subject:</b> ${safe(a.subject)}</p>
+        <p><b>Date:</b> ${safe(a.date)}</p>
+      </div>
+
+      <h3>Application Details:</h3>
+      <div class="message">${safe(a.message)}</div>
+
+      <script>
+        window.onload = function() {
+          window.focus();
+          window.print();
+        };
+      <\/script>
+    </body>
+    </html>
+    `);
+
+    win.document.close();
+};
+
+      card.append(title, info, view, pdf,del);
       list.appendChild(card);
     });
   }
