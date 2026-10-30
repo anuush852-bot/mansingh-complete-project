@@ -659,6 +659,9 @@ const festivals=['दीपावली','होली','रक्षाबं�
 mk('festivalform',`<div style="padding:16px;text-align:center">
 <div style="font-size:60px;margin:20px 0">🪔🎆</div>
 <input id="fc_name" list="fc_list" placeholder="Festival ka naam (Hindi me)" value="दीपावली" style="${st}">
+<input id="fc_receiver" type="text"
+placeholder="Jisko card bhejna hai uska naam"
+style="${st}">
 <datalist id="fc_list">${festivals.map(f=>'<option value="'+f+'">').join('')}</datalist>
 <textarea id="fc_msg" rows="12" placeholder="Shubhkamna sandesh" style="${st};border-radius:16px"></textarea>
 <button id="fc_reset" style="${bt}background:#e08a00">Naam ke hisaab se sandesh bharein</button>
@@ -674,15 +677,118 @@ mk('festivalcard',`<div style="padding:8px">
  </div>
  <div style="padding:0 12px 0 22px;word-break:normal;overflow-wrap:normal;hyphens:none">
  <div id="fc_title" style="text-align:center;color:#d35400;font-size:26px;font-weight:bold;margin:16px 0 10px"></div>
+<div style="text-align:center;color:#1f3a93;
+font-size:16px;font-weight:bold;margin:8px 0;">
+  प्रति: <span id="fc_receiver_out"></span> जी
+</div>
  <div id="fc_out" style="color:#1f3a93;font-size:14px;line-height:1.8;text-align:left;white-space:pre-line;margin:8px 0"></div>
  <div style="text-align:center;color:#d35400;font-size:20px;margin:14px 0 8px">🪔 🌸 🪔</div>
  </div>
- <div style="text-align:right;font-size:11px"><img src="/images/sign.png" alt="Signature" style="height:55px;background:#fff;display:block;margin:0 0 4px auto" onerror="this.style.display='none'"><b style="color:#c00000">MANSINGH.M.PARMAR</b><br><span style="color:#c00000">Member of Parliament <br> (Rajya Sabha)</span></div>
+ <div style="text-align:right;font-size:11px"><img src="/images/sign.png" alt="Signature" style="height:55px;background:transparent;display:block;margin:0 0 4px auto;mix-blend-mode:multiply" onerror="this.style.display='none'"><b style="color:#c00000">MANSINGH.M.PARMAR</b><br><span style="color:#c00000">Member of Parliament <br> (Rajya Sabha)</span></div>
 
 <div style="max-width:440px;margin:auto;padding:0 6px">
 <button id="fc_sh" style="${bt}background:#25D366">Share (WhatsApp)</button>
 <button id="fc_img" style="${bt}">Download Image</button>
-<button id="fc_bk2" style="${bt}background:#888">Back</button></div></div>`);
+<button id="fc_bk2" style="${bt}background:#888">Back</button>
+<button id="fc_old" style="${bt}background:#7657c5">
+  View Old Festival Cards
+</button>
+</div></div>`);
+
+mk('festivallist',`
+<div style="padding:16px">
+  <h2 style="color:#b74343;text-align:center">
+    View Old Festival Cards
+  </h2>
+  <div id="fc_old_list"></div>
+  <button id="fc_old_back" style="${bt}background:#888">
+    Back
+  </button>
+</div>
+`);
+
+function getOldFestivalCards(){
+  try{
+    return JSON.parse(localStorage.getItem('festival_cards') || '[]');
+  }catch(e){
+    return [];
+  }
+}
+
+function renderOldFestivalCards(){
+  const box=g('fc_old_list');
+  box.innerHTML='';
+  const cards=getOldFestivalCards();
+
+  if(!cards.length){
+    box.textContent='Abhi koi Festival Card save nahi hai.';
+    return;
+  }
+
+  cards.forEach((c,i)=>{
+    const item=document.createElement('div');
+    item.style.cssText=
+      'padding:12px;margin:10px 0;border-radius:10px;' +
+      'box-shadow:0 1px 5px #0003;background:#fffaf0';
+
+    const info=document.createElement('div');
+    info.textContent=
+      'प्राप्तकर्ता: '+(c.receiver || '-')+
+      ' | Festival: '+(c.festival || '-')+
+      ' | Date: '+(c.date || '-');
+    item.appendChild(info);
+
+    const view=document.createElement('button');
+    view.textContent='View Card';
+    view.style.cssText=
+      'width:100%;padding:11px;margin-top:8px;' +
+      'background:#087eaf;color:white;border:0;border-radius:8px';
+
+    view.onclick=()=>{
+      g('fc_name').value=c.festival || '';
+      g('fc_msg').value=c.message || '';
+
+      if(g('fc_receiver')){
+        g('fc_receiver').value=c.receiver || '';
+      }
+
+      g('fc_title').textContent='शुभ '+(c.festival || '');
+
+      if(g('fc_receiver_out')){
+        g('fc_receiver_out').textContent=c.receiver || '';
+      }
+
+      g('fc_out').textContent=c.message || '';
+      showPage('festivalcard');
+    };
+
+    item.appendChild(view);
+
+    const del=document.createElement('button');
+    del.textContent='Delete';
+    del.style.cssText=
+      'width:100%;padding:10px;margin-top:7px;' +
+      'background:#d33;color:white;border:0;border-radius:8px';
+
+    del.onclick=()=>{
+      if(!confirm('Kya ye Festival Card delete karna hai?'))return;
+      const list=getOldFestivalCards();
+      list.splice(i,1);
+      localStorage.setItem('festival_cards',JSON.stringify(list));
+      renderOldFestivalCards();
+    };
+
+    item.appendChild(del);
+    box.appendChild(item);
+  });
+}
+
+g('fc_old').onclick=()=>{
+  renderOldFestivalCards();
+  showPage('festivallist');
+};
+
+g('fc_old_back').onclick=()=>showPage('festivalform');  
 
 let edited=false;
 g('fc_msg').value=DIWALI;
@@ -697,11 +803,52 @@ g('fc_reset').onclick=()=>{
   g('fc_msg').value=makeText(n);edited=false;
 };
 g('fc_sub').onclick=()=>{
-  const n=g('fc_name').value.trim(),m=g('fc_msg').value.trim();
-  if(!n){alert('Festival ka naam likhein.');return;}
-  if(!m){alert('Sandesh likhna zaruri hai.');return;}
+  const n=g('fc_name').value.trim();
+  const m=g('fc_msg').value.trim();
+  const receiver=g('fc_receiver')
+    ? g('fc_receiver').value.trim()
+    : '';
+
+  if(!receiver){
+    alert('Jisko card bhejna hai uska naam likhein.');
+    return;
+  }
+
+  if(!n){
+    alert('Festival ka naam likhein.');
+    return;
+  }
+
+  if(!m){
+    alert('Sandesh likhna zaruri hai.');
+    return;
+  }
+
   g('fc_title').textContent='शुभ '+n;
   g('fc_out').textContent=m;
+
+  if(g('fc_receiver_out')){
+    g('fc_receiver_out').textContent=receiver;
+  }
+
+  const cards=getOldFestivalCards();
+
+  cards.unshift({
+    receiver:receiver,
+    festival:n,
+    message:m,
+    date:new Date().toLocaleDateString('en-IN')
+  });
+
+  try{
+    localStorage.setItem(
+      'festival_cards',
+      JSON.stringify(cards.slice(0,100))
+    );
+  }catch(e){
+    alert('Card save nahi ho paya. Browser storage check karein.');
+  }
+
   showPage('festivalcard');
 };
 g('fc_bk').onclick=()=>showPage('home');
@@ -756,7 +903,14 @@ mk('railform',`<div style="padding:16px">
 <button id="rc_old" style="${bt}background:#7657c5">
   View Old Rail Cards
 </button>
-<button id="rc_lock" style="${bt}background:#888">Lock karke Back</button></div>`);
+
+<button id="rc_edit_address" style="${bt}background:#16a34a">
+  ✏️ Edit Permanent Address
+</button>
+
+<button id="rc_lock" style="${bt}background:#888">
+  Lock karke Back
+</button></div>`);
 
 const F='font-family:\'Times New Roman\',Times,serif;font-weight:bold;';
 mk('railcard',`<div style="padding:8px">
@@ -777,7 +931,9 @@ mk('railcard',`<div style="padding:8px">
  </div>
  <div style="text-align:right;font-size:11px;margin:14px 0 8px">Date : <span id="rc_o_date"></span>.</div>
  <div>To,</div>
- <div style="margin:4px 0 12px 26px">DRM/Sr.DCM<br><span id="rc_o_div"></span><br>Gujarat.</div>
+ <div style="margin:4px 0 12px 26px; white-space:pre-line;">
+    <span id="rc_o_div"></span>
+</div>
  <div style="margin-top:14px">Dear,</div>
  <div style="text-align:justify;text-indent:26px;margin:2px 0 12px">The Reservation of my Guest / Close Friend / Family Member / Distinguished Guest of the Parliamentary Constituency / Relative is in the waiting list, the details of which are given below. Please take the trouble to get it confirmed/reserved.</div>
  <div style="margin-left:26px;display:grid;grid-template-columns:42% 58%;row-gap:5px;font-size:12px">
@@ -908,6 +1064,43 @@ function todayISO(){const d=new Date();return d.getFullYear()+'-'+String(d.getMo
 async function sha(t){const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(t));return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('');}
 function clearForm(){['rc_pnr','rc_train','rc_board','rc_dest','rc_name','rc_mob'].forEach(i=>g(i).value='');g('rc_date').value=todayISO();g('rc_div').value='Ahmedabad Railway Division';g('rc_class').value='2A';}
 
+/* EDIT PERMANENT RAIL ADDRESS */
+
+const RAIL_ADDRESS_KEY = 'rail_office_address';
+
+const DEFAULT_RAIL_ADDRESS =
+`DRM/Sr.DCM
+Ahmedabad Railway Division
+Gujarat.`;
+
+function getRailAddress() {
+  return localStorage.getItem(RAIL_ADDRESS_KEY) || DEFAULT_RAIL_ADDRESS;
+}
+
+function editRailAddress() {
+  const oldAddress = getRailAddress();
+
+  const newAddress = prompt(
+    'Naya complete address likhein:',
+    oldAddress
+  );
+
+  if (newAddress === null) return;
+
+  if (!newAddress.trim()) {
+    alert('Address khali nahi ho sakta.');
+    return;
+  }
+
+  localStorage.setItem(
+    RAIL_ADDRESS_KEY,
+    newAddress.trim()
+  );
+
+  alert('Address successfully update ho gaya!');
+}
+
+g('rc_edit_address').onclick = editRailAddress;
 /* lock */
 let fails=0,blockedUntil=0;
 window.openRail=function(){g('rl_pw').value='';clearForm();showPage('raillock');};
@@ -930,7 +1123,7 @@ g('rc_sub').onclick=()=>{
   const v=i=>g(i).value.trim();
   if(!v('rc_pnr')||!v('rc_train')||!g('rc_board').value||!v('rc_dest')||!v('rc_name')){alert('PNR, Train, Boarding date, Destination aur Passenger ka naam zaruri hai.');return;}
   g('rc_o_date').textContent=dmy(g('rc_date').value||todayISO(),'-');
-  g('rc_o_div').textContent=v('rc_div');
+  g('rc_o_div').textContent = getRailAddress();
   g('rc_o_pnr').textContent=v('rc_pnr');
   g('rc_o_train').textContent=v('rc_train');
   g('rc_o_class').textContent=g('rc_class').value;
@@ -1036,6 +1229,187 @@ function runAppSearch() {
     results.appendChild(button);
   });
 }
+</script>
+<script>
+(function () {
+  const $ = id => document.getElementById(id);
+  const style = 'width:100%;padding:13px;margin:7px 0;border:1px solid #ccc;border-radius:9px;font-size:16px;box-sizing:border-box;';
+  const btn = 'width:100%;padding:13px;margin-top:9px;border:0;border-radius:9px;background:#087eaf;color:white;font-size:16px;';
+
+  // Existing pages ya buttons ko dobara create na karein
+  function makePage(id, title) {
+    let page = $(id);
+    if (!page) {
+      page = document.createElement('section');
+      page.id = id;
+      page.className = 'page';
+      document.querySelector('.app').appendChild(page);
+    }
+    page.innerHTML = '<div style="padding:16px;background:#f7fafc;min-height:60vh"><h2 style="color:#087eaf;margin-bottom:15px">' + title + '</h2><div id="' + id + '_content"></div></div>';
+    return $(id + '_content');
+  }
+
+  function getApps() {
+    try {
+      const data = JSON.parse(localStorage.getItem('saved_applications') || '[]');
+      return Array.isArray(data) ? data : [];
+    } catch (e) {
+      return [];
+    }
+  }
+
+  function saveApps(data) {
+    localStorage.setItem('saved_applications', JSON.stringify(data));
+  }
+
+  // Application Form
+  const form = makePage('applicationform', '📋 Application Form');
+
+  form.innerHTML = `
+    <input id="app_name" placeholder="Aapka Naam *" style="${style}">
+    <input id="app_phone" type="tel" placeholder="Mobile Number" style="${style}">
+    <input id="app_subject" placeholder="Vishay / Subject *" style="${style}">
+    <textarea id="app_message" rows="6" placeholder="Application ki details *" style="${style}"></textarea>
+    <button id="app_submit" style="${btn}">Submit Application</button>
+    <button id="app_view" style="${btn}background:#7657c5">View Submitted Applications</button>
+    <button id="app_back" style="${btn}background:#777">Back to Home</button>
+  `;
+
+  // Application List
+  const list = makePage('applicationlist', '📂 Submitted Applications');
+
+  function renderApps() {
+    const apps = getApps();
+    list.innerHTML = '';
+
+    if (!apps.length) {
+      list.innerHTML = '<p style="padding:12px;background:white">Abhi koi application save nahi hui hai.</p>';
+      return;
+    }
+
+    apps.forEach((a, index) => {
+      const card = document.createElement('div');
+      card.style.cssText = 'background:white;padding:14px;margin:12px 0;border-radius:10px;box-shadow:0 2px 8px #0002';
+
+      const title = document.createElement('h3');
+      title.textContent = a.subject || 'Application';
+      title.style.color = '#087eaf';
+
+      const info = document.createElement('p');
+      info.style.cssText = 'margin:8px 0;line-height:1.6';
+      info.textContent = 'Name: ' + a.name + ' | Date: ' + a.date;
+
+      const view = document.createElement('button');
+      view.textContent = 'View Details';
+      view.style.cssText = btn;
+      view.onclick = () => {
+        alert(
+          'Name: ' + a.name +
+          '\nMobile: ' + (a.phone || '-') +
+          '\nSubject: ' + a.subject +
+          '\nDate: ' + a.date +
+          '\n\nApplication:\n' + a.message
+        );
+      };
+
+      const del = document.createElement('button');
+      del.textContent = 'Delete Application';
+      del.style.cssText = btn + 'background:#d33';
+      del.onclick = () => {
+        if (!confirm('Kya ye application delete karni hai?')) return;
+        const all = getApps();
+        all.splice(index, 1);
+        saveApps(all);
+        renderApps();
+      };
+
+      card.append(title, info, view, del);
+      list.appendChild(card);
+    });
+  }
+
+  const back = document.createElement('button');
+  back.textContent = 'Back to Application Form';
+  back.style.cssText = btn + 'background:#777';
+  back.onclick = () => showPage('applicationform');
+  list.appendChild(back);
+
+  // Submit Application
+  $('app_submit').onclick = async function () {
+    const name = $('app_name').value.trim();
+    const phone = $('app_phone').value.trim();
+    const subject = $('app_subject').value.trim();
+    const message = $('app_message').value.trim();
+
+    if (!name || !subject || !message) {
+      alert('Name, Subject aur Application details bharna zaruri hai.');
+      return;
+    }
+
+    const application = {
+      id: Date.now().toString(),
+      name,
+      phone,
+      subject,
+      message,
+      date: new Date().toLocaleString('en-IN')
+    };
+
+    try {
+      const all = getApps();
+      all.unshift(application);
+      saveApps(all.slice(0, 200));
+
+      // Backend par bhi bhejne ki koshish
+      let serverSaved = false;
+      try {
+        const response = await fetch('/api/records', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({
+            type: 'application',
+            name,
+            phone,
+            subject,
+            message
+          })
+        });
+        serverSaved = response.ok;
+      } catch (e) {}
+
+      $('app_name').value = '';
+      $('app_phone').value = '';
+      $('app_subject').value = '';
+      $('app_message').value = '';
+
+      alert(serverSaved
+        ? 'Application browser aur server dono par submit ho gayi.'
+        : 'Application is browser mein save ho gayi. Server par save hona confirm nahi hua.');
+
+      renderApps();
+      showPage('applicationlist');
+
+    } catch (e) {
+      alert('Application save nahi hui. Browser storage check karein.');
+    }
+  };
+
+  $('app_view').onclick = () => {
+    renderApps();
+    showPage('applicationlist');
+  };
+
+  $('app_back').onclick = () => showPage('home');
+
+  // Home page ke View Application tile ko form se connect karein
+  const tiles = document.querySelectorAll('#home .tile');
+  tiles.forEach(tile => {
+    if (tile.innerText.includes('View Application')) {
+      tile.onclick = () => showPage('applicationform');
+    }
+  });
+
+})();
 </script>
 </body>
 </html>
