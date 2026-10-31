@@ -1,7 +1,62 @@
+
 require('dotenv').config();
-const express=require('express'),cors=require('cors'),bcrypt=require('bcryptjs'),jwt=require('jsonwebtoken'),fs=require('fs'),path=require('path');
+const express=require('express'),
+cors=require('cors'),
+bcrypt=require('bcryptjs'),
+jwt=require('jsonwebtoken'),
+fs=require('fs'),
+path=require('path'),
+multer=require('multer');
 const app=express(),PORT=Number(process.env.PORT)||3000,SECRET=process.env.JWT_SECRET||'';
 const DATA_DIR=path.join(__dirname,'data'),DATA_FILE=path.join(DATA_DIR,'eoffice-data.json'),PUBLIC_DIR=path.join(__dirname,'public');
+// ================= PDF APPLICATION STORAGE =================
+
+const APPLICATION_DIR = path.join(
+  PUBLIC_DIR,
+  'uploads',
+  'applications'
+);
+
+fs.mkdirSync(APPLICATION_DIR, { recursive: true });
+
+const pdfStorage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, APPLICATION_DIR);
+  },
+
+  filename: (req, file, cb) => {
+    const originalName = path.basename(file.originalname);
+
+    const safeName = originalName
+      .replace(/[^a-zA-Z0-9._-]/g, '_')
+      .replace(/\.pdf$/i, '');
+
+    cb(
+      null,
+      Date.now() + '-' + safeName + '.pdf'
+    );
+  }
+});
+
+const pdfUpload = multer({
+  storage: pdfStorage,
+
+  limits: {
+    fileSize: 20 * 1024 * 1024
+  },
+
+  fileFilter: (req, file, cb) => {
+    const isPdf =
+      file.mimetype === 'application/pdf' &&
+      /\.pdf$/i.test(file.originalname);
+
+    if (!isPdf) {
+      return cb(new Error('Only PDF files are allowed.'));
+    }
+
+    cb(null, true);
+  }
+});
 if(SECRET.length<32){console.error('Set JWT_SECRET in .env (at least 32 characters).');process.exit(1)}
 if(!process.env.ADMIN_USERNAME||!process.env.ADMIN_PASSWORD){console.error('Set ADMIN_USERNAME and ADMIN_PASSWORD in .env.');process.exit(1)}
 app.use(cors());app.use(express.json({limit:'4mb'}));app.use(express.urlencoded({extended:true}));
@@ -41,7 +96,7 @@ async function setupAdmin(){const d=readData(),username=process.env.ADMIN_USERNA
 function auth(req,res,next){const h=req.headers.authorization||'',token=h.startsWith('Bearer ')?h.slice(7):'';if(!token)return res.status(401).json({success:false,message:'Missing login token.'});try{req.admin=jwt.verify(token,SECRET);next()}catch{return res.status(401).json({success:false,message:'Invalid or expired login token.'})}}
 app.get('/api/health',(req,res)=>res.json({success:true,message:'Prabhubhai E-Office backend is running.',time:new Date().toISOString()}));
 app.post('/api/login',async(req,res)=>{try{const d=readData(),username=clean(req.body.username,100),password=typeof req.body.password==='string'?req.body.password:'',a=d.admins.find(x=>x.username===username);if(!a||!(await bcrypt.compare(password,a.passwordHash)))return res.status(401).json({success:false,message:'Incorrect username or password.'});const token=jwt.sign({id:a.id,username:a.username,role:'admin'},SECRET,{expiresIn:'2h'});res.json({success:true,message:'Login successful.',token,admin:{username:a.username}})}catch(e){console.error(e);res.status(500).json({success:false,message:'Login server error.'})}});
-app.post('/api/records',(req,res)=>{try{const type=clean(req.body.type,50).toLowerCase(),name=clean(req.body.name,120),phone=clean(req.body.phone,40),email=clean(req.body.email,160),subject=clean(req.body.subject,200),message=clean(req.body.message||req.body.details,3000);if(!type||!name||!message)return res.status(400).json({success:false,message:'type, name, and message/details are required.'});if(!['complaint','appointment','application','contact','other'].includes(type))return res.status(400).json({success:false,message:'Invalid type.'});const d=readData(),id=d.records.reduce((m,r)=>Math.max(m,Number(r.id)||0),0)+1,record={id,type,name,phone,email,subject,message,status:'Pending',createdAt:new Date().toISOString()};d.records.push(record);writeData(d);res.status(201).json({success:true,message:'Request submitted.',record})}catch(e){console.error(e);res.status(500).json({success:false,message:'Could not save request.'})}});
+app.post('/api/records',pdfUpload.single('pdf'),(req,res)=>{try{const type=clean(req.body.type,50).toLowerCase(),name=clean(req.body.name,120),phone=clean(req.body.phone,40),email=clean(req.body.email,160),subject=clean(req.body.subject,200),message=clean(req.body.message||req.body.details,3000);if(!type||!name||!message)return res.status(400).json({success:false,message:'type, name, and message/details are required.'});if(!['complaint','appointment','application','contact','other'].includes(type))return res.status(400).json({success:false,message:'Invalid type.'});const d=readData(),id=d.records.reduce((m,r)=>Math.max(m,Number(r.id)||0),0)+1,record={id,type,name,phone,email,subject,message,status:'Pending',createdAt:new Date().toISOString()};d.records.push(record);writeData(d);res.status(201).json({success:true,message:'Request submitted.',record})}catch(e){console.error(e);res.status(500).json({success:false,message:'Could not save request.'})}});
 app.get('/api/records',auth,(req,res)=>{try{const d=readData();let records=[...d.records],type=clean(req.query.type,50).toLowerCase(),status=clean(req.query.status,50).toLowerCase();if(type)records=records.filter(r=>r.type===type);if(status)records=records.filter(r=>String(r.status).toLowerCase()===status);records.sort((a,b)=>new Date(b.createdAt)-new Date(a.createdAt));res.json({success:true,count:records.length,records})}catch(e){console.error(e);res.status(500).json({success:false,message:'Could not load records.'})}});
 app.patch('/api/records/:id/status',auth,(req,res)=>{try{const status=clean(req.body.status,50);if(!['Pending','In Progress','Resolved','Rejected'].includes(status))return res.status(400).json({success:false,message:'Invalid status.'});const d=readData(),r=d.records.find(x=>String(x.id)===String(req.params.id));if(!r)return res.status(404).json({success:false,message:'Record not found.'});r.status=status;r.updatedAt=new Date().toISOString();writeData(d);res.json({success:true,message:'Status updated.',record:r})}catch(e){console.error(e);res.status(500).json({success:false,message:'Could not update status.'})}});
 function cleanProfile(req) {
@@ -195,6 +250,97 @@ app.post('/api/meetings', (req, res) => {
     });
   }
 });
+// ================= APPLICATION PDF APIs =================
 
+// Upload multiple PDF files (Admin only)
+
+app.post(
+  '/api/applications/upload',
+  auth,
+  (req, res) => {
+
+    pdfUpload.array('pdfs', 20)(req, res, (err) => {
+
+      if (err) {
+        return res.status(400).json({
+          success: false,
+          message: err.message || 'PDF upload failed.'
+        });
+      }
+
+      try {
+        const files = (req.files || []).map(file => ({
+          name: file.originalname,
+          filename: file.filename,
+          size: file.size,
+          url: '/uploads/applications/' +
+            encodeURIComponent(file.filename),
+          uploadedAt: new Date().toISOString()
+        }));
+
+        return res.status(201).json({
+          success: true,
+          message: 'PDF successfully uploaded.',
+          count: files.length,
+          files
+        });
+
+      } catch (error) {
+        console.error('PDF upload error:', error);
+
+        return res.status(500).json({
+          success: false,
+          message: 'PDF upload nahi hui.'
+        });
+      }
+    });
+  }
+);
+
+
+// Get uploaded PDF list (Admin only)
+
+app.get('/api/applications', auth, (req, res) => {
+
+  try {
+    const files = fs.readdirSync(APPLICATION_DIR)
+      .filter(name => /\.pdf$/i.test(name))
+      .map(filename => {
+
+        const filePath = path.join(
+          APPLICATION_DIR,
+          filename
+        );
+
+        const stats = fs.statSync(filePath);
+
+        return {
+          name: filename,
+          filename,
+          size: stats.size,
+          uploadedAt: stats.mtime.toISOString(),
+          url: '/uploads/applications/' +
+            encodeURIComponent(filename)
+        };
+      })
+      .sort((a, b) =>
+        new Date(b.uploadedAt) - new Date(a.uploadedAt)
+      );
+
+    res.json({
+      success: true,
+      count: files.length,
+      files
+    });
+
+  } catch (error) {
+    console.error('PDF list error:', error);
+
+    res.status(500).json({
+      success: false,
+      message: 'PDF list load nahi hui.'
+    });
+  }
+});
 app.use((req,res)=>res.status(404).json({success:false,message:'Route not found.'}));
 setupAdmin().then(()=>app.listen(PORT,()=>console.log(`E-Office running at http://localhost:${PORT}`))).catch(e=>{console.error(e);process.exit(1)});

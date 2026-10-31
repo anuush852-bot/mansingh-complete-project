@@ -355,7 +355,6 @@ if ("serviceWorker" in navigator) navigator.serviceWorker.register("/sw.js");
 })();
 </script>
 
-  -->
 
 <script>
 (function () {
@@ -1232,11 +1231,11 @@ function runAppSearch() {
 </script>
 <script>
 (function () {
+  'use strict';
   const $ = id => document.getElementById(id);
   const style = 'width:100%;padding:13px;margin:7px 0;border:1px solid #ccc;border-radius:9px;font-size:16px;box-sizing:border-box;';
-  const btn = 'width:100%;padding:13px;margin-top:9px;border:0;border-radius:9px;background:#087eaf;color:white;font-size:16px;';
+  const btn = 'width:100%;padding:13px;margin-top:9px;border:0;border-radius:9px;background:#087eaf;color:white;font-size:16px;cursor:pointer;';
 
-  // Existing pages ya buttons ko dobara create na karein
   function makePage(id, title) {
     let page = $(id);
     if (!page) {
@@ -1245,258 +1244,146 @@ function runAppSearch() {
       page.className = 'page';
       document.querySelector('.app').appendChild(page);
     }
-    page.innerHTML = '<div style="padding:16px;background:#f7fafc;min-height:60vh"><h2 style="color:#087eaf;margin-bottom:15px">' + title + '</h2><div id="' + id + '_content"></div></div>';
+    page.innerHTML = `<div style="padding:16px;background:#f7fafc;min-height:60vh"><h2 style="color:#087eaf;margin-bottom:15px">${title}</h2><div id="${id}_content"></div></div>`;
     return $(id + '_content');
   }
 
-  function getApps() {
+  function readApps() {
     try {
-      const data = JSON.parse(localStorage.getItem('saved_applications') || '[]');
-      return Array.isArray(data) ? data : [];
-    } catch (e) {
-      return [];
-    }
+      const value = JSON.parse(localStorage.getItem('saved_applications') || '[]');
+      return Array.isArray(value) ? value : [];
+    } catch (_) { return []; }
+  }
+  function writeApps(items) {
+    localStorage.setItem('saved_applications', JSON.stringify(items.slice(0, 200)));
+  }
+  function safe(value) {
+    return String(value == null ? '-' : value).replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+  }
+  function downloadApplicationPDF(app) {
+    const printWindow = window.open('', '_blank');
+    if (!printWindow) { alert('PDF window nahi khuli. Browser mein pop-ups allow karein.'); return; }
+    printWindow.document.open();
+    printWindow.document.write(`<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><title>Application - ${safe(app.subject)}</title><style>body{font-family:Arial,sans-serif;padding:30px;color:#222;line-height:1.7}h2{text-align:center;color:#087eaf}.details{border:1px solid #ccc;padding:18px;margin-top:20px;border-radius:8px}.message{white-space:pre-wrap;overflow-wrap:anywhere}@page{size:A4;margin:20mm}</style></head><body><h2>APPLICATION</h2><hr><div class="details"><p><b>Name:</b> ${safe(app.name)}</p><p><b>Mobile:</b> ${safe(app.phone)}</p><p><b>Subject:</b> ${safe(app.subject)}</p><p><b>Date:</b> ${safe(app.date)}</p><hr><h3>Application Details</h3><div class="message">${safe(app.message)}</div></div><script>window.onload=function(){setTimeout(function(){window.focus();window.print();},400)};<\/script></body></html>`);
+    printWindow.document.close();
   }
 
-  function saveApps(data) {
-    localStorage.setItem('saved_applications', JSON.stringify(data));
-  }
-
-  // Application Form
+  // Application form
   const form = makePage('applicationform', '📋 Application Form');
-
   form.innerHTML = `
     <input id="app_name" placeholder="Aapka Naam *" style="${style}">
     <input id="app_phone" type="tel" placeholder="Mobile Number" style="${style}">
     <input id="app_subject" placeholder="Vishay / Subject *" style="${style}">
     <textarea id="app_message" rows="6" placeholder="Application ki details *" style="${style}"></textarea>
-    <button id="app_submit" style="${btn}">Submit Application</button>
-    <button id="app_view" style="${btn}background:#7657c5">View Submitted Applications</button>
-    <button id="app_back" style="${btn}background:#777">Back to Home</button>
-  `;
+    <button id="app_submit" type="button" style="${btn}">Submit Application</button>
+    <button id="app_view" type="button" style="${btn}background:#7657c5">View Submitted Applications</button>
+    <button id="app_back" type="button" style="${btn}background:#777">Back to Home</button>
+    <hr style="margin:25px 0"><h3>📂 Application PDF Documents</h3>
+    <input id="pdfAdminUser" type="text" placeholder="Admin Username" style="${style}">
+    <input id="pdfAdminPassword" type="password" placeholder="Admin Password" style="${style}">
+    <button id="pdfLoginBtn" type="button" style="${btn}">Admin Login</button>
+    <input id="pdfInput" type="file" accept=".pdf,application/pdf" multiple style="${style}">
+    <button id="pdfUploadBtn" type="button" style="${btn}">📤 Upload PDF Documents</button>
+    <div id="pdfMessage" style="margin:8px 0"></div><h3>Uploaded PDF List</h3><div id="pdfList"></div>`;
 
-  // Application List
   const list = makePage('applicationlist', '📂 Submitted Applications');
-
   function renderApps() {
-    const apps = getApps();
-    list.innerHTML = '';
-
+    list.replaceChildren();
+    const apps = readApps();
     if (!apps.length) {
-      list.innerHTML = '<p style="padding:12px;background:white">Abhi koi application save nahi hui hai.</p>';
-      return;
+      const empty = document.createElement('p'); empty.textContent = 'Abhi koi application save nahi hui hai.'; list.appendChild(empty);
     }
-
-    apps.forEach((a, index) => {
+    apps.forEach((app, index) => {
       const card = document.createElement('div');
       card.style.cssText = 'background:white;padding:14px;margin:12px 0;border-radius:10px;box-shadow:0 2px 8px #0002';
-
-      const title = document.createElement('h3');
-      title.textContent = a.subject || 'Application';
-      title.style.color = '#087eaf';
-
-      const info = document.createElement('p');
-      info.style.cssText = 'margin:8px 0;line-height:1.6';
-      info.textContent = 'Name: ' + a.name + ' | Date: ' + a.date;
-
-      const view = document.createElement('button');
-      view.textContent = 'View Details';
-      view.style.cssText = btn;
-      view.onclick = () => {
-        alert(
-          'Name: ' + a.name +
-          '\nMobile: ' + (a.phone || '-') +
-          '\nSubject: ' + a.subject +
-          '\nDate: ' + a.date +
-          '\n\nApplication:\n' + a.message
-        );
-      };
-
-      const del = document.createElement('button');
-      del.textContent = 'Delete Application';
-      del.style.cssText = btn + 'background:#d33';
-      del.onclick = () => {
-        if (!confirm('Kya ye application delete karni hai?')) return;
-        const all = getApps();
-        all.splice(index, 1);
-        saveApps(all);
-        renderApps();
-      };
-      // Download Application as PDF
-const pdf = document.createElement('button');
-pdf.textContent = '📄 Download PDF';
-pdf.style.cssText = btn + 'background:#198754';
-
-pdf.onclick = () => {
-    const win = window.open('', '_blank');
-
-    if (!win) {
-        alert('Please allow pop-ups to download PDF.');
-        return;
-    }
-
-    const safe = value => String(value || '-')
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;')
-        .replace(/'/g, '&#39;');
-
-    win.document.write(`
-    <!DOCTYPE html>
-    <html>
-    <head>
-      <meta charset="UTF-8">
-      <title>Application - ${safe(a.name)}</title>
-
-      <style>
-        @page {
-          size: A4;
-          margin: 20mm;
-        }
-
-        body {
-          font-family: Arial, sans-serif;
-          color: #222;
-          line-height: 1.8;
-          padding: 20px;
-        }
-
-        h2 {
-          text-align: center;
-          color: #087eaf;
-          border-bottom: 2px solid #087eaf;
-          padding-bottom: 12px;
-        }
-
-        .details {
-          margin-top: 30px;
-        }
-
-        .message {
-          margin-top: 25px;
-          border: 1px solid #ddd;
-          padding: 18px;
-          white-space: pre-wrap;
-          overflow-wrap: anywhere;
-          min-height: 150px;
-        }
-      </style>
-    </head>
-
-    <body>
-      <h2>APPLICATION</h2>
-
-      <div class="details">
-        <p><b>Name:</b> ${safe(a.name)}</p>
-        <p><b>Mobile:</b> ${safe(a.phone)}</p>
-        <p><b>Subject:</b> ${safe(a.subject)}</p>
-        <p><b>Date:</b> ${safe(a.date)}</p>
-      </div>
-
-      <h3>Application Details:</h3>
-      <div class="message">${safe(a.message)}</div>
-
-      <script>
-        window.onload = function() {
-          window.focus();
-          window.print();
-        };
-      <\/script>
-    </body>
-    </html>
-    `);
-
-    win.document.close();
-};
-
-      card.append(title, info, view, pdf,del);
-      list.appendChild(card);
+      const title = document.createElement('h3'); title.textContent = app.subject || 'Application'; title.style.color = '#087eaf';
+      const info = document.createElement('p'); info.style.margin = '8px 0'; info.textContent = `Name: ${app.name || '-'} | Date: ${app.date || '-'}`;
+      const view = document.createElement('button'); view.type = 'button'; view.textContent = 'View Details'; view.style.cssText = btn;
+      view.onclick = () => alert(`Name: ${app.name || '-'}\nMobile: ${app.phone || '-'}\nSubject: ${app.subject || '-'}\nDate: ${app.date || '-'}\n\nApplication:\n${app.message || '-'}`);
+      const pdf = document.createElement('button'); pdf.type = 'button'; pdf.textContent = '📄 Download PDF'; pdf.style.cssText = btn + 'background:#198754'; pdf.onclick = () => downloadApplicationPDF(app);
+      const del = document.createElement('button'); del.type = 'button'; del.textContent = 'Delete Application'; del.style.cssText = btn + 'background:#d33';
+      del.onclick = () => { if (!confirm('Kya ye application delete karni hai?')) return; const all = readApps(); all.splice(index, 1); writeApps(all); renderApps(); };
+      card.append(title, info, view, pdf, del); list.appendChild(card);
     });
+    const back = document.createElement('button'); back.type = 'button'; back.textContent = 'Back to Application Form'; back.style.cssText = btn + 'background:#777'; back.onclick = () => showPage('applicationform'); list.appendChild(back);
   }
 
-  const back = document.createElement('button');
-  back.textContent = 'Back to Application Form';
-  back.style.cssText = btn + 'background:#777';
-  back.onclick = () => showPage('applicationform');
-  list.appendChild(back);
-
-  // Submit Application
   $('app_submit').onclick = async function () {
     const name = $('app_name').value.trim();
     const phone = $('app_phone').value.trim();
     const subject = $('app_subject').value.trim();
     const message = $('app_message').value.trim();
-
-    if (!name || !subject || !message) {
-      alert('Name, Subject aur Application details bharna zaruri hai.');
-      return;
-    }
-
-    const application = {
-      id: Date.now().toString(),
-      name,
-      phone,
-      subject,
-      message,
-      date: new Date().toLocaleString('en-IN')
-    };
-
+    if (!name || !subject || !message) { alert('Name, Subject aur Application details bharna zaruri hai.'); return; }
+    const application = { id: Date.now().toString(), name, phone, subject, message, date: new Date().toLocaleString('en-IN') };
     try {
-      const all = getApps();
-      all.unshift(application);
-      saveApps(all.slice(0, 200));
-
-      // Backend par bhi bhejne ki koshish
-      let serverSaved = false;
-      try {
-        const response = await fetch('/api/records', {
-          method: 'POST',
-          headers: {'Content-Type': 'application/json'},
-          body: JSON.stringify({
-            type: 'application',
-            name,
-            phone,
-            subject,
-            message
-          })
-        });
-        serverSaved = response.ok;
-      } catch (e) {}
-
-      $('app_name').value = '';
-      $('app_phone').value = '';
-      $('app_subject').value = '';
-      $('app_message').value = '';
-
-      alert(serverSaved
-        ? 'Application browser aur server dono par submit ho gayi.'
-        : 'Application is browser mein save ho gayi. Server par save hona confirm nahi hua.');
-
-      renderApps();
-      showPage('applicationlist');
-
-    } catch (e) {
-      alert('Application save nahi hui. Browser storage check karein.');
-    }
+      const all = readApps(); all.unshift(application); writeApps(all);
+    } catch (_) { alert('Application browser mein save nahi hui. Storage check karein.'); return; }
+    let serverSaved = false;
+    try {
+      const response = await fetch('/api/records', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({type:'application', name, phone, subject, message}) });
+      serverSaved = response.ok;
+    } catch (_) {}
+    ['app_name','app_phone','app_subject','app_message'].forEach(id => $(id).value = '');
+    alert(serverSaved ? 'Application browser aur server dono par submit ho gayi.' : 'Application browser mein save ho gayi. Server submission confirm nahi hua.');
+    renderApps(); showPage('applicationlist');
   };
-
-  $('app_view').onclick = () => {
-    renderApps();
-    showPage('applicationlist');
-  };
-
+  $('app_view').onclick = () => { renderApps(); showPage('applicationlist'); };
   $('app_back').onclick = () => showPage('home');
 
-  // Home page ke View Application tile ko form se connect karein
-  const tiles = document.querySelectorAll('#home .tile');
-  tiles.forEach(tile => {
-    if (tile.innerText.includes('View Application')) {
-      tile.onclick = () => showPage('applicationform');
-    }
-  });
+  // PDF upload/list; backend routes must exist on server.
+  let pdfToken = localStorage.getItem('eoffice_token') || '';
+  const pdfInput = $('pdfInput'), pdfList = $('pdfList'), pdfMessage = $('pdfMessage');
+  $('pdfLoginBtn').onclick = async () => {
+    const username = $('pdfAdminUser').value.trim(), password = $('pdfAdminPassword').value;
+    if (!username || !password) { alert('Admin username aur password bhariye.'); return; }
+    try {
+      const response = await fetch('/api/login', {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({username,password})});
+      const result = await response.json();
+      if (!response.ok || !result.success || !result.token) { alert(result.message || 'Login nahi hua.'); return; }
+      pdfToken = result.token; localStorage.setItem('eoffice_token', pdfToken); alert('Admin login successful!'); loadApplicationPDFs();
+    } catch (_) { alert('Login error. Server check karein.'); }
+  };
+  $('pdfUploadBtn').onclick = async () => {
+    if (!pdfInput.files.length) { alert('Pehle PDF select karein.'); return; }
+    if (!pdfToken) { alert('Pehle Admin Login karein.'); return; }
+    const data = new FormData(); Array.from(pdfInput.files).forEach(file => data.append('pdfs', file));
+    try {
+      pdfMessage.textContent = 'PDF uploading...';
+      const response = await fetch('/api/applications/upload', {method:'POST', headers:{Authorization:'Bearer ' + pdfToken}, body:data});
+      const result = await response.json();
+      if (!response.ok || !result.success) { pdfMessage.textContent = result.message || 'Upload failed.'; return; }
+      alert('PDF successfully uploaded!'); pdfInput.value = ''; pdfMessage.textContent = ''; loadApplicationPDFs();
+    } catch (_) { pdfMessage.textContent = 'PDF upload failed. Backend route check karein.'; }
+  };
+  async function loadApplicationPDFs() {
+    if (!pdfToken) { pdfList.textContent = 'Admin login karke PDFs dekhein.'; return; }
+    try {
+      const response = await fetch('/api/applications', {headers:{Authorization:'Bearer ' + pdfToken}});
+      const result = await response.json();
+      if (!response.ok || !result.success) { pdfList.textContent = result.message || 'PDF list load nahi hui.'; return; }
+      pdfList.replaceChildren();
+      const files = Array.isArray(result.files) ? result.files : [];
+      if (!files.length) { pdfList.textContent = 'Abhi koi PDF upload nahi hui.'; return; }
+      files.forEach(file => {
+        const card = document.createElement('div'); card.style.cssText = 'background:white;padding:12px;margin:10px 0;border-radius:10px;border:1px solid #ddd';
+        const name = document.createElement('b'); name.textContent = '📄 ' + (file.name || 'PDF');
+        const url = new URL(file.url, location.origin).href;
+        const view = document.createElement('a'); view.href = url; view.target = '_blank'; view.rel = 'noopener'; view.textContent = 'View';
+        const download = document.createElement('a'); download.href = url; download.download = file.name || 'document.pdf'; download.textContent = 'Download';
+        const share = document.createElement('button'); share.type = 'button'; share.textContent = 'Share'; share.style.cssText = 'margin:8px;padding:8px';
+        share.onclick = async () => { if (navigator.share) { try { await navigator.share({title:file.name || 'PDF',url}); } catch (_) {} } else { window.open('https://wa.me/?text=' + encodeURIComponent(url), '_blank'); } };
+        const actions = document.createElement('div'); actions.style.marginTop = '12px'; actions.append(view, document.createTextNode(' | '), download, share); card.append(name, actions); pdfList.appendChild(card);
+      });
+    } catch (_) { pdfList.textContent = 'PDF list load nahi hui. Backend check karein.'; }
+  }
 
+  // Connect the home tile to this form.
+  document.querySelectorAll('#home .tile').forEach(tile => {
+    if (tile.innerText.toLowerCase().includes('view application')) tile.onclick = () => showPage('applicationform');
+  });
 })();
 </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+
 </body>
 </html>
