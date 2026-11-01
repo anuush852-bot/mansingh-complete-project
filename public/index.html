@@ -611,16 +611,18 @@ g('bd_bk').onclick=()=>showPage('home');
 g('bd_bk2').onclick=()=>showPage('birthdayform');
 g('bd_bk3').onclick=()=>showPage('birthdayform');
 
-function canvas(){return html2canvas(g('bd_card'),{scale:2,useCORS:true,backgroundColor:'#fff'});}
+function canvas(){return html2canvas(g('bd_card'),{ignoreElements:e=>e.tagName==='BUTTON',onclone:d=>{d.querySelectorAll('button').forEach(b=>{const p=b.parentElement;b.remove();if(p&&!p.children.length&&!p.textContent.trim())p.remove();});},scale:2,useCORS:true,backgroundColor:'#fff'});}
 function save(blob,name){const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;a.click();}
 g('bd_img').onclick=async()=>{const c=await canvas();c.toBlob(b=>save(b,'birthday-card.jpg'),'image/jpeg',0.95);};
+let shFile=null;
+async function prepShare(){shFile=null;try{await new Promise(r=>setTimeout(r,500));const c=await canvas();c.toBlob(b=>{if(b&&g('birthdaycard').classList.contains('active'))shFile=new File([b],'birthday-card.jpg',{type:'image/jpeg'});},'image/jpeg',0.95);}catch(e){}}
+new MutationObserver(()=>{if(g('birthdaycard').classList.contains('active'))prepShare();else shFile=null;}).observe(g('birthdaycard'),{attributes:true,attributeFilter:['class']});
+async function doShare(f){try{await navigator.share({files:[f]});}catch(e){if(e&&e.name!=='AbortError')alert('Share nahi hua: '+(e.message||e)+'\nDownload Image dabao.');}}
 g('bd_sh').onclick=async()=>{
+  if(!navigator.canShare){alert('Share is browser me nahi chal raha. Download Image dabao.');return;}
+  if(shFile){if(navigator.canShare({files:[shFile]}))doShare(shFile);else alert('Share is device me nahi chal raha. Download Image dabao.');return;}
   const c=await canvas();
-  c.toBlob(async b=>{
-    const f=new File([b],'birthday-card.jpg',{type:'image/jpeg'});
-    if(navigator.canShare&&navigator.canShare({files:[f]})){try{await navigator.share({files:[f],title:'Birthday Card'});}catch(e){}}
-    else{alert('Share is device me nahi chal raha. Download Image dabao.');}
-  },'image/jpeg',0.95);
+  c.toBlob(b=>{const f=new File([b],'birthday-card.jpg',{type:'image/jpeg'});if(navigator.canShare({files:[f]}))doShare(f);else alert('Share is device me nahi chal raha. Download Image dabao.');},'image/jpeg',0.95);
 };
 })();
 </script>
@@ -853,16 +855,18 @@ g('fc_sub').onclick=()=>{
 g('fc_bk').onclick=()=>showPage('home');
 g('fc_bk2').onclick=()=>showPage('festivalform');
 
-function canvas(){return html2canvas(g('fc_card'),{scale:2,useCORS:true,backgroundColor:'#fffaf0'});}
+function canvas(){return html2canvas(g('fc_card'),{ignoreElements:e=>e.tagName==='BUTTON',onclone:d=>{d.querySelectorAll('button').forEach(b=>{const p=b.parentElement;b.remove();if(p&&!p.children.length&&!p.textContent.trim())p.remove();});},scale:2,useCORS:true,backgroundColor:'#fffaf0'});}
 function save(blob,name){const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;a.click();}
 g('fc_img').onclick=async()=>{const c=await canvas();c.toBlob(b=>save(b,'festival-card.jpg'),'image/jpeg',0.95);};
+let shFile=null;
+async function prepShare(){shFile=null;try{await new Promise(r=>setTimeout(r,500));const c=await canvas();c.toBlob(b=>{if(b&&g('festivalcard').classList.contains('active'))shFile=new File([b],'festival-card.jpg',{type:'image/jpeg'});},'image/jpeg',0.95);}catch(e){}}
+new MutationObserver(()=>{if(g('festivalcard').classList.contains('active'))prepShare();else shFile=null;}).observe(g('festivalcard'),{attributes:true,attributeFilter:['class']});
+async function doShare(f){try{await navigator.share({files:[f]});}catch(e){if(e&&e.name!=='AbortError')alert('Share nahi hua: '+(e.message||e)+'\nDownload Image dabao.');}}
 g('fc_sh').onclick=async()=>{
+  if(!navigator.canShare){alert('Share is browser me nahi chal raha. Download Image dabao.');return;}
+  if(shFile){if(navigator.canShare({files:[shFile]}))doShare(shFile);else alert('Share is device me nahi chal raha. Download Image dabao.');return;}
   const c=await canvas();
-  c.toBlob(async b=>{
-    const f=new File([b],'festival-card.jpg',{type:'image/jpeg'});
-    if(navigator.canShare&&navigator.canShare({files:[f]})){try{await navigator.share({files:[f],title:'Festival Card'});}catch(e){}}
-    else{alert('Share is device me nahi chal raha. Download Image dabao.');}
-  },'image/jpeg',0.95);
+  c.toBlob(b=>{const f=new File([b],'festival-card.jpg',{type:'image/jpeg'});if(navigator.canShare({files:[f]}))doShare(f);else alert('Share is device me nahi chal raha. Download Image dabao.');},'image/jpeg',0.95);
 };
 })();
 </script>
@@ -1151,16 +1155,18 @@ localStorage.setItem(
   showPage('railcard');
 };
 
-function canvas(){if(typeof html2canvas==='undefined'){alert('Internet check karein, image banane wali library load nahi hui.');return Promise.reject(new Error('no html2canvas'));}return html2canvas(g('rc_card'),{scale:3,useCORS:true,backgroundColor:'#fff'});}
+function canvas(){if(typeof html2canvas==='undefined'){alert('Internet check karein, image banane wali library load nahi hui.');return Promise.reject(new Error('no html2canvas'));}return html2canvas(g('rc_card'),{ignoreElements:e=>e.tagName==='BUTTON',onclone:d=>{d.querySelectorAll('button').forEach(b=>{const p=b.parentElement;b.remove();if(p&&!p.children.length&&!p.textContent.trim())p.remove();});},scale:3,useCORS:true,backgroundColor:'#fff'});}
 function save(blob,name){const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;a.click();}
 g('rc_img').onclick=async()=>{const c=await canvas();c.toBlob(b=>save(b,'rail-card.jpg'),'image/jpeg',0.95);};
+let shFile=null;
+async function prepShare(){shFile=null;try{await new Promise(r=>setTimeout(r,500));const c=await canvas();c.toBlob(b=>{if(b&&g('railcard').classList.contains('active'))shFile=new File([b],'rail-card.jpg',{type:'image/jpeg'});},'image/jpeg',0.95);}catch(e){}}
+new MutationObserver(()=>{if(g('railcard').classList.contains('active'))prepShare();else shFile=null;}).observe(g('railcard'),{attributes:true,attributeFilter:['class']});
+async function doShare(f){try{await navigator.share({files:[f]});}catch(e){if(e&&e.name!=='AbortError')alert('Share nahi hua: '+(e.message||e)+'\nDownload Image dabao.');}}
 g('rc_sh').onclick=async()=>{
+  if(!navigator.canShare){alert('Share is browser me nahi chal raha. Download Image dabao.');return;}
+  if(shFile){if(navigator.canShare({files:[shFile]}))doShare(shFile);else alert('Share is device me nahi chal raha. Download Image dabao.');return;}
   const c=await canvas();
-  c.toBlob(async b=>{
-    const f=new File([b],'rail-card.jpg',{type:'image/jpeg'});
-    if(navigator.canShare&&navigator.canShare({files:[f]})){try{await navigator.share({files:[f],title:'Rail Card'});}catch(e){}}
-    else{alert('Share is device me nahi chal raha. Download Image dabao.');}
-  },'image/jpeg',0.95);
+  c.toBlob(b=>{const f=new File([b],'rail-card.jpg',{type:'image/jpeg'});if(navigator.canShare({files:[f]}))doShare(f);else alert('Share is device me nahi chal raha. Download Image dabao.');},'image/jpeg',0.95);
 };
 clearForm();
 })();
@@ -1371,7 +1377,7 @@ function runAppSearch() {
         const view = document.createElement('a'); view.href = url; view.target = '_blank'; view.rel = 'noopener'; view.textContent = 'View';
         const download = document.createElement('a'); download.href = url; download.download = file.name || 'document.pdf'; download.textContent = 'Download';
         const share = document.createElement('button'); share.type = 'button'; share.textContent = 'Share'; share.style.cssText = 'margin:8px;padding:8px';
-        share.onclick = async () => { if (navigator.share) { try { await navigator.share({title:file.name || 'PDF',url}); } catch (_) {} } else { window.open('https://wa.me/?text=' + encodeURIComponent(url), '_blank'); } };
+        share.onclick = async () => { if (navigator.share) { try { await navigator.share({url}); } catch (_) {} } else { window.open('https://wa.me/?text=' + encodeURIComponent(url), '_blank'); } };
         const actions = document.createElement('div'); actions.style.marginTop = '12px'; actions.append(view, document.createTextNode(' | '), download, share); card.append(name, actions); pdfList.appendChild(card);
       });
     } catch (_) { pdfList.textContent = 'PDF list load nahi hui. Backend check karein.'; }
